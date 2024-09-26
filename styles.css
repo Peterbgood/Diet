@@ -1,0 +1,145 @@
+body {
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    color: #000 !important;
+}
+
+#column1, #column2, #column3 {
+    
+    font-size: 1.2rem
+    
+}
+
+.navbar-nav {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+h1 {
+    color: #000
+}
+
+#food-list .form-control {
+    border: none;
+    padding: 5px;
+    width: fit-content;
+    display: inline;
+}
+
+#food-list .list-group-item {
+    align-items: center;
+}
+
+
+.nav-item {
+    margin: 0 15px;
+}
+.nav-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+    z-index: 10;
+}
+.navbar {
+    background-color: transparent;
+    border-bottom: none;
+    padding: 0;
+}
+.navbar-nav {
+    flex-direction: row;
+}
+.nav-link {
+    margin: 0 0.7rem;
+    font-size: 1.5rem;
+}
+.nav-link i {
+    /*! font-size: 1.2rem; */
+    /*! line-height: 50px; */
+}
+.week-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.btn-primary {
+    background-color: #000 !important;
+    border-color: #000 !important;
+}
+p {
+    margin: 0;
+    padding: 0;
+}
+.delete-button {
+    float: right;
+}
+.delete-btn {
+    float: right;
+    margin-left: 10px;
+}
+.edit, .delete {
+    float: right;
+    margin-left: 10px;
+}
+.editing {
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.selected {
+    background-color: rgba(0, 255, 0, 0.2);
+}
+.wrapper {}
+.btn-danger {
+    background-color: #fff !important;
+    color: black;
+    border-color: black
+}
+.btn-danger:active {
+    background-color: #fff !important;
+    color: black;
+    border-color: black
+}
+
+.btn-danger:hover {
+    background-color: #fff !important;
+    color: #0dcaf0;
+    border-color: #0dcaf0;
+}
+
+.add-calorie-button:active {
+  animation: pulse 0.5s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #333;
+    color: #fff;
+  }
+  50% {
+    transform: scale(1.2);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: initial;
+    color: initial;
+  }
+}
+
+.nav-link {
+    font-size: 1.2rem;
+}
+.container {
+    padding-bottom: 60px; /* Add some space at the bottom for the nav */
+}

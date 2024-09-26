@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weight Tracker</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+ <div class="nav-container"></div>
+    <script src="nav.js"></script>
+<div class="container mt-4">
+	<h1 class="text-center mt-4">Total Weeks Calories</h1>
+	<div class="chart-container" style=" width:300px; height:200px; margin: 0 auto;">
+	<canvas id="BarChart"></canvas>
+		</div>
+  
+  <form>
+    <div class="mb-3">
+      <input type="date" class="form-control" id="date" value="Date">
+    </div>
+    <div class="mb-3">
+		 <div class="input-group">
+      <input type="number" class="form-control" id="weight" step="0.1" inputmode="decimal" placeholder="Calories" >
+		
+    <button class="btn btn-primary" onclick="saveData()">Add</button></div>
+   <!-- <button class="btn btn-danger btn-sm mt-2" onclick="resetData()">Reset</button>-->
+	  </div>
+  </form>
+  <div class="mb-2"></div>
+	
+	
+	
+  <ul id="log" class="list-group"></ul>
+</div>
+	
+	<script src="js/nav.js"></script> 
+<script src="js/footer.js"></script> 
+<script src="js/yearly.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
