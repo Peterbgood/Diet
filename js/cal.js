@@ -146,7 +146,7 @@ function renderCaloriesChart() {
     }
 
   
-   let backgroundColor;
+ let backgroundColor;
 let borderColor;
 if (totalCaloriesUsed >= 1700) {
     backgroundColor = ['rgba(219, 239, 220, 0.2)']; // #dbefdc
@@ -155,7 +155,7 @@ if (totalCaloriesUsed >= 1700) {
     remainingCalories = 0;
 } else {
     backgroundColor = ['rgba(100, 149, 237, 0.5)']; // #6495ed
-    borderColor = ['#4682B4', '#4682B4']; // darker shade of #6495ed
+    borderColor = ['#6495ed', '#6495ed'];
 }
 
     if (!chart) {
