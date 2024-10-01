@@ -145,18 +145,17 @@ function renderCaloriesChart() {
         remainingCalories = 1700;
     }
 
-  
-let backgroundColor;
-let borderColor;
-if (totalCaloriesUsed >= 1700) {
-backgroundColor = ['rgba(255, 99, 132, 0.2)'];
-borderColor = ['#ff000d', '#ff000d'];
-totalCaloriesUsed = 1700;
-remainingCalories = 0;
-} else {
-backgroundColor = ['#dbefdc', '#fff'];
-borderColor = ['#fff', '#dbefdc'];
-}
+    let backgroundColor;
+    let borderColor;
+    if (totalCaloriesUsed >= 1700) {
+        backgroundColor = ['rgba(255, 99, 132, 0.2)'];
+        borderColor = ['#ff000d', '#ff000d'];
+        totalCaloriesUsed = 1700;
+        remainingCalories = 0;
+    } else {
+        backgroundColor = ['rgba(0, 0, 0, 0.5)', 'rgba(13, 202, 240, 0.5)'];
+        borderColor = ['#000', '#0dcaf0'];
+    }
 
     if (!chart) {
         chart = new Chart(ctx, {
