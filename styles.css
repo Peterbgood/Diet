@@ -2,6 +2,7 @@ body {
     font-family: "Dosis", sans-serif;
     font-optical-sizing: auto;
     font-weight: 700;
+    background-color: #F5F5DC;
     color: #000 !important;
 }
 
@@ -44,6 +45,7 @@ h1 {
     padding: 0;
     text-align: center;
     z-index: 10;
+    background-color: #6495ED;
 }
 .navbar {
     background-color: transparent;
@@ -67,8 +69,13 @@ h1 {
     margin-bottom: 10px;
 }
 .btn-primary {
-    background-color: #000 !important;
-    border-color: #000 !important;
+    background-color: #6495ED !important;
+    border-color: #6495ED !important;
+    color: #fff;
+}
+.btn-primary:hover {
+    background-color: #4682B4 !important;
+    border-color: #4682B4 !important;
 }
 p {
     margin: 0;
@@ -98,22 +105,30 @@ p {
 }
 .wrapper {}
 .btn-danger {
-    background-color: #fff !important;
-    color: black;
-    border-color: black
+    background-color: #C9E4CA !important;
+    color: #000;
+    border-color: #C9E4CA;
+}
+.btn-danger:hover {
+    background-color: #8BC34A !important;
+    color: #000;
+    border-color: #8BC34A;
 }
 .btn-danger:active {
-    background-color: #fff !important;
-    color: black;
-    border-color: black
+    background-color: #C9E4CA !important;
+    color: #000;
+    border-color: #C9E4CA;
 }
 
-.btn-danger:hover {
-    background-color: #fff !important;
-    color: #0dcaf0;
-    border-color: #0dcaf0;
+.add-calorie-button {
+    background-color: #6495ED;
+    border-color: #6495ED;
+    color: #fff;
 }
-
+.add-calorie-button:hover {
+    background-color: #4682B4;
+    border-color: #4682B4;
+}
 .add-calorie-button:active {
   animation: pulse 0.5s;
 }
@@ -142,4 +157,10 @@ p {
 }
 .container {
     padding-bottom: 60px; /* Add some space at the bottom for the nav */
+}
+
+/* New Styles */
+
+.chart-container {
+    background-color: #C9E4CA;
 }
