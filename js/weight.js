@@ -114,8 +114,8 @@ function updateChart() {
                 datasets: [{
                     label: 'Weight',
                     data: reversedWeights,
-                    backgroundColor: reversedWeights.map(weight => weight < 160 ? 'rgba(13, 202, 240, 0.1)' : 'rgba(13, 202, 240, 0.1)'),
-                    borderColor: reversedWeights.map(weight => weight < 160 ? '#0dcaf0' : '#0dcaf0'),
+                    backgroundColor: reversedWeights.map(weight => weight < 160 ? 'rgba(219, 239, 220, 0.5) ' : 'rgba(13, 202, 240, 0.1)'),
+                    borderColor: reversedWeights.map(weight => weight < 160 ? '#fff' : '#fff'),
                     borderWidth: 1,
                     tension: 0.1
                 }]
