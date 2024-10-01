@@ -2,7 +2,6 @@ body {
     font-family: "Dosis", sans-serif;
     font-optical-sizing: auto;
     font-weight: 700;
-    background-color: #F5F5DC;
     color: #000 !important;
 }
 
@@ -45,7 +44,6 @@ h1 {
     padding: 0;
     text-align: center;
     z-index: 10;
-    background-color: #6495ED;
 }
 .navbar {
     background-color: transparent;
@@ -69,13 +67,8 @@ h1 {
     margin-bottom: 10px;
 }
 .btn-primary {
-    background-color: #C9E4CA;
-    border-color: #fff !important;
-    color: #000;
-}
-.btn-primary:hover {
-    background-color: #4682B4 !important;
-    border-color: #4682B4 !important;
+    background-color: #000 !important;
+    border-color: #000 !important;
 }
 p {
     margin: 0;
@@ -83,20 +76,6 @@ p {
 }
 .delete-button {
     float: right;
-}
-
-.btn-info {
-background-color: #C9E4CA !important;
-    border-color: #fff !important
-
-    
-}
-
-.btn-info:hover {
-background-color: #fff !important;
-    border-color: #fff !important
-
-    
 }
 .delete-btn {
     float: right;
@@ -119,31 +98,22 @@ background-color: #fff !important;
 }
 .wrapper {}
 .btn-danger {
-    background-color: #C9E4CA !important;
-    color: #000;
-    border-color: #C9E4CA;
-}
-.btn-danger:hover {
-    background-color: #8BC34A !important;
-    color: #000;
-    border-color: #8BC34A;
+    background-color: #fff !important;
+    color: black;
+    border-color: black
 }
 .btn-danger:active {
-    background-color: #C9E4CA !important;
-    color: #000;
-    border-color: #C9E4CA;
+    background-color: #fff !important;
+    color: black;
+    border-color: black
 }
 
-.add-calorie-button {
-    background-color: #fff;
-    border-color: #C9E4CA;
-    color: #000;
-}
-.add-calorie-button:hover {
+.btn-danger:hover {
     background-color: #fff !important;
-    border-color: #4682B4;
-    color: #000
+    color: #0dcaf0;
+    border-color: #0dcaf0;
 }
+
 .add-calorie-button:active {
   animation: pulse 0.5s;
 }
@@ -172,10 +142,4 @@ background-color: #fff !important;
 }
 .container {
     padding-bottom: 60px; /* Add some space at the bottom for the nav */
-}
-
-/* New Styles */
-
-.chart-container {
-   
 }
