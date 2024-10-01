@@ -155,7 +155,7 @@ totalCaloriesUsed = 1700;
 remainingCalories = 0;
 } else {
 backgroundColor = ['#dbefdc', '#fff'];
-borderColor = ['#000', '#0dcaf0'];
+borderColor = ['#fff', '#dbefdc'];
 }
 
     if (!chart) {
