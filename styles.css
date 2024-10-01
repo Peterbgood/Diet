@@ -69,9 +69,9 @@ h1 {
     margin-bottom: 10px;
 }
 .btn-primary {
-    background-color: #6495ED !important;
-    border-color: #6495ED !important;
-    color: #fff;
+    background-color: #C9E4CA;
+    border-color: #fff !important;
+    color: #000;
 }
 .btn-primary:hover {
     background-color: #4682B4 !important;
@@ -83,6 +83,20 @@ p {
 }
 .delete-button {
     float: right;
+}
+
+.btn-info {
+background-color: #C9E4CA !important;
+    border-color: #fff !important
+
+    
+}
+
+.btn-info:hover {
+background-color: #fff !important;
+    border-color: #fff !important
+
+    
 }
 .delete-btn {
     float: right;
@@ -121,13 +135,14 @@ p {
 }
 
 .add-calorie-button {
-    background-color: #6495ED;
-    border-color: #6495ED;
-    color: #fff;
+    background-color: #fff;
+    border-color: #C9E4CA;
+    color: #000;
 }
 .add-calorie-button:hover {
-    background-color: #4682B4;
+    background-color: #fff !important;
     border-color: #4682B4;
+    color: #000
 }
 .add-calorie-button:active {
   animation: pulse 0.5s;
@@ -162,5 +177,5 @@ p {
 /* New Styles */
 
 .chart-container {
-    background-color: #C9E4CA;
+   
 }
