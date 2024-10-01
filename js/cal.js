@@ -154,7 +154,7 @@ borderColor = ['#ff000d', '#ff000d'];
 totalCaloriesUsed = 1700;
 remainingCalories = 0;
 } else {
-backgroundColor = ['#dbefdc', '#6495ed'];
+backgroundColor = ['#dbefdc', '#fff'];
 borderColor = ['#000', '#0dcaf0'];
 }
 
