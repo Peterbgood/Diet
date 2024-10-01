@@ -146,16 +146,16 @@ function renderCaloriesChart() {
     }
 
   
- let backgroundColor;
+let backgroundColor;
 let borderColor;
 if (totalCaloriesUsed >= 1700) {
-    backgroundColor = ['rgba(219, 239, 220, 0.2)']; // #dbefdc
-    borderColor = ['#6495ed', '#6495ed'];
-    totalCaloriesUsed = 1700;
-    remainingCalories = 0;
+backgroundColor = ['rgba(255, 99, 132, 0.2)'];
+borderColor = ['#ff000d', '#ff000d'];
+totalCaloriesUsed = 1700;
+remainingCalories = 0;
 } else {
-    backgroundColor = ['rgba(100, 149, 237, 0.5)']; // #6495ed
-    borderColor = ['#6495ed', '#6495ed'];
+backgroundColor = ['rgba(0, 0, 0, 0.5)', 'rgba(13, 202, 240, 0.5)'];
+borderColor = ['#000', '#0dcaf0'];
 }
 
     if (!chart) {
