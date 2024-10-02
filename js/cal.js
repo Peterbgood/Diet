@@ -111,7 +111,7 @@ function updateFoodList() {
 
             // Change color for negative calories
             if (entry.calories < 0) {
-                caloriesSpan.style.color = '#0dcaf0';
+                caloriesSpan.style.color = '#964B00';
             }
 
             const deleteButton = document.createElement('button');
@@ -153,8 +153,8 @@ function renderCaloriesChart() {
         totalCaloriesUsed = 1700;
         remainingCalories = 0;
     } else {
-        backgroundColor = ['rgba(0, 0, 0, 0.5)', 'rgba(13, 202, 240, 0.5)'];
-        borderColor = ['#000', '#0dcaf0'];
+        backgroundColor = ['rgba(0, 0, 0, 0.5)', '#964B00'];
+        borderColor = ['#000', '#fff'];
     }
 
     if (!chart) {
