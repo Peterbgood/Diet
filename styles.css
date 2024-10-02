@@ -34,6 +34,19 @@ h1 {
     align-items: center;
 }
 
+.btn-outline-success {
+
+    background-color: #fff !important;
+    color: #000;
+}
+
+.btn-outline-danger {
+
+    background-color: black;
+    color:#fff;
+
+}
+
 .btn-outline-dark {
 
     background-color: #fff !important;
