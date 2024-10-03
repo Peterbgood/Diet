@@ -4,8 +4,8 @@ body {
     font-family: "Dosis", sans-serif;
     font-optical-sizing: auto;
     font-weight: 700;
-    color: #000 !important;
-    background: lightgoldenrodyellow;
+    color: #964B00 !important;
+    background: #F0E4CC;
 }
 
 h1 {
@@ -62,56 +62,32 @@ p {
 
 /* Buttons */
 
-.btn-info {
+.btn-primary, .btn-primary:hover {
+    background-color: #F7D2C4;
+    color: #000;
+    border-color: #fff;
+}
+
+.btn-secondary, .btn-secondary:hover {
+    background-color: #fff !important;
+    color: #fff;
+    border-color: #452B1F;
+}
+
+.btn-outline-danger, .btn-outline-danger:hover {
     background-color: black;
     color: #fff;
     border-color: #fff;
 }
 
-.btn-outline-success {
-    background-color: #fff !important;
-    color: #000;
-    border-color: #000;
-}
 
-.btn-outline-danger {
-    background-color: black;
-    color: #fff;
-    border-color: #fff;
-}
-
-.btn-outline-dark {
-    background-color: #fff !important;
-    color: #000;
-}
-
-.btn-outline-dark:active {
-    background-color: #fff !important;
-    color: #000;
-}
-
-.btn-primary {
-    background-color: #000 !important;
-    border-color: #000 !important;
-}
-
-.btn-danger {
+.btn-danger, .btn-danger:hover {
     background-color: #fff !important;
     color: black;
     border-color: black
 }
 
-.btn-danger:active {
-    background-color: #fff !important;
-    color: black;
-    border-color: black
-}
 
-.btn-danger:hover {
-    background-color: #fff !important;
-    color: #0dcaf0;
-    border-color: #0dcaf0;
-}
 
 
 /* Components */
@@ -191,6 +167,3 @@ p {
 }
 
 
-/* Unused/Empty Classes */
-
-.wrapper {}
