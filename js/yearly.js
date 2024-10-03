@@ -17,7 +17,7 @@ function saveData() {
   const overUnderText = logEntry.querySelector('.over-under');
   if (overUnderText) {
     overUnderText.textContent = `(${overUnder > 0 ? '+' : '-'}${Math.abs(overUnder).toFixed(1)})`;
-    overUnderText.style.color = overUnder < 0 ? '#0dcaf0 !important' : 'red !important';
+    overUnderText.style.color = overUnder < 0 ? '#964B00 !important' : 'red !important';
   }
   updateChart();
 }
@@ -68,7 +68,7 @@ function createBarChart() {
         label: 'Calories',
         data: [], // dynamic data
         backgroundColor: [], // dynamic background color
-        borderColor: 'rgba(255, 99, 132, 1)',
+        borderColor: '#452B1F',
         borderWidth: 1
       }]
     },
@@ -86,13 +86,13 @@ function createBarChart() {
               type: 'line',
               yMin: 11900,
               yMax: 11900,
-              borderColor: 'rgb(255, 0, 0)', // Red color for visibility
+              borderColor: '#452B1F', // Red color for visibility
               borderWidth: 5, // Increased thickness
               label: {
                 content: 'Threshold',
                 enabled: true,
                 position: 'center',
-                backgroundColor: 'rgba(255, 0, 0, 0.5)' // Background color for the label
+                backgroundColor: '#964B00' // Background color for the label
               }
             }
           }
@@ -121,8 +121,8 @@ function updateChart() {
         const overUnder = weight - 11900;
         labels.push(date);
         data.push(weight);
-        backgroundColors.push(weight > 11900 ? 'rgba(255, 99, 132, 0.2)' : 'rgba(13, 202, 240, 0.1)');
-        borderColors.push(weight > 11900 ? 'rgba(255, 99, 132, 1)' : '#0dcaf0'); 
+        backgroundColors.push(weight > 11900 ? '#964B00' : '#452B1F');
+        borderColors.push(weight > 11900 ? '#fff' : '#fff'); 
       }
     });
     // Reverse the arrays
