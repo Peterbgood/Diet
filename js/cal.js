@@ -154,7 +154,7 @@ function renderCaloriesChart() {
         remainingCalories = 0;
     } else {
         backgroundColor = ['#452B1F', '#964B00'];
-        borderColor = ['#000', '#964B00'];
+        borderColor = ['#fff', '#fff'];
     }
 
     if (!chart) {
