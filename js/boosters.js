@@ -56,7 +56,7 @@ function createButton(food, mood, container) {
     const button = document.createElement('button');
     button.textContent = food;
     button.className = 'btn m-1';
-    button.classList.add(mood === 'Good' ? 'btn-primary' : 'btn-secondary');
+    button.classList.add(mood === 'Good' ? 'btn-secondary' : 'btn-primary');
     button.addEventListener('click', () => addFoodEntry(food, mood));
     container.appendChild(button);
   }

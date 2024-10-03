@@ -115,7 +115,7 @@ function updateChart() {
                     label: 'Weight',
                     data: reversedWeights,
                     backgroundColor: reversedWeights.map(weight => weight < 160 ? '#964B00' : '#964B00'),
-                    borderColor: reversedWeights.map(weight => weight < 160 ? 'green' : 'green'),
+                    borderColor: reversedWeights.map(weight => weight < 160 ? '#964B00' : '#964B00'),
                     borderWidth: 1,
                     tension: 0.1
                 }]
