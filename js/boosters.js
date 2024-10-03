@@ -56,7 +56,7 @@ function createButton(food, mood, container) {
     const button = document.createElement('button');
     button.textContent = food;
     button.className = 'btn m-1';
-    button.classList.add(mood === 'Good' ? 'btn-primary' : 'btn-danger');
+    button.classList.add(mood === 'Good' ? 'btn-primary' : 'btn-secondary');
     button.addEventListener('click', () => addFoodEntry(food, mood));
     container.appendChild(button);
   }
@@ -68,14 +68,14 @@ function createButton(food, mood, container) {
 function updateMoodChart() {
   if (GoodCount === 0 && BadCount === 0) {
     chart.data.datasets[0].data = [1, 1];
-    chart.data.datasets[0].backgroundColor = ['rgba(13, 202, 240, 0.5)', 'rgba(0, 0, 0, 0.5)'];
+    chart.data.datasets[0].backgroundColor = ['#964B00', '#452B1F'];
     chart.options.elements.arc.borderWidth = 2;
-    chart.options.elements.arc.borderColor = ['#0dcaf0', 'rgba(0, 0, 0, 0.5)'];
+    chart.options.elements.arc.borderColor = ['#fff', '#fff'];
   } else {
     chart.data.datasets[0].data = [GoodCount, BadCount];
-    chart.data.datasets[0].backgroundColor = ['rgba(13, 202, 240, 0.5)', 'rgba(0, 0, 0, 0.5)'];
+    chart.data.datasets[0].backgroundColor = ['#964B00', '#452B1F'];
     chart.options.elements.arc.borderWidth = 2;
-    chart.options.elements.arc.borderColor = ['#0dcaf0', 'rgba(0, 0, 0, 0.5)'];
+    chart.options.elements.arc.borderColor = ['#fff', '#fff'];
   }
   chart.update();
 }
@@ -84,11 +84,11 @@ function addToLog(food, mood, save = true) {
   const li = document.createElement('li');
   li.textContent = food;
   li.className = 'list-group-item d-flex justify-content-between align-items-center';
-  li.style.color = mood === 'Good' ? '#0dcaf0' : '#000'; // Change text color based on mood
+  li.style.color = mood === 'Good' ? '#964B00' : '#452B1F'; // Change text color based on mood
 
   const deleteButton = document.createElement('button');
   deleteButton.textContent = 'Delete';
-  deleteButton.className = 'btn btn-danger btn-sm';
+  deleteButton.className = 'btn btn-secondary btn-sm';
   deleteButton.addEventListener('click', () => deleteLogEntry(li, food, mood));
   li.appendChild(deleteButton);
 

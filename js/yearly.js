@@ -121,7 +121,7 @@ function updateChart() {
         const overUnder = weight - 11900;
         labels.push(date);
         data.push(weight);
-        backgroundColors.push(weight > 11900 ? '#964B00' : '#452B1F');
+        backgroundColors.push(weight > 11900 ? '#452B1F' : '#964B00');
         borderColors.push(weight > 11900 ? '#fff' : '#fff'); 
       }
     });
