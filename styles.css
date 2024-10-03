@@ -70,19 +70,19 @@ p {
 
 .btn-secondary, .btn-secondary:hover {
     background-color: #fff !important;
-    color: #fff;
+    color: #964B00;
     border-color: #452B1F;
 }
 
 .btn-outline-danger, .btn-outline-danger:hover {
-    background-color: #8B0A1A;
+    background-color: #964B00;
     color: #fff;
     border-color: #fff;
 }
 
 
 .btn-danger, .btn-danger:hover {
-    background-color: #8B0A1A!important;
+    background-color: #964B00 !important;
     color: #fff;
     border-color: #fff
 }
