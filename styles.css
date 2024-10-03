@@ -63,8 +63,8 @@ p {
 /* Buttons */
 
 .btn-primary, .btn-primary:hover {
-    background-color: #F7D2C4;
-    color: #000;
+    background-color: #964B00;
+    color: #fff;
     border-color: #fff;
 }
 
@@ -75,16 +75,16 @@ p {
 }
 
 .btn-outline-danger, .btn-outline-danger:hover {
-    background-color: black;
+    background-color: #8B0A1A;
     color: #fff;
     border-color: #fff;
 }
 
 
 .btn-danger, .btn-danger:hover {
-    background-color: #fff !important;
-    color: black;
-    border-color: black
+    background-color: #8B0A1A!important;
+    color: #fff;
+    border-color: #fff
 }
 
 
