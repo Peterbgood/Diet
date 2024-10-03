@@ -70,7 +70,7 @@ function updateList() {
   const listHtml = entries.map((entry, index) => {
     const dailyAllowed = 1700;
     const caloriesSaved = dailyAllowed - entry;
-    const color = caloriesSaved >= 0 ? '#0dcaf0' : 'red';
+    const color = caloriesSaved >= 0 ? '#452B1F' : 'red';
     return `
       <li class="list-group-item d-flex justify-content-between align-items-center">
         ${daysOfWeek[index]}: ${entry} cals 
