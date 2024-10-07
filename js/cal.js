@@ -148,8 +148,8 @@ function renderCaloriesChart() {
     let backgroundColor;
     let borderColor;
     if (totalCaloriesUsed >= 1700) {
-        backgroundColor = ['rgba(255, 99, 132, 0.2)'];
-        borderColor = ['#ff000d', '#ff000d'];
+        backgroundColor = ['red'];
+        borderColor = ['#fff', '#fff'];
         totalCaloriesUsed = 1700;
         remainingCalories = 0;
     } else {
