@@ -87,6 +87,7 @@ function updateTotalCalories() {
 }
 
 // Function to update food list
+// Function to update food list
 function updateFoodList() {
     const dateStr = currentDate.toLocaleString('en-US', {
         year: 'numeric',
@@ -104,7 +105,24 @@ function updateFoodList() {
 
             const nameSpan = document.createElement('span');
             nameSpan.contentEditable = 'true';
+            nameSpan.classList.add('form-control'); // Add form-control class
             nameSpan.textContent = entry.name;
+
+            // Add event listener to update food item name on Enter key press
+            nameSpan.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const newName = nameSpan.textContent;
+                    foodLog[dateStr] = foodLog[dateStr].map(item => {
+                        if (item.name === entry.name) {
+                            item.name = newName;
+                        }
+                        return item;
+                    });
+                    updateFoodList();
+                    saveData();
+                }
+            });
 
             const caloriesSpan = document.createElement('span');
             caloriesSpan.textContent = `${entry.calories} calories`;
@@ -133,7 +151,6 @@ function updateFoodList() {
         });
     }
 }
-
 // Function to render calories chart
 function renderCaloriesChart() {
     const ctx = document.getElementById('caloriesChart').getContext('2d');
