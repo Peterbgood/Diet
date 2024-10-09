@@ -151,67 +151,81 @@ function updateFoodList() {
         });
     }
 }
-// Function to render calories chart
 function renderCaloriesChart() {
     const ctx = document.getElementById('caloriesChart').getContext('2d');
     let totalCaloriesUsed = data.totalCaloriesUsed;
     let remainingCalories = data.remainingCalories;
-
+  
     if (totalCaloriesUsed < 0) {
-        totalCaloriesUsed = 0;
-        remainingCalories = 1700;
+      totalCaloriesUsed = 0;
+      remainingCalories = 1700;
     }
-
-    let backgroundColor;
-    let borderColor;
+  
+    const chartColors = {
+      used: {
+        backgroundColor: '#000',
+        borderColor: '#fff'
+      },
+      remaining: {
+        backgroundColor: '#964B00',
+        borderColor: '#fff'
+      },
+      overLimit: {
+        backgroundColor: 'red',
+        borderColor: '#fff'
+      }
+    };
+  
+    let chartColorsUsed;
     if (totalCaloriesUsed >= 1700) {
-        backgroundColor = ['red'];
-        borderColor = ['#fff', '#fff'];
-        totalCaloriesUsed = 1700;
-        remainingCalories = 0;
+      chartColorsUsed = [chartColors.overLimit];
+      totalCaloriesUsed = 1700;
+      remainingCalories = 0;
     } else {
-        backgroundColor = ['#452B1F', '#964B00'];
-        borderColor = ['#fff', '#fff'];
+      chartColorsUsed = [
+        chartColors.used,
+        chartColors.remaining
+      ];
     }
-
+  
     if (!chart) {
-        chart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Calories Used', 'Remaining Calories'],
-                datasets: [{
-                    data: [totalCaloriesUsed, remainingCalories],
-                    backgroundColor: backgroundColor,
-                    borderColor: borderColor,
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function (context) {
-                                if (context.label === 'Calories Used') {
-                                    return `Calories Used: ${data.totalCaloriesUsed}`;
-                                } else if (context.label === 'Remaining Calories') {
-                                    return `Remaining Calories: ${data.remainingCalories}`;
-                                }
-                            }
-                        }
-                    }
+      chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Calories Used', 'Remaining Calories'],
+          datasets: [{
+            data: [totalCaloriesUsed, remainingCalories],
+            backgroundColor: chartColorsUsed.map(c => c.backgroundColor),
+            borderColor: chartColorsUsed.map(c => c.borderColor),
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  if (context.label === 'Calories Used') {
+                    return `Calories Used: ${data.totalCaloriesUsed}`;
+                  } else if (context.label === 'Remaining Calories') {
+                    return `Remaining Calories: ${data.remainingCalories}`;
+                  }
                 }
+              }
             }
-        });
+          }
+        }
+      });
     } else {
-        chart.data.datasets[0].data[0] = totalCaloriesUsed;
-        chart.data.datasets[0].data[1] = remainingCalories;
-        chart.data.datasets[0].backgroundColor = backgroundColor;
-        chart.data.datasets[0].borderColor = borderColor;
-        chart.update();
+      chart.data.datasets[0].data[0] = totalCaloriesUsed;
+      chart.data.datasets[0].data[1] = remainingCalories;
+      chart.data.datasets[0].backgroundColor = chartColorsUsed.map(c => c.backgroundColor);
+      chart.data.datasets[0].borderColor = chartColorsUsed.map(c => c.borderColor);
+      chart.update();
     }
-}
+  }
 
 // Function to display current date
 function displayCurrentDate() {
