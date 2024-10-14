@@ -1,7 +1,7 @@
 let chart;
 let data = {
     totalCaloriesUsed: 0,
-    remainingCalories: 1700
+    remainingCalories: 1600
 };
 let currentDate = new Date();
 let foodLog = {};
@@ -75,7 +75,7 @@ function updateTotalCalories() {
         timeZone: 'America/New_York',
     });
     const totalCalories = foodLog[dateStr] ? foodLog[dateStr].reduce((acc, item) => acc + item.calories, 0) : 0;
-    const remainingCalories = 1700 - totalCalories;
+    const remainingCalories = 1600 - totalCalories;
 
     document.getElementById('total-calories').innerText = totalCalories;
     document.getElementById('remaining-calories').innerText = remainingCalories;
@@ -158,7 +158,7 @@ function renderCaloriesChart() {
   
     if (totalCaloriesUsed < 0) {
       totalCaloriesUsed = 0;
-      remainingCalories = 1700;
+      remainingCalories = 1600;
     }
   
     const chartColors = {
@@ -177,9 +177,9 @@ function renderCaloriesChart() {
     };
   
     let chartColorsUsed;
-    if (totalCaloriesUsed >= 1700) {
+    if (totalCaloriesUsed >= 1600) {
       chartColorsUsed = [chartColors.overLimit];
-      totalCaloriesUsed = 1700;
+      totalCaloriesUsed = 1600;
       remainingCalories = 0;
     } else {
       chartColorsUsed = [

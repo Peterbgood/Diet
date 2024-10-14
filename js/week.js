@@ -7,7 +7,7 @@ const weeklyTotal = document.getElementById('weekly-total');
 const totalSaved = document.getElementById('total-saved');
 const pieChartCanvas = document.getElementById('PieChart');
 
-let calories = 11900;
+let calories = 11200;
 let entries = [];
 let totalConsumed = 0;
 
@@ -55,7 +55,7 @@ function addCalorie() {
 }
 
 function resetCalories() {
-  calories = 11900;
+  calories = 11200;
   entries = [];
   totalConsumed = 0;
   updateList();
@@ -68,7 +68,7 @@ function resetCalories() {
 
 function updateList() {
   const listHtml = entries.map((entry, index) => {
-    const dailyAllowed = 1700;
+    const dailyAllowed = 1600;
     const caloriesSaved = dailyAllowed - entry;
     const color = caloriesSaved >= 0 ? '#964B00' : 'red';
     return `
@@ -108,7 +108,7 @@ function updateWeeklyTotal() {
 }
 
 function updateTotalSaved() {
-  const totalAllowed = 1700 * entries.length;
+  const totalAllowed = 1600 * entries.length;
   const totalSavedCalories = totalAllowed - totalConsumed;
   totalSaved.textContent = `Total Calories Saved: ${totalSavedCalories}`;
 }
@@ -129,8 +129,8 @@ function updatePieChart() {
       datasets: [{
         label: 'Calories Consumed',
         data: chartEntries,
-        backgroundColor: chartEntries.map(entry => entry > 1700 ? 'red' : '#fff'),
-        borderColor: chartEntries.map(entry => entry > 1700 ? '#fff' : '#964B00'), // match border color with background color
+        backgroundColor: chartEntries.map(entry => entry > 1600 ? 'red' : '#fff'),
+        borderColor: chartEntries.map(entry => entry > 1600 ? '#fff' : '#964B00'), // match border color with background color
         borderWidth: {
           top: 2,
           right: 2,
