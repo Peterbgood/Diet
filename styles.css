@@ -12,9 +12,9 @@ h1 {
     color: #000
 }
 
-.form-control {
+.list-group-item .form-control {
 
-border: none !important
+border: none;
 
 }
 
