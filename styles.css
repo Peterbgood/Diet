@@ -4,8 +4,8 @@ body {
     font-family: "Dosis", sans-serif;
     font-optical-sizing: auto;
     font-weight: 700;
-    color: #964B00 !important;
-    background: #F0E4CC;
+    color: #000 !important;
+    background: #fff;
 }
 
 h1 {
@@ -17,24 +17,32 @@ p {
     padding: 0;
 }
 
+.delete-btn {
+
+    color: #fff !important;
+}
+
+
 
 /* Typography */
 
 #column1, #column2, #column3 {
-    font-size: 1.2rem
+    font-size: 1.2rem;
+    color: #999;
 }
 
 .nav-link {
     font-size: 1.2rem;
     margin: 0 0.7rem;
+    color: #999;
 }
 
 
 /* Navigation */
 
 .navbar {
-    background-color: transparent;
-    border-bottom: none;
+    background-color: #fff;
+    border-bottom: 1px solid #999;
     padding: 0;
 }
 
@@ -53,6 +61,8 @@ p {
     padding: 0;
     text-align: center;
     z-index: 10;
+    background-color: #fff;
+    border-top: 1px solid #999;
 }
 
 .nav-item {
@@ -62,38 +72,11 @@ p {
 
 /* Buttons */
 
-.btn-primary, .btn-primary:hover {
-    background-color: #964B00;
-    color: #fff;
-    border-color: #fff;
-}
-
-.btn-secondary, .btn-secondary:hover {
-    background-color: #fff !important;
-    color: #964B00;
-    border-color: #452B1F;
-}
-
-.btn-outline-danger, .btn-outline-danger:hover {
-    background-color: #964B00;
-    color: #fff;
-    border-color: #fff;
-}
-
-
-.btn-danger, .btn-danger:hover {
-    background-color: #964B00 !important;
-    color: #fff;
-    border-color: #fff
-}
-
-
-
 
 /* Components */
 
 #food-list .form-control {
-    border: none;
+    border: 1px solid #999;
     padding: 5px;
     width: fit-content;
     display: inline;
@@ -101,39 +84,45 @@ p {
 
 #food-list .list-group-item {
     align-items: center;
+    border: 1px solid #999;
 }
 
 .week-container {
-    border: 1px solid #ccc;
+    border: 1px solid #999;
     padding: 10px;
     margin-bottom: 10px;
+    background-color: #fff;
 }
 
 .delete-button {
     float: right;
+    color: #999;
 }
 
 .delete-btn {
     float: right;
     margin-left: 10px;
+    color: #999;
 }
 
 .edit, .delete {
     float: right;
     margin-left: 10px;
+    color: #999;
 }
 
 .editing {
     display: inline-block;
     width: 100%;
     padding: 5px;
-    border: none;
+    border: 1px solid #999;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .selected {
-    background-color: rgba(0, 255, 0, 0.2);
+    background-color: #32CD32;
+    color: #000;
 }
 
 .add-calorie-button:active {
@@ -165,5 +154,3 @@ p {
 .container {
     padding-bottom: 60px; /* Add some space at the bottom for the nav */
 }
-
-
