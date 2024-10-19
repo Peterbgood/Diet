@@ -70,7 +70,7 @@ function updateList() {
   const listHtml = entries.map((entry, index) => {
     const dailyAllowed = 1600;
     const caloriesSaved = dailyAllowed - entry;
-    const color = caloriesSaved >= 0 ? '#964B00' : 'red';
+    const color = caloriesSaved >= 0 ? '#007bff' : 'red';
     return `
       <li class="list-group-item d-flex justify-content-between align-items-center">
         ${daysOfWeek[index]}: ${entry} cals 
@@ -129,8 +129,8 @@ function updatePieChart() {
       datasets: [{
         label: 'Calories Consumed',
         data: chartEntries,
-        backgroundColor: chartEntries.map(entry => entry > 1600 ? 'red' : '#fff'),
-        borderColor: chartEntries.map(entry => entry > 1600 ? '#fff' : '#964B00'), // match border color with background color
+        backgroundColor: chartEntries.map(entry => entry > 1600 ? 'rgba(220, 53, 69, 0.2)' : 'rgba(0, 123, 255, 0.2)'),
+        borderColor: chartEntries.map(entry => entry > 1600 ? '#000' : '#000'), // match border color with background color
         borderWidth: {
           top: 2,
           right: 2,
