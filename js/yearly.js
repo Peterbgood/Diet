@@ -17,7 +17,7 @@ function saveData() {
   const overUnderText = logEntry.querySelector('.over-under');
   if (overUnderText) {
     overUnderText.textContent = `(${overUnder > 0 ? '+' : '-'}${Math.abs(overUnder).toFixed(1)})`;
-    overUnderText.style.color = overUnder < 0 ? '#964B00 !important' : 'red !important';
+    overUnderText.style.color = overUnder < 0 ? '#964B00 !important' : 'rgba(220, 53, 69, 0.2)!important';
   }
   updateChart();
 }
@@ -86,13 +86,13 @@ function createBarChart() {
               type: 'line',
               yMin: 11200,
               yMax: 11200,
-              borderColor: '#452B1F', // Red color for visibility
+              borderColor: '#000', // Red color for visibility
               borderWidth: 5, // Increased thickness
               label: {
                 content: 'Threshold',
                 enabled: true,
                 position: 'center',
-                backgroundColor: '#964B00' // Background color for the label
+                backgroundColor: 'rgba(220, 53, 69, 0.8)' // Background color for the label
               }
             }
           }
@@ -121,8 +121,8 @@ function updateChart() {
         const overUnder = weight - 11200;
         labels.push(date);
         data.push(weight);
-        backgroundColors.push(weight > 11200 ? 'red' : '#fff');
-        borderColors.push(weight > 11200 ? '#fff' : '#964B00'); 
+        backgroundColors.push(weight > 11200 ? 'rgba(220, 53, 69, 0.2)' : 'rgba(0, 123, 255, 0.3)');
+        borderColors.push(weight > 11200 ? '#000' : '#000'); 
       }
     });
     // Reverse the arrays
