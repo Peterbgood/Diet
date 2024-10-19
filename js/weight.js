@@ -24,7 +24,7 @@ function saveData() {
             color = 'color: #000;';
             break;
         case "Friday":
-            color = 'color: #964B00;';
+            color = 'color: #007bff;';
             break;
         case "Saturday":
             color = 'color: black;';
@@ -114,8 +114,8 @@ function updateChart() {
                 datasets: [{
                     label: 'Weight',
                     data: reversedWeights,
-                    backgroundColor: reversedWeights.map(weight => weight < 160 ? '#964B00' : '#964B00'),
-                    borderColor: reversedWeights.map(weight => weight < 160 ? '#964B00' : '#964B00'),
+                    backgroundColor: reversedWeights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
+                    borderColor: reversedWeights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
                     borderWidth: 1,
                     tension: 0.1
                 }]
