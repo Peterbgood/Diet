@@ -12,6 +12,12 @@ h1 {
     color: #000
 }
 
+.form-control {
+
+border: none !important
+
+}
+
 p {
     margin: 0;
     padding: 0;
@@ -76,7 +82,7 @@ p {
 /* Components */
 
 #food-list .form-control {
-    border: 1px solid #999;
+    
     padding: 5px;
     width: fit-content;
     display: inline;
@@ -84,7 +90,7 @@ p {
 
 #food-list .list-group-item {
     align-items: center;
-    border: 1px solid #999;
+    
 }
 
 .week-container {
