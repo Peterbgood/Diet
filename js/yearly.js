@@ -122,7 +122,7 @@ function updateChart() {
         labels.push(date);
         data.push(weight);
         backgroundColors.push(weight > 11200 ? 'rgba(220, 53, 69, 0.2)' : 'rgba(0, 123, 255, 0.3)');
-        borderColors.push(weight > 11200 ? '#000' : '#000'); 
+        borderColors.push(weight > 11200 ? '#dc3545' : '#007bff'); 
       }
     });
     // Reverse the arrays

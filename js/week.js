@@ -130,7 +130,7 @@ function updatePieChart() {
         label: 'Calories Consumed',
         data: chartEntries,
         backgroundColor: chartEntries.map(entry => entry > 1600 ? 'rgba(220, 53, 69, 0.2)' : 'rgba(0, 123, 255, 0.2)'),
-        borderColor: chartEntries.map(entry => entry > 1600 ? '#000' : '#000'), // match border color with background color
+        borderColor: chartEntries.map(entry => entry > 1600 ? '#dc3545' : '#007bff'), // match border color with background color
         borderWidth: {
           top: 2,
           right: 2,
