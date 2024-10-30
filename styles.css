@@ -4,8 +4,8 @@ body {
     font-family: "Dosis", sans-serif;
     font-optical-sizing: auto;
     font-weight: 700;
-    color: #000 !important;
-    background: #fff;
+    color: #fff !important;
+    background: #000 !important;
 }
 
 h1 {
