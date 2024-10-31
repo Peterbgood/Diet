@@ -4,12 +4,12 @@ body {
     font-family: "Dosis", sans-serif;
     font-optical-sizing: auto;
     font-weight: 700;
-    color: #fff !important;
-    background: #000 !important;
+    color: #0b5ed7 !important;
+    background: #fff  !important;
 }
 
 h1 {
-    color: #000
+    color: #0b5ed7
 }
 
 .list-group-item .form-control {
@@ -135,24 +135,7 @@ p {
     animation: pulse 0.5s;
 }
 
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        background-color: #333;
-        color: #fff;
-    }
-    50% {
-        transform: scale(1.2);
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        background-color: initial;
-        color: initial;
-    }
-}
+
 
 
 /* Layout */
