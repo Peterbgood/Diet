@@ -164,15 +164,15 @@ function renderCaloriesChart() {
     const chartColors = {
       used: {
         backgroundColor: '#007bff',
-        borderColor: '#fff'
+        borderColor: '#000'
       },
       remaining: {
         backgroundColor: '#6c757d',
-        borderColor: '#fff'
+        borderColor: '#000'
       },
       overLimit: {
         backgroundColor: 'red',
-        borderColor: '#fff'
+        borderColor: '#000'
       }
     };
   
