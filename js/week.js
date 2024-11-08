@@ -118,20 +118,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateTotal() {
-    totalCalories.textContent = `Remaining Calories: ${calories}`;
+    totalCalories.textContent = `Remaining Cals: ${calories}`;
   }
 
   function updateWeeklyTotal() {
     const totalAllowed = 1600 * 7;
     const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
-    weeklyTotal.textContent = `Total Calories Consumed for Week ${currentWeekIndex + 1}: ${totalConsumedCalories}`;
+    weeklyTotal.textContent = `Cals Consumed for Week ${currentWeekIndex + 1}: ${totalConsumedCalories}`;
   }
 
   function updateTotalSaved() {
     const totalAllowed = 1600 * 7;
     const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
     const totalSavedCalories = totalAllowed - totalConsumedCalories;
-    totalSaved.textContent = `Total Calories Saved for Week ${currentWeekIndex + 1}: ${totalSavedCalories}`;
+    totalSaved.textContent = `Cals Saved for Week ${currentWeekIndex + 1}: ${totalSavedCalories}`;
   }
 
   function updatePieChart() {
