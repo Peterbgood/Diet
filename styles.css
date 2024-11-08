@@ -5,7 +5,7 @@ body {
     font-optical-sizing: auto;
     font-weight: 700;
     color: #000 !important;
-    background: #fff;
+    background: #fff !important;
 }
 
 h1 {

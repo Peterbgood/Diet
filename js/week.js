@@ -127,19 +127,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalAllowed = 11200; 
     const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
     const remainingCalories = totalAllowed - totalConsumedCalories;
-    totalCalories.textContent = `Remaining Calories for Week ${currentWeekIndex + 1}: ${remainingCalories}`;
+    totalCalories.textContent = `Remaining Cals for Week ${currentWeekIndex + 1}: ${remainingCalories}`;
   }
 
   function updateWeeklyTotal() {
     const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
-    weeklyTotal.textContent = `Total Calories Consumed for Week ${currentWeekIndex + 1}: ${totalConsumedCalories}`;
+    weeklyTotal.textContent = `Cals Consumed for Week ${currentWeekIndex + 1}: ${totalConsumedCalories}`;
   }
 
   function updateTotalSaved() {
     const totalAllowed = 11200;
     const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
     const totalSavedCalories = totalAllowed - totalConsumedCalories;
-    totalSaved.textContent = `Total Calories Saved for Week ${currentWeekIndex + 1}: ${totalSavedCalories}`;
+    totalSaved.textContent = `Cals Saved for Week ${currentWeekIndex + 1}: ${totalSavedCalories}`;
   }
 
   function updatePieChart() {
@@ -231,5 +231,5 @@ document.addEventListener('DOMContentLoaded', () => {
   updateWeek();
   updateTotalSaved();
 
-  deleteBtn.textContent = 'Revert to Previous Week';
+  deleteBtn.textContent = 'Delete';
 });
