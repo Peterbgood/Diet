@@ -57,8 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const calorieAmount = parseInt(calorieInput.value);
     if (calorieAmount && weeks[currentWeekIndex].length < 7) {
       weeks[currentWeekIndex].push(calorieAmount);
-      calories -= calorieAmount;
-      totalConsumed += calorieAmount;
+      const totalAllowed = 11200;
+      const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
+      calories = totalAllowed - totalConsumedCalories;
+      totalConsumed = totalConsumedCalories;
       updateWeek();
       updateTotal();
       updateWeeklyTotal();
@@ -73,8 +75,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentWeekIndex > 0) {
       currentWeekIndex--;
       weeks.splice(currentWeekIndex + 1, 1);
-      calories = 11200;
-      totalConsumed = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
+      const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
+      const totalAllowed = 11200;
+      calories = totalAllowed - totalConsumedCalories;
+      totalConsumed = totalConsumedCalories;
       updateWeek();
       updateTotal();
       updateWeeklyTotal();
@@ -107,8 +111,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function deleteEntry(event) {
     const index = event.target.dataset.index;
     const deletedAmount = weeks[currentWeekIndex].splice(index, 1)[0];
-    calories += deletedAmount; 
-    totalConsumed -= deletedAmount;
+    const totalAllowed = 11200;
+    const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
+    calories = totalAllowed - totalConsumedCalories;
+    totalConsumed = totalConsumedCalories;
     updateWeek();
     updateTotal();
     updateWeeklyTotal();
@@ -118,20 +124,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateTotal() {
-    totalCalories.textContent = `Remaining Cals: ${calories}`;
+    const totalAllowed = 11200; 
+    const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
+    const remainingCalories = totalAllowed - totalConsumedCalories;
+    totalCalories.textContent = `Remaining Calories for Week ${currentWeekIndex + 1}: ${remainingCalories}`;
   }
 
   function updateWeeklyTotal() {
-    const totalAllowed = 1600 * 7;
     const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
-    weeklyTotal.textContent = `Cals Consumed for Week ${currentWeekIndex + 1}: ${totalConsumedCalories}`;
+    weeklyTotal.textContent = `Total Calories Consumed for Week ${currentWeekIndex + 1}: ${totalConsumedCalories}`;
   }
 
   function updateTotalSaved() {
-    const totalAllowed = 1600 * 7;
+    const totalAllowed = 11200;
     const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
     const totalSavedCalories = totalAllowed - totalConsumedCalories;
-    totalSaved.textContent = `Cals Saved for Week ${currentWeekIndex + 1}: ${totalSavedCalories}`;
+    totalSaved.textContent = `Total Calories Saved for Week ${currentWeekIndex + 1}: ${totalSavedCalories}`;
   }
 
   function updatePieChart() {
@@ -179,6 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function prevWeek() {
     if (currentWeekIndex > 0) {
       currentWeekIndex--;
+      const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
+      const totalAllowed = 11200;
+      calories = totalAllowed - totalConsumedCalories;
+      totalConsumed = totalConsumedCalories;
       updateWeek();
       updateTotal();
       updateWeeklyTotal();
@@ -191,6 +203,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function nextWeek() {
     if (currentWeekIndex < weeks.length - 1) {
       currentWeekIndex++;
+      const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
+      const totalAllowed = 11200;
+      calories = totalAllowed - totalConsumedCalories;
+      totalConsumed = totalConsumedCalories;
       updateWeek();
       updateTotal();
       updateWeeklyTotal();
@@ -200,6 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       weeks.push([]);
       currentWeekIndex++;
+      calories = 11200;
+      totalConsumed = 0;
       updateWeek();
       updateTotal();
       updateWeeklyTotal();
