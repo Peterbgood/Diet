@@ -70,8 +70,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function resetCalories() {
+    if (weeks.length === 1) {
+      weeks[0] = []; 
+    } else {
+      weeks.splice(currentWeekIndex, 1);
+      currentWeekIndex = Math.max(0, currentWeekIndex - 1);
+      weeks.splice(currentWeekIndex, 0, []);
+    }
     calories = 11200;
-    weeks[currentWeekIndex] = [];
     totalConsumed = 0;
     updateWeek();
     updateTotal();
