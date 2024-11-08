@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const calorieInput = document.getElementById('calorie-input');
   const addBtn = document.getElementById('add-btn');
-  const resetBtn = document.getElementById('reset-btn');
+  const deleteBtn = document.getElementById('reset-btn'); 
   const calorieList = document.getElementById('calorie-list');
   const totalCalories = document.getElementById('total-calories');
   const weeklyTotal = document.getElementById('weekly-total');
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const prevWeekBtn = document.getElementById('prev-week-btn');
   const nextWeekBtn = document.getElementById('next-week-btn');
 
-  if (!calorieInput || !addBtn || !resetBtn || !calorieList || !totalCalories || !weeklyTotal || !totalSaved || !pieChartCanvas || !prevWeekBtn || !nextWeekBtn) {
+  if (!calorieInput || !addBtn || !deleteBtn || !calorieList || !totalCalories || !weeklyTotal || !totalSaved || !pieChartCanvas || !prevWeekBtn || !nextWeekBtn) {
     console.error('One or more elements are missing in the DOM.');
     return;
   }
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   addBtn.addEventListener('click', addCalorie);
-  resetBtn.addEventListener('click', resetCalories);
+  deleteBtn.addEventListener('click', prevWeekAndReset); 
   prevWeekBtn.addEventListener('click', prevWeek);
   nextWeekBtn.addEventListener('click', nextWeek);
 
@@ -69,22 +69,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function resetCalories() {
-    if (weeks.length === 1) {
-      weeks[0] = []; 
-    } else {
-      weeks.splice(currentWeekIndex, 1);
-      currentWeekIndex = Math.max(0, currentWeekIndex - 1);
-      weeks.splice(currentWeekIndex, 0, []);
+  function prevWeekAndReset() {
+    if (currentWeekIndex > 0) {
+      currentWeekIndex--;
+      weeks.splice(currentWeekIndex + 1, 1);
+      calories = 11200;
+      totalConsumed = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
+      updateWeek();
+      updateTotal();
+      updateWeeklyTotal();
+      updateTotalSaved();
+      updatePieChart();
+      saveToLocalStorage();
     }
-    calories = 11200;
-    totalConsumed = 0;
-    updateWeek();
-    updateTotal();
-    updateWeeklyTotal();
-    updateTotalSaved();
-    updatePieChart();
-    saveToLocalStorage();
   }
 
   function updateWeek() {
@@ -125,13 +122,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateWeeklyTotal() {
-    weeklyTotal.textContent = `Total Calories Consumed: ${totalConsumed}`;
+    const totalAllowed = 1600 * 7;
+    const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
+    weeklyTotal.textContent = `Total Calories Consumed for Week ${currentWeekIndex + 1}: ${totalConsumedCalories}`;
   }
 
   function updateTotalSaved() {
-    const totalAllowed = 1600 * weeks[currentWeekIndex].length;
-    const totalSavedCalories = totalAllowed - totalConsumed;
-    totalSaved.textContent = `Total Calories Saved: ${totalSavedCalories}`;
+    const totalAllowed = 1600 * 7;
+    const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
+    const totalSavedCalories = totalAllowed - totalConsumedCalories;
+    totalSaved.textContent = `Total Calories Saved for Week ${currentWeekIndex + 1}: ${totalSavedCalories}`;
   }
 
   function updatePieChart() {
@@ -140,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const ctx = pieChartCanvas.getContext('2d');
 
-    // Fill the entries array with zeros if it's not full
     const chartEntries = weeks[currentWeekIndex].concat(Array(7 - weeks[currentWeekIndex].length).fill(0));
 
     window.chart = new Chart(ctx, {
@@ -210,13 +209,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Initialize the first week if no data exists
-  if (weeks.length === 0) {
-    weeks.push([]);
-    saveToLocalStorage();
-  }
-
   updatePieChart();
   updateWeek();
   updateTotalSaved();
+
+  deleteBtn.textContent = 'Revert to Previous Week';
 });
