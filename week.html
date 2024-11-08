@@ -8,45 +8,49 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 <link rel="stylesheet" href="styles.css" />
 <link rel="icon" type="image/x-icon" href="favicon.ico">
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
- <div class="nav-container"></div>
-    <script src="nav.js"></script>
+<div class="nav-container"></div>
+
+<div class="container">
+<div class="d-flex justify-content-between mt-3">
+<button class="btn btn-secondary" id="prev-week-btn">Previous Week</button>
+<button class="btn btn-secondary" id="next-week-btn">Next Week</button>
+</div>
+</div>
 <div class="container mt-4">
-  <h1 class="text-center mt-4">Weekly Calories</h1>
-	<div class="chart-container" style=" width:300px; height:200px; margin: 0 auto;">
-	<canvas id="PieChart"></canvas>
-		</div>
-  <div class="input-group mb-3 mt-3">
-    <input type="number" id="calorie-input" placeholder="Enter calorie amount" class="form-control">
-    <button id="add-btn" class="btn btn-primary">Add</button>
-  </div>
-	
-	
-	
-	
-  
-  <ul id="calorie-list" class="list-group my-3">
-    <!-- list items will be dynamically added here -->
-  </ul>
-	
-	
-  <p id="total-calories" class="fw-bold fs-4">Remaining Calories: <span id="total-calories-value">11200</span></p>
-  <p id="weekly-total" class="fw-bold fs-4"></p>
-	<p id="total-saved" class="fw-bold fs-4"></p>
-	<div class="d-grid gap-2 mx-y">
-  <button class="btn btn-primary mt-2" type="button" id="reset-btn">Reset</button>
-  
+<h1 class="text-center mt-4">Weekly Calories</h1>
+
+<div class="chart-container" style="width:300px; height:200px; margin: 0 auto;">
+<canvas id="PieChart"></canvas>
 </div>
+<div class="input-group mb-3 mt-3">
+<input type="number" id="calorie-input" placeholder="Enter calorie amount" class="form-control">
+<button id="add-btn" class="btn btn-primary">Add</button>
 </div>
-	
-	<script src="js/nav.js"></script> 
-<script src="js/footer.js"></script> 
-<script src="js/week.js"></script> 
+
+<ul id="calorie-list" class="list-group my-3">
+<!-- list items will be dynamically added here -->
+</ul>
+
+<p id="total-calories" class="fw-bold fs-4">Remaining Calories: <span id="total-calories-value">11200</span></p>
+<p id="weekly-total" class="fw-bold fs-4"></p>
+<p id="total-saved" class="fw-bold fs-4"></p>
+
+<div class="d-grid gap-2 mx-y">
+<button class="btn btn-primary mt-2" type="button" id="reset-btn">Reset</button>
+</div>
+
+
+</div>
+
+<script src="js/nav.js"></script>
+
+<script src="js/week.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
