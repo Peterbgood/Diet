@@ -5,7 +5,7 @@ function saveData() {
   const weight = parseFloat(document.getElementById("weight").value);
   const log = document.getElementById("log");
   const overUnder = weight - 11200;
-  const entry = `<li class="list-group-item d-flex justify-content-between align-items-center" data-date="${formatDate(date)}"> ${formatDate(date)}: ${weight.toFixed(1)} Calories <span class="over-under">(${overUnder > 0 ? '+' : ''}${overUnder.toFixed(1)})</span> <button class="btn btn-danger btn-sm delete-btn" onclick="deleteEntry(this)">Delete</button></li>`;
+  const entry = `<li class="list-group-item d-flex justify-content-between align-items-center" data-date="${formatDate(date)}"> ${formatDate(date)}: ${weight.toFixed(1)} Cals <span class="over-under">(${overUnder > 0 ? '+' : ''}${overUnder.toFixed(1)})</span> <button class="btn btn-danger btn-sm delete-btn" onclick="deleteEntry(this)">Delete</button></li>`;
   const storedData = localStorage.getItem("weightData");
   if (storedData === null) {
     localStorage.setItem("weightData", entry);
@@ -65,7 +65,7 @@ function createBarChart() {
     data: {
       labels: [], // dynamic labels
       datasets: [{
-        label: 'Calories',
+        label: 'Cals',
         data: [], // dynamic data
         backgroundColor: [], // dynamic background color
         borderColor: '#452B1F',
@@ -117,7 +117,7 @@ function updateChart() {
     entries.forEach((entry) => {
       if (entry) {
         const date = entry.match(/>(.*?):/)[1];
-        const weight = parseFloat(entry.match(/:(.*?) Calories/)[1]);
+        const weight = parseFloat(entry.match(/:(.*?) Cals/)[1]);
         const overUnder = weight - 11200;
         labels.push(date);
         data.push(weight);
