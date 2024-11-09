@@ -137,9 +137,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateTotalSaved() {
     const dailyCaloriesAllowed = 1600;
-    const totalSavedCalories = weeks[currentWeekIndex].reduce((total, entry) => {
-      return total + Math.max(dailyCaloriesAllowed - entry, 0);
-    }, 0);
+    let totalSavedCalories = 0;
+    weeks[currentWeekIndex].forEach(entry => {
+      const dailyCaloriesSaved = dailyCaloriesAllowed - entry;
+      totalSavedCalories += dailyCaloriesSaved > 0 ? dailyCaloriesSaved : 0;
+    });
     totalSaved.textContent = `Total Calories Saved for Week ${currentWeekIndex + 1}: ${totalSavedCalories}`;
   }
 
