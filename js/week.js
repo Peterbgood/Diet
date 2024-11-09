@@ -238,5 +238,5 @@ document.addEventListener('DOMContentLoaded', () => {
   updateWeek();
   updateTotalSaved();
 
-  deleteBtn.textContent = 'Revert to Previous Week';
+  deleteBtn.textContent = 'Delete';
 });
