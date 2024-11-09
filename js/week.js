@@ -127,12 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalAllowed = 11200; 
     const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
     const remainingCalories = totalAllowed - totalConsumedCalories;
-    totalCalories.textContent = `Remaining: ${remainingCalories}`;
+    totalCalories.textContent = `Total Remaining: ${remainingCalories}`;
   }
 
   function updateWeeklyTotal() {
     const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
-    weeklyTotal.textContent = `Consumed: ${totalConsumedCalories}`;
+    weeklyTotal.textContent = `Total Consumed: ${totalConsumedCalories}`;
   }
 
   function updateTotalSaved() {
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         totalSavedCalories -= Math.abs(dailyCaloriesSaved);
       }
     });
-    totalSaved.textContent = `Saved: ${totalSavedCalories}`;
+    totalSaved.textContent = `Total Saved: ${totalSavedCalories}`;
   }
 
   function updatePieChart() {
