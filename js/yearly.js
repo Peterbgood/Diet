@@ -5,7 +5,7 @@ function saveData() {
   const weight = parseFloat(document.getElementById("weight").value);
   const log = document.getElementById("log");
   const overUnder = weight - 11200;
-  const entry = `<li class="list-group-item d-flex justify-content-between align-items-center" data-date="${formatDate(date)}"> ${formatDate(date)}: ${weight.toFixed(0)} Cals <span class="over-under">(${overUnder > 0 ? '+' : ''}${Math.abs(overUnder).toFixed(0)})</span> <button class="btn btn-danger btn-sm delete-btn" onclick="deleteEntry(this)">Delete</button></li>`;
+  const entry = `<li class="list-group-item d-flex justify-content-between align-items-center" data-date="${formatDate(date)}"> ${formatDate(date)}: ${weight.toFixed(1)} Cals <span class="over-under">(${overUnder > 0 ? '+' : ''}${overUnder.toFixed(1)})</span> <button class="btn btn-danger btn-sm delete-btn" onclick="deleteEntry(this)">Delete</button></li>`;
   const storedData = localStorage.getItem("weightData");
   if (storedData === null) {
     localStorage.setItem("weightData", entry);
