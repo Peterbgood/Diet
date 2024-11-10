@@ -25,8 +25,12 @@
 
 <div class="container mt-4">
 <h1 class="text-center mt-4">Weekly Calories</h1>
+<div class="d-flex justify-content-between mt-4">
+  <button class="btn btn-primary btn-sm" id="prev-week-btn">&#x2190</button>
+  <button class="btn btn-primary btn-sm" id="next-week-btn">&#x2192</button>
+  </div>
 
-<div class="chart-container" style="width:300px; height:200px; margin: 0 auto;">
+<div class="chart-container" style="width:300px; height:180px; margin: 0 auto;">
 <canvas id="PieChart"></canvas>
 </div>
 <div class="input-group mb-3 mt-3">
@@ -42,10 +46,7 @@
 
 <p id="total-saved" class="fs-5"></p>
 
-<div class="d-flex justify-content-between mt-4">
-  <button class="btn btn-primary" id="prev-week-btn">&#x2190</button>
-  <button class="btn btn-primary" id="next-week-btn">&#x2192</button>
-  </div>
+
 
 <div class="d-grid gap-2 mx-y mt-4">
 <button class="btn btn-danger mt-2" type="button" id="reset-btn">Reset</button>
