@@ -1,11 +1,11 @@
-let chart; // Define chart in the global scope
+let chart; 
 
 function saveData() {
   const date = new Date(document.getElementById("date").value + "T00:00:00"); 
   const weight = parseFloat(document.getElementById("weight").value);
   const log = document.getElementById("log");
   const overUnder = weight - 11200;
-  const entry = `<li class="list-group-item d-flex justify-content-between align-items-center" data-date="${formatDate(date)}"> ${formatDate(date)}: ${weight.toFixed(1)} Cals <span class="over-under">(${overUnder > 0 ? '+' : ''}${overUnder.toFixed(1)})</span> <button class="btn btn-danger btn-sm delete-btn" onclick="deleteEntry(this)">Delete</button></li>`;
+  const entry = `<li class="list-group-item d-flex justify-content-between align-items-center" data-date="${formatDate(date)}"> ${formatDate(date)}: ${weight.toFixed(0)} Cals <span class="over-under">(${overUnder > 0 ? '+' : ''}${Math.abs(overUnder).toFixed(0)})</span> <button class="btn btn-danger btn-sm delete-btn" onclick="deleteEntry(this)">Delete</button></li>`;
   const storedData = localStorage.getItem("weightData");
   if (storedData === null) {
     localStorage.setItem("weightData", entry);
@@ -16,7 +16,7 @@ function saveData() {
   const logEntry = log.querySelector(`[data-date="${formatDate(date)}"]`);
   const overUnderText = logEntry.querySelector('.over-under');
   if (overUnderText) {
-    overUnderText.textContent = `(${overUnder > 0 ? '+' : '-'}${Math.abs(overUnder).toFixed(1)})`;
+    overUnderText.textContent = `(${overUnder > 0 ? '+' : '-'}${Math.abs(overUnder).toFixed(0)})`;
     overUnderText.style.color = overUnder < 0 ? '#964B00 !important' : 'rgba(220, 53, 69, 0.2)!important';
   }
   updateChart();
@@ -63,11 +63,11 @@ function createBarChart() {
   chart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: [], // dynamic labels
+      labels: [], 
       datasets: [{
         label: 'Cals',
-        data: [], // dynamic data
-        backgroundColor: [], // dynamic background color
+        data: [], 
+        backgroundColor: [], 
         borderColor: '#452B1F',
         borderWidth: 1
       }]
@@ -76,7 +76,7 @@ function createBarChart() {
       scales: {
         y: {
           beginAtZero: true,
-          max: 15000 // Adjust the max value as needed
+          max: 15000 
         }
       },
       plugins: {
@@ -86,13 +86,13 @@ function createBarChart() {
               type: 'line',
               yMin: 11200,
               yMax: 11200,
-              borderColor: '#000', // Red color for visibility
-              borderWidth: 5, // Increased thickness
+              borderColor: '#000', 
+              borderWidth: 5, 
               label: {
                 content: 'Threshold',
                 enabled: true,
                 position: 'center',
-                backgroundColor: 'rgba(220, 53, 69, 0.8)' // Background color for the label
+                backgroundColor: 'rgba(220, 53, 69, 0.8)' 
               }
             }
           }
@@ -101,7 +101,6 @@ function createBarChart() {
     }
   });
 
-  // Call updateChart initially to populate the chart
   updateChart();
 }
 
@@ -113,7 +112,6 @@ function updateChart() {
     const labels = [];
     const data = [];
     const backgroundColors = [];
-    const borderColors = [];
     entries.forEach((entry) => {
       if (entry) {
         const date = entry.match(/>(.*?):/)[1];
@@ -122,26 +120,18 @@ function updateChart() {
         labels.push(date);
         data.push(weight);
         backgroundColors.push(weight > 11200 ? 'rgba(220, 53, 69, 0.2)' : 'rgba(0, 123, 255, 0.3)');
-        borderColors.push(weight > 11200 ? '#dc3545' : '#007bff'); 
       }
     });
-    // Reverse the arrays
     labels.reverse();
     data.reverse();
     backgroundColors.reverse();
-    borderColors.reverse();
     console.log('Labels:', labels);
     console.log('Data:', data);
     chart.data.labels = labels;
     chart.data.datasets[0].data = data;
     chart.data.datasets[0].backgroundColor = backgroundColors;
-    chart.data.datasets[0].borderColor = borderColors;
-    chart.data.datasets[0].borderWidth = {
-      top: 2,
-      right: 2,
-      left: 2,
-      bottom: 0 
-    };
+    chart.data.datasets[0].borderColor = '#452B1F'; 
+    chart.data.datasets[0].borderWidth = 1; 
     chart.update();
   }
 }
