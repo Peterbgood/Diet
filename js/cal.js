@@ -89,68 +89,120 @@ function updateTotalCalories() {
 // Function to update food list
 // Function to update food list
 function updateFoodList() {
-    const dateStr = currentDate.toLocaleString('en-US', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        timeZone: 'America/New_York',
-    });
-    const foodListElement = document.getElementById('food-list');
-    foodListElement.innerHTML = '';
+  const dateStr = currentDate.toLocaleString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      timeZone: 'America/New_York',
+  });
+  const foodListElement = document.getElementById('food-list');
+  foodListElement.innerHTML = '';
 
-    if (foodLog[dateStr]) {
-        foodLog[dateStr].forEach(entry => {
-            const listItem = document.createElement('li');
-            listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between');
+  if (foodLog[dateStr]) {
+      // Separate burnt calories
+      const burntCalories = foodLog[dateStr].filter(entry => entry.calories < 0);
+      const otherCalories = foodLog[dateStr].filter(entry => entry.calories >= 0);
 
-            const nameSpan = document.createElement('span');
-            nameSpan.contentEditable = 'true';
-            nameSpan.classList.add('form-control'); // Add form-control class
-            nameSpan.textContent = entry.name;
+      // Display other calories first
+      otherCalories.forEach(entry => {
+          const listItem = document.createElement('li');
+          listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between');
 
-            // Add event listener to update food item name on Enter key press
-            nameSpan.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    const newName = nameSpan.textContent;
-                    foodLog[dateStr] = foodLog[dateStr].map(item => {
-                        if (item.name === entry.name) {
-                            item.name = newName;
-                        }
-                        return item;
-                    });
-                    updateFoodList();
-                    saveData();
-                }
-            });
+          const nameSpan = document.createElement('span');
+          nameSpan.contentEditable = 'true';
+          nameSpan.classList.add('form-control'); 
+          nameSpan.textContent = entry.name;
 
-            const caloriesSpan = document.createElement('span');
-            caloriesSpan.textContent = `${entry.calories} calories`;
+          nameSpan.addEventListener('keypress', (e) => {
+              if (e.key === 'Enter') {
+                  e.preventDefault();
+                  const newName = nameSpan.textContent;
+                  foodLog[dateStr] = foodLog[dateStr].map(item => {
+                      if (item.name === entry.name) {
+                          item.name = newName;
+                      }
+                      return item;
+                  });
+                  updateFoodList();
+                  saveData();
+              }
+          });
 
-            // Change color for negative calories
-            if (entry.calories < 0) {
-                caloriesSpan.style.color = '#964B00';
-            }
+          const caloriesSpan = document.createElement('span');
+          caloriesSpan.textContent = `${entry.calories} calories`;
 
-            const deleteButton = document.createElement('button');
-            deleteButton.classList.add('btn', 'btn-sm', 'btn-danger');
-            deleteButton.textContent = 'Delete';
+          if (entry.calories < 0) {
+              caloriesSpan.style.color = '#964B00';
+          }
 
-            deleteButton.addEventListener('click', () => {
-                foodLog[dateStr] = foodLog[dateStr].filter(item => item.name !== entry.name);
-                updateFoodList();
-                updateTotalCalories();
-                renderCaloriesChart();
-                saveData();
-            });
+          const deleteButton = document.createElement('button');
+          deleteButton.classList.add('btn', 'btn-sm', 'btn-danger');
+          deleteButton.textContent = 'Delete';
 
-            listItem.appendChild(nameSpan);
-            listItem.appendChild(caloriesSpan);
-            listItem.appendChild(deleteButton);
-            foodListElement.appendChild(listItem);
-        });
-    }
+          deleteButton.addEventListener('click', () => {
+              foodLog[dateStr] = foodLog[dateStr].filter(item => item.name !== entry.name);
+              updateFoodList();
+              updateTotalCalories();
+              renderCaloriesChart();
+              saveData();
+          });
+
+          listItem.appendChild(nameSpan);
+          listItem.appendChild(caloriesSpan);
+          listItem.appendChild(deleteButton);
+          foodListElement.appendChild(listItem);
+      });
+
+      // Display burnt calories last
+      burntCalories.forEach(entry => {
+          const listItem = document.createElement('li');
+          listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between');
+
+          const nameSpan = document.createElement('span');
+          nameSpan.contentEditable = 'true';
+          nameSpan.classList.add('form-control'); 
+          nameSpan.textContent = entry.name;
+
+          nameSpan.addEventListener('keypress', (e) => {
+              if (e.key === 'Enter') {
+                  e.preventDefault();
+                  const newName = nameSpan.textContent;
+                  foodLog[dateStr] = foodLog[dateStr].map(item => {
+                      if (item.name === entry.name) {
+                          item.name = newName;
+                      }
+                      return item;
+                  });
+                  updateFoodList();
+                  saveData();
+              }
+          });
+
+          const caloriesSpan = document.createElement('span');
+          caloriesSpan.textContent = `${entry.calories} calories`;
+          caloriesSpan.style.color = '#964B00';
+
+          const deleteButton = document.createElement('button');
+          deleteButton.classList.add('btn', 'btn-sm', 'btn-danger');
+          deleteButton.textContent = 'Delete';
+
+          deleteButton.addEventListener('click', () => {
+              foodLog[dateStr] = foodLog[dateStr].filter(item => item.name !== entry.name);
+              updateFoodList();
+              updateTotalCalories();
+              renderCaloriesChart();
+              saveData();
+          });
+
+          listItem.appendChild(nameSpan);
+          listItem.appendChild(caloriesSpan);
+          listItem.appendChild(deleteButton);
+          foodListElement.appendChild(listItem);
+      });
+  }
 }
+
+
 function renderCaloriesChart() {
     const ctx = document.getElementById('caloriesChart').getContext('2d');
     let totalCaloriesUsed = data.totalCaloriesUsed;
