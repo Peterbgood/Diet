@@ -180,7 +180,7 @@ function updateFoodList() {
 
           const caloriesSpan = document.createElement('span');
           caloriesSpan.textContent = `${entry.calories} calories`;
-          caloriesSpan.style.color = '#964B00';
+          caloriesSpan.style.color = '#0d6efd';
 
           const deleteButton = document.createElement('button');
           deleteButton.classList.add('btn', 'btn-sm', 'btn-danger');
