@@ -97,14 +97,28 @@ function updateChart() {
         const match = entry.match(/(\d+\.\d+)\s+lbs/);
         return match ? parseFloat(match[1]) : 0;
     }).filter(weight => weight !== 0);
+    const dates = entries.map(entry => {
+        const match = entry.match(/\d{1,2}\/\d{1,2}\/\d{4}/);
+        return match ? new Date(match[0]) : new Date();
+    }).filter(date => !isNaN(date.getTime()));
 
-    // Filter the labels and weights to only include the last 30 entries
-    const last30Labels = labels.slice(-30);
-    const last30Weights = weights.slice(-30);
+    // Calculate 3 weeks ago
+    const threeWeeksAgo = new Date();
+    threeWeeksAgo.setDate(threeWeeksAgo.getDate() - 21);
+
+    // Filter the labels, weights and dates to only include the last 3 weeks
+    const filteredLabels = [];
+    const filteredWeights = [];
+    dates.forEach((date, index) => {
+        if (date >= threeWeeksAgo) {
+            filteredLabels.push(labels[index]);
+            filteredWeights.push(weights[index]);
+        }
+    });
 
     // Reverse the arrays to have the oldest date on the left and the most recent date on the right
-    const reversedLabels = last30Labels.reverse();
-    const reversedWeights = last30Weights.reverse();
+    const reversedLabels = filteredLabels.reverse();
+    const reversedWeights = filteredWeights.reverse();
 
     if (reversedLabels.length > 0 && reversedWeights.length > 0) {
         chart = new Chart(ctx, {
@@ -132,7 +146,6 @@ function updateChart() {
         });
     }
 }
-
 
 document.getElementById("clear-btn").addEventListener("click", function () {
     localStorage.removeItem("weightData2");
