@@ -102,18 +102,14 @@ function updateChart() {
     const last14Labels = labels.slice(-14);
     const last14Weights = weights.slice(-14);
 
-    // Reverse arrays for chronological order
-    const reversedLabels = last14Labels.reverse();
-    const reversedWeights = last14Weights.reverse();
-
     if (labels.length <= 14) {
         chart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: labels.reverse(),
+                labels: labels,
                 datasets: [{
                     label: 'Weight',
-                    data: weights.reverse(),
+                    data: weights,
                     backgroundColor: weights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
                     borderColor: weights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
                     borderWidth: 1,
@@ -134,12 +130,12 @@ function updateChart() {
         chart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: reversedLabels,
+                labels: last14Labels,
                 datasets: [{
                     label: 'Weight',
-                    data: reversedWeights,
-                    backgroundColor: reversedWeights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
-                    borderColor: reversedWeights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
+                    data: last14Weights,
+                    backgroundColor: last14Weights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
+                    borderColor: last14Weights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
                     borderWidth: 1,
                     tension: 0.1
                 }]
