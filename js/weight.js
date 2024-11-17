@@ -98,13 +98,13 @@ function updateChart() {
         return match ? parseFloat(match[1]) : 0;
     }).filter(weight => weight !== 0);
 
-    // Filter the labels and weights to only include the last 21 entries
-    const last21Labels = labels.slice(-21);
-    const last21Weights = weights.slice(-21);
+    // Limit data to last 14 entries
+    const last14Labels = labels.slice(Math.max(labels.length - 14, 0));
+    const last14Weights = weights.slice(Math.max(weights.length - 14, 0));
 
-    // Reverse the arrays to have the oldest date on the left and the most recent date on the right
-    const reversedLabels = last21Labels.reverse();
-    const reversedWeights = last21Weights.reverse();
+    // Reverse arrays for chronological order
+    const reversedLabels = last14Labels.reverse();
+    const reversedWeights = last14Weights.reverse();
 
     if (reversedLabels.length > 0 && reversedWeights.length > 0) {
         chart = new Chart(ctx, {
@@ -132,7 +132,6 @@ function updateChart() {
         });
     }
 }
-
 document.getElementById("clear-btn").addEventListener("click", function () {
     localStorage.removeItem("weightData2");
     document.getElementById("log").innerHTML = "";
