@@ -102,55 +102,33 @@ function updateChart() {
     const last14Labels = labels.slice(-14);
     const last14Weights = weights.slice(-14);
 
-    if (labels.length <= 14) {
-        chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Weight',
-                    data: weights,
-                    backgroundColor: weights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
-                    borderColor: weights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
-                    borderWidth: 1,
-                    tension: 0.1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        min: 155,
-                        max: 165
-                    }
+    // Reverse arrays for chronological order
+    const reversedLabels = last14Labels.reverse();
+    const reversedWeights = last14Weights.reverse();
+
+    chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: reversedLabels,
+            datasets: [{
+                label: 'Weight',
+                data: reversedWeights,
+                backgroundColor: reversedWeights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
+                borderColor: reversedWeights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
+                borderWidth: 1,
+                tension: 0.1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    min: 155,
+                    max: 165
                 }
             }
-        });
-    } else {
-        chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: last14Labels,
-                datasets: [{
-                    label: 'Weight',
-                    data: last14Weights,
-                    backgroundColor: last14Weights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
-                    borderColor: last14Weights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
-                    borderWidth: 1,
-                    tension: 0.1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        min: 155,
-                        max: 165
-                    }
-                }
-            }
-        });
-    }
+        }
+    });
 }
 document.getElementById("clear-btn").addEventListener("click", function () {
     localStorage.removeItem("weightData2");
