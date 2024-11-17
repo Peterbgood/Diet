@@ -99,8 +99,8 @@ function updateChart() {
     }).filter(weight => weight !== 0);
 
     // Limit data to last 14 entries
-    const last14Labels = labels.slice(-14);
-    const last14Weights = weights.slice(-14);
+    const last14Labels = labels.slice(Math.max(labels.length - 14, 0));
+    const last14Weights = weights.slice(Math.max(weights.length - 14, 0));
 
     // Reverse arrays for chronological order
     const reversedLabels = last14Labels.reverse();
