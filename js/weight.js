@@ -98,9 +98,13 @@ function updateChart() {
         return match ? parseFloat(match[1]) : 0;
     }).filter(weight => weight !== 0);
 
-    // Limit data to last 14 entries
-    const last14Labels = labels.slice(-14);
-    const last14Weights = weights.slice(-14);
+    // Reverse the arrays first
+    const reversedLabels = labels.reverse();
+    const reversedWeights = weights.reverse();
+
+    // Then slice to get the last 14 entries
+    const last14Labels = reversedLabels.slice(0, 14);
+    const last14Weights = reversedWeights.slice(0, 14);
 
     // Display in chronological order
     chart = new Chart(ctx, {
@@ -110,8 +114,8 @@ function updateChart() {
             datasets: [{
                 label: 'Weight',
                 data: last14Weights.reverse(),
-                backgroundColor: last14Weights.reverse().map(weight => weight < 160 ? '#007bff' : '#007bff'),
-                borderColor: last14Weights.reverse().map(weight => weight < 160 ? '#007bff' : '#007bff'),
+                backgroundColor: last14Weights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
+                borderColor: last14Weights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
                 borderWidth: 1,
                 tension: 0.1
             }]
@@ -127,6 +131,7 @@ function updateChart() {
         }
     });
 }
+
 document.getElementById("clear-btn").addEventListener("click", function () {
     localStorage.removeItem("weightData2");
     document.getElementById("log").innerHTML = "";
