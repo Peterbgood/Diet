@@ -98,40 +98,45 @@ function updateChart() {
         return match ? parseFloat(match[1]) : 0;
     }).filter(weight => weight !== 0);
 
-    // Filter the labels and weights to only include the last 30 entries
-    const last30Labels = labels.slice(-30);
-    const last30Weights = weights.slice(-30);
+    // Filter the entries to include only the last 14 days
+    const twoWeeksAgo = new Date();
+    twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+    const recentLabels = [];
+    const recentWeights = [];
+    for (let i = 0; i < labels.length; i++) {
+        const entryDate = new Date(labels[i]);
+        if (entryDate >= twoWeeksAgo) {
+            recentLabels.push(labels[i]);
+            recentWeights.push(weights[i]);
+        }
+    }
 
-    // Reverse the arrays to have the oldest date on the left and the most recent date on the right
-    const reversedLabels = last30Labels.reverse();
-    const reversedWeights = last30Weights.reverse();
-
-    if (reversedLabels.length > 0 && reversedWeights.length > 0) {
-        chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: reversedLabels,
-                datasets: [{
-                    label: 'Weight',
-                    data: reversedWeights,
-                    backgroundColor: reversedWeights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
-                    borderColor: reversedWeights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
-                    borderWidth: 1,
-                    tension: 0.1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        min: 155,
-                        max: 165
-                    }
+    // Display in chronological order
+    chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: recentLabels.reverse(),
+            datasets: [{
+                label: 'Weight',
+                data: recentWeights.reverse(),
+                backgroundColor: recentWeights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
+                borderColor: recentWeights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
+                borderWidth: 1,
+                tension: 0.1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    min: 155,
+                    max: 165
                 }
             }
-        });
-    }
+        }
+    });
 }
+
 
 
 document.getElementById("clear-btn").addEventListener("click", function () {
