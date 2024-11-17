@@ -98,39 +98,41 @@ function updateChart() {
         return match ? parseFloat(match[1]) : 0;
     }).filter(weight => weight !== 0);
 
-    // Reverse the arrays first
-    const reversedLabels = labels.reverse();
-    const reversedWeights = weights.reverse();
+    // Filter the labels and weights to only include the last 30 entries
+    const last30Labels = labels.slice(-30);
+    const last30Weights = weights.slice(-30);
 
-    // Then slice to get the last 14 entries
-    const last14Labels = reversedLabels.slice(0, 14);
-    const last14Weights = reversedWeights.slice(0, 14);
+    // Reverse the arrays to have the oldest date on the left and the most recent date on the right
+    const reversedLabels = last30Labels.reverse();
+    const reversedWeights = last30Weights.reverse();
 
-    // Display in chronological order
-    chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: last14Labels.reverse(),
-            datasets: [{
-                label: 'Weight',
-                data: last14Weights.reverse(),
-                backgroundColor: last14Weights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
-                borderColor: last14Weights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
-                borderWidth: 1,
-                tension: 0.1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    min: 155,
-                    max: 165
+    if (reversedLabels.length > 0 && reversedWeights.length > 0) {
+        chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: reversedLabels,
+                datasets: [{
+                    label: 'Weight',
+                    data: reversedWeights,
+                    backgroundColor: reversedWeights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
+                    borderColor: reversedWeights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
+                    borderWidth: 1,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        min: 155,
+                        max: 165
+                    }
                 }
             }
-        }
-    });
+        });
+    }
 }
+
 
 document.getElementById("clear-btn").addEventListener("click", function () {
     localStorage.removeItem("weightData2");
