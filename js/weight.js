@@ -99,22 +99,19 @@ function updateChart() {
     }).filter(weight => weight !== 0);
 
     // Limit data to last 14 entries
-    const last14Labels = labels.slice(Math.max(labels.length - 14, 0));
-    const last14Weights = weights.slice(Math.max(weights.length - 14, 0));
+    const last14Labels = labels.slice(-14);
+    const last14Weights = weights.slice(-14);
 
-    // Reverse arrays for chronological order
-    const reversedLabels = last14Labels.reverse();
-    const reversedWeights = last14Weights.reverse();
-
+    // Display in chronological order
     chart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: reversedLabels,
+            labels: last14Labels.reverse(),
             datasets: [{
                 label: 'Weight',
-                data: reversedWeights,
-                backgroundColor: reversedWeights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
-                borderColor: reversedWeights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
+                data: last14Weights.reverse(),
+                backgroundColor: last14Weights.reverse().map(weight => weight < 160 ? '#007bff' : '#007bff'),
+                borderColor: last14Weights.reverse().map(weight => weight < 160 ? '#007bff' : '#007bff'),
                 borderWidth: 1,
                 tension: 0.1
             }]
