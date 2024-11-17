@@ -99,14 +99,38 @@ function updateChart() {
     }).filter(weight => weight !== 0);
 
     // Limit data to last 14 entries
-    const last14Labels = labels.slice(Math.max(labels.length - 14, 0));
-    const last14Weights = weights.slice(Math.max(weights.length - 14, 0));
+    const last14Labels = labels.slice(-14);
+    const last14Weights = weights.slice(-14);
 
     // Reverse arrays for chronological order
     const reversedLabels = last14Labels.reverse();
     const reversedWeights = last14Weights.reverse();
 
-    if (reversedLabels.length > 0 && reversedWeights.length > 0) {
+    if (labels.length <= 14) {
+        chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels.reverse(),
+                datasets: [{
+                    label: 'Weight',
+                    data: weights.reverse(),
+                    backgroundColor: weights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
+                    borderColor: weights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
+                    borderWidth: 1,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        min: 155,
+                        max: 165
+                    }
+                }
+            }
+        });
+    } else {
         chart = new Chart(ctx, {
             type: 'line',
             data: {
