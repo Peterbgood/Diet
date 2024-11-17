@@ -98,14 +98,14 @@ function updateChart() {
         return match ? parseFloat(match[1]) : 0;
     }).filter(weight => weight !== 0);
 
-    // Filter the entries to include only the last 14 days
-    const twoWeeksAgo = new Date();
-    twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+    // Filter the entries to include only the last 30 days
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
     const recentLabels = [];
     const recentWeights = [];
     for (let i = 0; i < labels.length; i++) {
         const entryDate = new Date(labels[i]);
-        if (entryDate >= twoWeeksAgo) {
+        if (entryDate >= oneMonthAgo) {
             recentLabels.push(labels[i]);
             recentWeights.push(weights[i]);
         }
@@ -136,7 +136,6 @@ function updateChart() {
         }
     });
 }
-
 
 
 document.getElementById("clear-btn").addEventListener("click", function () {
