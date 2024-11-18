@@ -87,7 +87,6 @@ function updateTotalCalories() {
 }
 
 // Function to update food list
-// Function to update food list
 function updateFoodList() {
   const dateStr = currentDate.toLocaleString('en-US', {
       year: 'numeric',
@@ -101,9 +100,64 @@ function updateFoodList() {
   if (foodLog[dateStr]) {
       // Separate burnt calories
       const burntCalories = foodLog[dateStr].filter(entry => entry.calories < 0);
-      const otherCalories = foodLog[dateStr].filter(entry => entry.calories >= 0);
+      
+      // Separate coffee items
+      const coffeeItems = foodLog[dateStr].filter(entry => entry.name.includes('☕') && entry.calories >= 0);
+      
+      // Display other calories
+      const otherCalories = foodLog[dateStr].filter(entry => !entry.name.includes('☕') && entry.calories >= 0);
 
-      // Display other calories first
+      // Display coffee items first
+      coffeeItems.forEach(entry => {
+          const listItem = document.createElement('li');
+          listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between');
+
+          const nameSpan = document.createElement('span');
+          nameSpan.contentEditable = 'true';
+          nameSpan.classList.add('form-control'); 
+          nameSpan.textContent = entry.name;
+
+          nameSpan.addEventListener('keypress', (e) => {
+              if (e.key === 'Enter') {
+                  e.preventDefault();
+                  const newName = nameSpan.textContent;
+                  foodLog[dateStr] = foodLog[dateStr].map(item => {
+                      if (item.name === entry.name) {
+                          item.name = newName;
+                      }
+                      return item;
+                  });
+                  updateFoodList();
+                  saveData();
+              }
+          });
+
+          const caloriesSpan = document.createElement('span');
+          caloriesSpan.textContent = `${entry.calories} calories`;
+
+          if (entry.calories < 0) {
+              caloriesSpan.style.color = '#964B00';
+          }
+
+          const deleteButton = document.createElement('button');
+          deleteButton.classList.add('btn', 'btn-sm', 'btn-danger');
+          deleteButton.textContent = 'Delete';
+
+          deleteButton.addEventListener('click', () => {
+              foodLog[dateStr] = foodLog[dateStr].filter(item => item.name !== entry.name);
+              updateFoodList();
+              updateTotalCalories();
+              renderCaloriesChart();
+              saveData();
+          });
+
+          listItem.appendChild(nameSpan);
+          listItem.appendChild(caloriesSpan);
+          listItem.appendChild(deleteButton);
+          foodListElement.appendChild(listItem);
+      });
+
+      // Display other calories
       otherCalories.forEach(entry => {
           const listItem = document.createElement('li');
           listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between');
