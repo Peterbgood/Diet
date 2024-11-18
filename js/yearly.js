@@ -68,8 +68,8 @@ function createBarChart() {
         label: 'Cals',
         data: [], 
         backgroundColor: [], 
-        borderColor: '#452B1F',
-        borderWidth: 1
+        borderColor: '#0d6efd',
+        borderWidth: 2
       }]
     },
     options: {
@@ -86,7 +86,7 @@ function createBarChart() {
               type: 'line',
               yMin: 11200,
               yMax: 11200,
-              borderColor: '#000', 
+              borderColor: '#0d6efd', 
               borderWidth: 5, 
               label: {
                 content: 'Threshold',
@@ -131,7 +131,7 @@ function updateChart() {
     chart.data.datasets[0].data = data;
     chart.data.datasets[0].backgroundColor = backgroundColors;
     chart.data.datasets[0].borderColor = '#452B1F'; 
-    chart.data.datasets[0].borderWidth = 1; 
+    chart.data.datasets[0].borderWidth = 2; 
     chart.update();
   }
 }
