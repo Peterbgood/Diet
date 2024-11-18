@@ -130,7 +130,7 @@ function updateChart() {
     chart.data.labels = labels;
     chart.data.datasets[0].data = data;
     chart.data.datasets[0].backgroundColor = backgroundColors;
-    chart.data.datasets[0].borderColor = '#452B1F'; 
+    chart.data.datasets[0].borderColor = '#0d6efd'; 
     chart.data.datasets[0].borderWidth = 2; 
     chart.update();
   }
