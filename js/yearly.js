@@ -112,6 +112,7 @@ function updateChart() {
     const labels = [];
     const data = [];
     const backgroundColors = [];
+    const borderColors = []; // New array for border colors
     entries.forEach((entry) => {
       if (entry) {
         const date = entry.match(/>(.*?):/)[1];
@@ -119,19 +120,23 @@ function updateChart() {
         const overUnder = weight - 11200;
         labels.push(date);
         data.push(weight);
-        backgroundColors.push(weight > 11200 ? 'rgba(220, 53, 69, 0.2)' : 'rgba(0, 123, 255, 0.3)');
+        const color = weight > 11200 ? 'rgba(220, 53, 69, 0.2)' : 'rgba(0, 123, 255, 0.3)';
+        backgroundColors.push(color);
+        borderColors.push(color === 'rgba(220, 53, 69, 0.2)' ? 'rgba(220, 53, 69, 1)' : 'rgba(0, 123, 255, 0.7)'); // Darken the color for border
       }
     });
     labels.reverse();
     data.reverse();
     backgroundColors.reverse();
+    borderColors.reverse();
     console.log('Labels:', labels);
     console.log('Data:', data);
     chart.data.labels = labels;
     chart.data.datasets[0].data = data;
     chart.data.datasets[0].backgroundColor = backgroundColors;
-    chart.data.datasets[0].borderColor = '#0d6efd'; 
+    chart.data.datasets[0].borderColor = borderColors; // Use the new borderColor array
     chart.data.datasets[0].borderWidth = 2; 
     chart.update();
   }
+}
 }
