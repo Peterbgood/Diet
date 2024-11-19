@@ -71,20 +71,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function prevWeekAndReset() {
+ function prevWeekAndReset() {
     if (currentWeekIndex > 0) {
-      currentWeekIndex--;
-      weeks.splice(currentWeekIndex + 1, 1);
-      const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
-      const totalAllowed = 11200;
-      calories = totalAllowed - totalConsumedCalories;
-      totalConsumed = totalConsumedCalories;
-      updateWeek();
-      updateTotal();
-      updateWeeklyTotal();
-      updateTotalSaved();
-      updatePieChart();
-      saveToLocalStorage();
+      const confirmDelete = confirm("Delete week's data?");
+      if (confirmDelete) {
+        currentWeekIndex--;
+        weeks.splice(currentWeekIndex + 1, 1);
+        const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
+        const totalAllowed = 11200;
+        calories = totalAllowed - totalConsumedCalories;
+        totalConsumed = totalConsumedCalories;
+        updateWeek();
+        updateTotal();
+        updateWeeklyTotal();
+        updateTotalSaved();
+        updatePieChart();
+        saveToLocalStorage();
+      }
     }
   }
 
