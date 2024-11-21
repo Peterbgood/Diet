@@ -12,6 +12,10 @@ h1 {
     color: #000
 }
 
+#food-list span:first-child {
+  text-transform: capitalize;
+}
+
 .list-group-item .form-control {
 
 border: none;
