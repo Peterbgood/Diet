@@ -2,247 +2,310 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Weight Tracker</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weight Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    rel="stylesheet">
 
 
 
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/url-js/2.6.0/url.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/url-js/2.6.0/url.min.js"></script>
 </head>
 
 <body>
-    <div class="nav-container"></div>
-    <div class="container">
-        <h1 class="text-center mt-4">Daily</h1>
-        <div class="row mb-2">
-            <div class="input-group mx-auto mt-2"
-                style="max-width: 300px; display: flex; justify-content: space-between;">
-                <button id="prev-date-button" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i></button>
-                <input type="text" id="date-input" class="form-control text-center" readonly>
-                <button id="next-date-button" class="btn btn-primary"><i class="fa-solid fa-arrow-right"></i></button>
-            </div>
+  <div class="nav-container"></div>
+  <div class="container">
+    <h1 class="text-center mt-4">Daily</h1>
+    <div class="row mb-2">
+      <div class="input-group mx-auto mt-2" style="max-width: 300px; display: flex; justify-content: space-between;">
+        <button id="prev-date-button" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i></button>
+        <input type="text" id="date-input" class="form-control text-center" readonly>
+        <button id="next-date-button" class="btn btn-primary"><i class="fa-solid fa-arrow-right"></i></button>
+      </div>
 
 
 
-        </div>
-        <div class="chart-container" style=" width:300px; height:300px; margin: 0 auto;">
-            <canvas id="caloriesChart"></canvas>
-        </div>
+    </div>
+    <div class="chart-container" style=" width:300px; height:300px; margin: 0 auto;">
+      <canvas id="caloriesChart"></canvas>
+    </div>
 
 
 
-        <ul id="food-list" class="list-group mt-4"></ul>
-        <div class=" mt-4 fw-bold fs-4">
-            Total Calories: <span id="total-calories">0</span>
-        </div>
-        <div class=" mt-0 fw-bold fs-4">
-            Remaining Calories: <span id="remaining-calories">1700</span>
-        </div>
+    <ul id="food-list" class="list-group mt-4"></ul>
+    <div class=" mt-4 fw-bold fs-4">
+      Total Calories: <span id="total-calories">0</span>
+    </div>
+    <div class=" mt-0 fw-bold fs-4">
+      Remaining Calories: <span id="remaining-calories">1700</span>
+    </div>
 
-        <!-- Calorie buttons -->
-        <!-- Calorie buttons -->
-<div class="mt-4">
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="☕ Coffee" data-calories="200" data-type="☕">
-    ☕ Coffee (200)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍽️ Food" data-calories="500" data-type="🍽️">
-    🍽️ Food (500)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍽️ Food" data-calories="200" data-type="🍽️">
-    🍽️ Food (200)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍽️ Food" data-calories="100" data-type="🍽️">
-    🍽️ Food (100)
-  </button>
+    <!-- Calorie buttons -->
+    <!-- Calorie buttons -->
+    <div class="mt-4">
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="☕ Coffee" data-calories="200"
+        data-type="☕">
+        ☕ Coffee (200)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍝👩🏻‍🍳  Dinner" data-calories="600"
+        data-type="🍽️">
+        🍝👩🏻‍🍳 Dinner (600)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍝👩🏻‍🍳  Dinner" data-calories="100"
+        data-type="🍽️">
+        🍝👩🏻‍🍳 Dinner (100)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍽️ Food" data-calories="500"
+        data-type="🍽️">
+        🍽️ Food (500)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍽️ Food" data-calories="200"
+        data-type="🍽️">
+        🍽️ Food (200)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍽️ Food" data-calories="100"
+        data-type="🍽️">
+        🍽️ Food (100)
+      </button>
 
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍽️ Food" data-calories="50" data-type="🍽️">
-    🍽️ Food (50)
-  </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍽️ Food" data-calories="50"
+        data-type="🍽️">
+        🍽️ Food (50)
+      </button>
 
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍽️ Food" data-calories="20" data-type="🍽️">
-    🍽️ Food (20)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍽️ Food" data-calories="10" data-type="🍽️">
-    🍽️ Food (10)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍽️ Food" data-calories="5" data-type="🍽️">
-    🍽️ Food (5)
-  </button>
-  <hr>
-  <h3>Fruits</h3>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍌 Banana" data-calories="100" data-type="🍌">
-    🍌 Banana (100)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍑 Peach" data-calories="70" data-type="🍑">
-    🍑 Peach (70)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥑 Avocado" data-calories="250" data-type="🥑">
-    🥑 Avocado (250)
-  </button>
-  <hr>
-  <h3>Dairy/Eggs</h3>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥚 Eggs" data-calories="70" data-type="🥚">
-    🥚 Eggs (70)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥣 Yogurt" data-calories="80" data-type="🥣">
-    🥣 Yogurt (80)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥛 Milk" data-calories="150" data-type="🥛">
-    🥛 Milk (150)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🧀 Sliced Cheese" data-calories="80" data-type="🧀">
-    🧀 Sliced Cheese (80)
-  </button>
-  <hr>
-  <h3>Grains</h3>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍞 Whole Wheat Bread" data-calories="110" data-type="🍞">
-    🍞 Whole (110)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍞 Bread" data-calories="70" data-type="🍞">
-    🍞 Bread (70)
-  </button>
- 
-  
-  <hr>
- 
-  <h3>Snacks</h3><button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥜 Peanut Butter" data-calories="100" data-type="🥜">
-    🥜 Peanut Butter (100)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍦 Popsicle" data-calories="40" data-type="🍦">
-    🍦 Popsicle (40)
-  </button> 
- 
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🌶️ Sauce" data-calories="50" data-type="🌶️">
-    🌶️ Sauce (50)
-  </button>
- 
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍦 Oreo Blazzard" data-calories="340" data-type="🍦">
-    🍦 Oreo Blazzard (340)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍫 Andes Mints" data-calories="25" data-type="🍫">
-    🍫 Andes Mints (25)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🌋 Hersheys Kiss" data-calories="15" data-type="🌋">
-    🌋 Hersheys Kiss (15)
-  </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍽️ Food" data-calories="20"
+        data-type="🍽️">
+        🍽️ Food (20)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍽️ Food" data-calories="10"
+        data-type="🍽️">
+        🍽️ Food (10)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍽️ Food" data-calories="5"
+        data-type="🍽️">
+        🍽️ Food (5)
+      </button>
+      <hr>
+      <h3>Fruits</h3>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍌 Banana" data-calories="100"
+        data-type="🍌">
+        🍌 Banana (100)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍑 Peach" data-calories="70"
+        data-type="🍑">
+        🍑 Peach (70)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥑 Avocado" data-calories="250"
+        data-type="🥑">
+        🥑 Avocado (250)
+      </button>
+      <hr>
+      <h3>Dairy/Eggs</h3>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥚 Eggs" data-calories="70"
+        data-type="🥚">
+        🥚 Eggs (70)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥣 Yogurt" data-calories="80"
+        data-type="🥣">
+        🥣 Yogurt (80)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥛 Milk" data-calories="150"
+        data-type="🥛">
+        🥛 Milk (150)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🧀 Sliced Cheese"
+        data-calories="80" data-type="🧀">
+        🧀 Sliced Cheese (80)
+      </button>
+      <hr>
+      <h3>Grains</h3>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍞 Whole Wheat Bread"
+        data-calories="110" data-type="🍞">
+        🍞 Whole (110)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍞 Bread" data-calories="70"
+        data-type="🍞">
+        🍞 Bread (70)
+      </button>
 
-  <hr>
-  <h3>Chick-fil-A</h3>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍔 Chick-fil-A Deluxe Sandwich" data-calories="490" data-type="🍔">
-    🍔 Deluxe (490)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍔 Chick-fil-A Sandwich" data-calories="440" data-type="🍔">
-    🍔 Sandwich (440)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍞 Chick-fil-A Biscuit" data-calories="460" data-type="🍞">
-    🍞 Biscuit (460)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍟 Chick-fil-A Fries" data-calories="440" data-type="🍟">
-    🍟 Fries (440)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍦 Chick-fil-A Shake" data-calories="560" data-type="🍦">
-    🍦 Shake (560)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍋 Chick-fil-A Lemon Shake" data-calories="320" data-type="🍋">
-    🍋 Lemon Shake (320)
-  </button>
-  <hr>
-  <h3>McDonald's</h3>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍔 Big Mac" data-calories="550" data-type="🍔">
-    🍔 Big Mac (550)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍟 McDonald's Fries" data-calories="440" data-type="🍟">
-    🍟 Fries (440)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍔 Quarter Pounder" data-calories="520" data-type="🍔">
-    🍔 Quarter Pounder (520)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍗 10 Nuggets" data-calories="410" data-type="🍗">
-    🍗 10 Nuggets (410)
-  </button>
-  <hr>
-  <h3>Dunkin</h3>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍩 Dunkin Donut" data-calories="240" data-type="🍩">
-    🍩 Donut (240)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍞 Dunkin Biscuit" data-calories="470" data-type="🍞">
-    🍞 Dunkin Biscuit (470)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🌯 Wake Up Wrap" data-calories="210" data-type="🌯">
-    🌯 Wrap (210)
-  </button>
-  <hr>
-  <h3>Salsarita's</h3>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🌯 Quesadillas" data-calories="590" data-type="🌯">
-    🌯 Quesadillas (590)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍚 Bowl" data-calories="800" data-type="🍚">
-    🍚 Bowl (800)
-  </button>
-  <hr>
-  <h3>Taco Bell</h3>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🌯 TB Quesadillas" data-calories="510" data-type="🌯">
-    🌯 Quesadillas (510)
-  </button>
-  <hr>
-  
-  <h3>Beverages</h3>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥤 Fast-Food Soda" data-calories="140" data-type="🥤">
-    🥤 Fast-Food Soda (140)
-  </button>
-  
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥤 Bottle Soda" data-calories="230" data-type="🥤">
-    🥤 Bottle Soda (230)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍺 Corona" data-calories="600" data-type="🍺">
-    🍺 Corona (600)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍺 Corona" data-calories="100" data-type="🍺">
-    🍺 Corona (100)
-  </button>
-  <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥤 Gatorade" data-calories="80" data-type="🥤">
-    🥤 Gatorade (80)
-  </button>
-  <hr>
-  <h3>Calories Burnt</h3>
-  <button type="button" class="btn btn-dark add-calorie-button m-1" data-name="🔥 Cals Burnt" data-calories="-500" data-type="🔥">
-    🔥 Cals Burnt (500)
-  </button>
-  <button type="button" class="btn btn-dark add-calorie-button m-1" data-name="🔥 Cals Burnt" data-calories="-200" data-type="🔥">
-    🔥 Cals Burnt (200)
-  </button>
-  <button type="button" class="btn btn-dark add-calorie-button m-1" data-name="🔥 Cals Burnt" data-calories="-100" data-type="🔥">
-    🔥 Cals Burnt (100)
-  </button>
-  <button type="button" class="btn btn-dark add-calorie-button m-1" data-name="🔥 Cals Burnt" data-calories="-50" data-type="🔥">
-    🔥 Cals Burnt (50)
-  </button>
-  <button type="button" class="btn btn-dark add-calorie-button m-1" data-name="🔥 Cals Burnt" data-calories="-20" data-type="🔥">
-    🔥 Cals Burnt (20)
-  </button>
-  <button type="button" class="btn btn-dark add-calorie-button m-1" data-name="🔥 Cals Burnt" data-calories="-10" data-type="🔥">
-    🔥 Cals Burnt (10)
-  </button>
- 
-</div>
+
+      <hr>
+
+      <h3>Other Foods</h3><button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥜 Peanut Butter"
+        data-calories="100" data-type="🥜">
+        🥜 Peanut Butter (100)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥪 Ham & Cheese" data-calories="350"
+      data-type="🥪">
+      🥪 Ham and Cheese (350)
+    </button>
+
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍦 Popsicle" data-calories="40"
+        data-type="🍦">
+        🍦 Popsicle (40)
+      </button>
+
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🌶️ Sauce" data-calories="50"
+        data-type="🌶️">
+        🌶️ Sauce (50)
+      </button>
+
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍦 Oreo Blazzard"
+        data-calories="340" data-type="🍦">
+        🍦 Oreo Blazzard (340)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍫 Andes Mints" data-calories="25"
+        data-type="🍫">
+        🍫 Andes Mints (25)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🌋 Hersheys Kiss"
+        data-calories="15" data-type="🌋">
+        🌋 Hersheys Kiss (15)
+      </button>
+
+      <hr>
+      <h3>Chick-fil-A</h3>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍔 Chick-fil-A Deluxe Sandwich"
+        data-calories="490" data-type="🍔">
+        🍔 Deluxe (490)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍔 Chick-fil-A Sandwich"
+        data-calories="440" data-type="🍔">
+        🍔 Sandwich (440)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍞 Chick-fil-A Biscuit"
+        data-calories="460" data-type="🍞">
+        🍞 Biscuit (460)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍟 Chick-fil-A Fries"
+        data-calories="440" data-type="🍟">
+        🍟 Fries (440)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍦 Chick-fil-A Shake"
+        data-calories="560" data-type="🍦">
+        🍦 Shake (560)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍋 Chick-fil-A Lemon Shake"
+        data-calories="320" data-type="🍋">
+        🍋 Lemon Shake (320)
+      </button>
+      <hr>
+      <h3>McDonald's</h3>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍔 Big Mac" data-calories="550"
+        data-type="🍔">
+        🍔 Big Mac (550)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍟 McDonald's Fries"
+        data-calories="440" data-type="🍟">
+        🍟 Fries (440)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍔 Quarter Pounder"
+        data-calories="520" data-type="🍔">
+        🍔 Quarter Pounder (520)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍗 10 Nuggets" data-calories="410"
+        data-type="🍗">
+        🍗 10 Nuggets (410)
+      </button>
+      <hr>
+      <h3>Dunkin</h3>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍩 Dunkin Donut"
+        data-calories="240" data-type="🍩">
+        🍩 Donut (240)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍞 Dunkin Biscuit"
+        data-calories="470" data-type="🍞">
+        🍞 Dunkin Biscuit (470)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🌯 Wake Up Wrap"
+        data-calories="210" data-type="🌯">
+        🌯 Wrap (210)
+      </button>
+      <hr>
+      <h3>Salsarita's</h3>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🌯 Quesadillas"
+        data-calories="590" data-type="🌯">
+        🌯 Quesadillas (590)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍚 Bowl" data-calories="800"
+        data-type="🍚">
+        🍚 Bowl (800)
+      </button>
+      <hr>
+      <h3>Taco Bell</h3>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🌯 TB Quesadillas"
+        data-calories="510" data-type="🌯">
+        🌯 Quesadillas (510)
+      </button>
+      <hr>
+
+      <h3>Beverages</h3>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥤 Fast-Food Soda"
+        data-calories="140" data-type="🥤">
+        🥤 Fast-Food Soda (140)
+      </button>
+
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥤 Bottle Soda"
+        data-calories="230" data-type="🥤">
+        🥤 Bottle Soda (230)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍺 Corona" data-calories="600"
+        data-type="🍺">
+        🍺 Corona (600)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🍺 Corona" data-calories="100"
+        data-type="🍺">
+        🍺 Corona (100)
+      </button>
+      <button type="button" class="btn btn-primary add-calorie-button m-1" data-name="🥤 Gatorade" data-calories="80"
+        data-type="🥤">
+        🥤 Gatorade (80)
+      </button>
+      <hr>
+      <h3>Calories Burnt</h3>
+      <button type="button" class="btn btn-dark add-calorie-button m-1" data-name="🔥 Cals Burnt" data-calories="-500"
+        data-type="🔥">
+        🔥 Cals Burnt (500)
+      </button>
+      <button type="button" class="btn btn-dark add-calorie-button m-1" data-name="🔥 Cals Burnt" data-calories="-200"
+        data-type="🔥">
+        🔥 Cals Burnt (200)
+      </button>
+      <button type="button" class="btn btn-dark add-calorie-button m-1" data-name="🔥 Cals Burnt" data-calories="-100"
+        data-type="🔥">
+        🔥 Cals Burnt (100)
+      </button>
+      <button type="button" class="btn btn-dark add-calorie-button m-1" data-name="🔥 Cals Burnt" data-calories="-50"
+        data-type="🔥">
+        🔥 Cals Burnt (50)
+      </button>
+      <button type="button" class="btn btn-dark add-calorie-button m-1" data-name="🔥 Cals Burnt" data-calories="-20"
+        data-type="🔥">
+        🔥 Cals Burnt (20)
+      </button>
+      <button type="button" class="btn btn-dark add-calorie-button m-1" data-name="🔥 Cals Burnt" data-calories="-10"
+        data-type="🔥">
+        🔥 Cals Burnt (10)
+      </button>
 
     </div>
 
-    <script src="js/nav.js"></script>
-    <script src="js/cal.js"></script>
+  </div>
+
+  <script src="js/nav.js"></script>
+  <script src="js/cal.js"></script>
 </body>
 
 </html>
