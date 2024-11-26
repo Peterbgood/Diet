@@ -12,6 +12,14 @@ h1 {
     color: #000
 }
 
+
+.btn-primary {
+background: #999 !important;
+    color: #000 !important;
+
+    
+}
+
 #food-list span:first-child {
   text-transform: capitalize;
 }
