@@ -27,7 +27,7 @@ h3 {
 @media (min-width: 390px) {
   .add-calorie-button {
     width: calc(45% - 0rem);
-      font-size: .8rem
+    
 
    
   }
