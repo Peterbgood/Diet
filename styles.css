@@ -12,6 +12,13 @@ h1 {
     color: #000
 }
 
+hr {
+  width: 50%;
+  margin: 0 auto;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
 
 .btn-primary {
 background: #f0f0f0 !important;
