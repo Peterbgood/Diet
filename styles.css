@@ -13,13 +13,11 @@ h1 {
 }
 
 hr {
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  height: 2px;
-  background-image: linear-gradient(to right, #ccc 50%, transparent 50%);
-  background-size: 20px 2px;
+  width: 50%;
+  margin: 20px auto;
+  border: none;
+  border-top: 5px solid #000;
 }
-
 
 .btn-primary {
 background: #f0f0f0 !important;
