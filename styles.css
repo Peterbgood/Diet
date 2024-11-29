@@ -12,11 +12,18 @@ h1 {
     color: #000
 }
 
-hr {
-  width: 70%;
-  margin: 20px auto;
-  border: none;
-  border-top: 2px solid #000;
+hr.animated {
+  border-top: 1px solid #ccc;
+  animation: animate 2s infinite;
+}
+
+@keyframes animate {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 
