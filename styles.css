@@ -12,7 +12,7 @@ h1 {
     color: #000
 }
 
-hr.wavy {
+hr {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   height: 2px;
