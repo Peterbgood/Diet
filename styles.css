@@ -45,10 +45,7 @@ h3 {
 }
 
 hr {
-  width: 50%;
-  margin: 20px auto;
-  border: none;
-  border-top: 5px solid #000;
+ display: none;
 }
 
 .btn-primary {
