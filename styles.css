@@ -12,18 +12,12 @@ h1 {
     color: #000
 }
 
-hr.animated {
+hr.wavy {
   border-top: 1px solid #ccc;
-  animation: animate 2s infinite;
-}
-
-@keyframes animate {
-  0% {
-    width: 0;
-  }
-  100% {
-    width: 100%;
-  }
+  border-bottom: 1px solid #ccc;
+  height: 2px;
+  background-image: linear-gradient(to right, #ccc 50%, transparent 50%);
+  background-size: 20px 2px;
 }
 
 
