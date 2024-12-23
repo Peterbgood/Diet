@@ -257,6 +257,10 @@ function updateFoodList() {
 }
 
 
+
+
+
+
 function renderCaloriesChart() {
     const ctx = document.getElementById('caloriesChart').getContext('2d');
     let totalCaloriesUsed = data.totalCaloriesUsed;
@@ -270,15 +274,15 @@ function renderCaloriesChart() {
     const chartColors = {
       used: {
         backgroundColor: '#007bff',
-        borderColor: '#000'
+        borderColor: '#fff'
       },
       remaining: {
         backgroundColor: '#6c757d',
-        borderColor: '#000'
+        borderColor: '#fff'
       },
       overLimit: {
         backgroundColor: 'red',
-        borderColor: '#000'
+        borderColor: '#fff'
       }
     };
   
@@ -303,7 +307,8 @@ function renderCaloriesChart() {
             data: [totalCaloriesUsed, remainingCalories],
             backgroundColor: chartColorsUsed.map(c => c.backgroundColor),
             borderColor: chartColorsUsed.map(c => c.borderColor),
-            borderWidth: 2
+            borderWidth: 2,
+            cutout: '50%' // Add this line to create a hollow center
           }]
         },
         options: {
@@ -329,9 +334,12 @@ function renderCaloriesChart() {
       chart.data.datasets[0].data[1] = remainingCalories;
       chart.data.datasets[0].backgroundColor = chartColorsUsed.map(c => c.backgroundColor);
       chart.data.datasets[0].borderColor = chartColorsUsed.map(c => c.borderColor);
+      chart.data.datasets[0].cutout = '50%'; // Update the cutout property
       chart.update();
     }
-  }
+}
+
+
 
 // Function to display current date
 function displayCurrentDate() {
