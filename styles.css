@@ -12,10 +12,6 @@ h1 {
     color: #000
 }
 
-.calorie-value {
-  text-align: left;
-}
-
 .arrowbuttons .btn-primary {
     
     background-color: #0d6efd  !important;
@@ -123,6 +119,45 @@ p {
     background-color: #fff;
     border-top: 1px solid #999;
 }
+
+.btn-danger {
+    
+    float: right
+      
+  }
+
+.list-group-item > span:nth-child(2) {
+    margin-left: -850px !important;
+}
+
+@media only screen and (max-width: 1200px) {
+    .list-group-item > span:nth-child(2) {
+      margin-left: -400px !important;
+    }
+  }
+
+
+
+@media only screen and (max-width: 991px) {
+    .list-group-item > span:nth-child(2) {
+      margin-left: -400px !important;
+    }
+  }
+
+
+
+@media only screen and (max-width: 768px) {
+    .list-group-item > span:nth-child(2) {
+      margin-left: -200px !important;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .list-group-item > span:nth-child(2) {
+      margin-left: -150px !important;
+    }
+  }
+
 
 .nav-item {
     margin: 0 25px;
