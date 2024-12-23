@@ -12,6 +12,10 @@ h1 {
     color: #000
 }
 
+.calorie-value {
+  text-align: left;
+}
+
 .arrowbuttons .btn-primary {
     
     background-color: #0d6efd  !important;
