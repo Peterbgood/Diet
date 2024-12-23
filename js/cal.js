@@ -86,6 +86,14 @@ function updateTotalCalories() {
     };
 }
 
+
+
+
+
+
+
+
+
 // Function to update food list
 // Function to update food list
 function updateFoodList() {
@@ -133,9 +141,8 @@ function updateFoodList() {
                 }
             });
   
-           const caloriesSpan = document.createElement('span');
-caloriesSpan.textContent = `(${entry.calories})`;
-caloriesSpan.classList.add('calorie-value');
+            const caloriesSpan = document.createElement('span');
+caloriesSpan.textContent = `${entry.calories}`;
   
             if (entry.calories < 0) {
                 caloriesSpan.style.color = '#964B00';
@@ -183,9 +190,8 @@ caloriesSpan.classList.add('calorie-value');
                     saveData();
                 }
             });
-  
-         const caloriesSpan = document.createElement('span');
-caloriesSpan.textContent = `${entry.calories}`;
+            const caloriesSpan = document.createElement('span');
+            caloriesSpan.textContent = `${entry.calories}`;
   
             if (entry.calories < 0) {
                 caloriesSpan.style.color = '#964B00';
@@ -235,7 +241,7 @@ caloriesSpan.textContent = `${entry.calories}`;
             });
   
             const caloriesSpan = document.createElement('span');
-            caloriesSpan.textContent = `${entry.calories} calories`;
+caloriesSpan.textContent = `${entry.calories}`;
             caloriesSpan.style.color = '#0d6efd';
   
             const deleteButton = document.createElement('button');
@@ -257,6 +263,13 @@ caloriesSpan.textContent = `${entry.calories}`;
         });
     }
   }
+
+
+
+
+
+
+  
 
 
 
