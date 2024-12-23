@@ -5,7 +5,7 @@ nav.innerHTML = `
        <ul class="navbar-nav justify-content-center">
         <li class="nav-item"> <a class="nav-link" href="index.html">Log</li>
         <li class="nav-item"> <a class="nav-link" href="week.html">Week</a></li>
-        <li class="nav-item"> <a class="nav-link" href="yearly.html">Summary</i></a></li>
+        <li class="nav-item"> <a class="nav-link" href="yearly.html">Summary</a></li>
         <li class="nav-item"> <a class="nav-link" href="weight.html">Weight</li>
 		
        
