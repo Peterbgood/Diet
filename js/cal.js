@@ -183,8 +183,8 @@ function updateFoodList() {
                 }
             });
   
-            const caloriesSpan = document.createElement('span');
-            caloriesSpan.textContent = `${entry.calories} calories`;
+         const caloriesSpan = document.createElement('span');
+caloriesSpan.textContent = `${entry.calories}`;
   
             if (entry.calories < 0) {
                 caloriesSpan.style.color = '#964B00';
