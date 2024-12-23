@@ -30,7 +30,7 @@ function saveData() {
             color = 'color: black;';
             break;
     }
-    const entry = `<li class="list-group-item d-flex justify-content-between align-items-center" style="${color}"> ${formatDate(date)} (${dayOfWeek}): ${weight.toFixed(1)} lbs <button class="btn btn-danger btn-sm delete-btn" onclick="deleteEntry(this)">Delete</button></li>`;
+     const entry = `<li class="list-group-item d-flex justify-content-between align-items-center" style="${color}"> ${formatDate(date)} (${dayOfWeek}): ${weight.toFixed(1)} lbs <button class="btn btn-danger btn-sm delete-btn" onclick="deleteEntry(this)"><i class="bi bi-trash"></i></button></li>`;
     const storedData = localStorage.getItem("weightData2");
     if (storedData === null) {
         localStorage.setItem("weightData2", entry);
