@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <li class="list-group-item d-flex justify-content-between align-items-center">
           ${daysOfWeek[index]}: ${entry} cals 
           <span style="color: ${color}">(${Math.abs(caloriesSaved)} cals)</span>
-          <button class="delete-btn btn btn-danger btn-sm" data-index="${index}">Delete</button>
+          <button class="delete-btn btn btn-danger btn-sm" data-index="${index}"><i class="bi bi-trash"></i></button>
         </li>
       `;
     }).join('');
@@ -241,5 +241,5 @@ document.addEventListener('DOMContentLoaded', () => {
   updateWeek();
   updateTotalSaved();
 
-  deleteBtn.textContent = 'Delete';
+  deleteBtn.textContent = 'Reset';
 });
