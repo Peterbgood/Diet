@@ -1,17 +1,11 @@
 /* Global Styles */
 
-body {
+body, html {
     font-family: "Open Sans", serif;
     font-optical-sizing: auto;
     font-weight: 600;
     color: #000 !important;
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-}
-
-html, body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -233,4 +227,5 @@ p {
 
 .container {
     padding-bottom: 60px; /* Add some space at the bottom for the nav */
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* Ensure consistent background */
 }
