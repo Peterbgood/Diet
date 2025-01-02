@@ -1,56 +1,63 @@
 /* Global Styles */
 
 body, html {
-    font-family: "Open Sans", serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    color: #000 !important;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    color: #333;
+   
     margin: 0;
     padding: 0;
     height: 100%;
 }
 
 h1 {
-    color: #333;
+    color: #222;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
+    
+    letter-spacing: 1px;
 }
 
 .arrowbuttons .btn-primary {
-    background-color: #007bff !important;
-    color: #fff !important;
-    border: none;
-    border-radius: 50px;
+    background-color: transparent !important;
+    color: #8B4513 !important; /* SaddleBrown */
+    border: 2px solid #8B4513 !important;
+    border-radius: 20px;
     padding: 10px 20px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .arrowbuttons .btn-primary:hover {
-    background-color: #0056b3 !important;
+    background-color: #8B4513 !important;
+    color: #fff !important;
+    transform: translateY(-2px);
 }
 
 h3 {
     text-align: center;
     margin-bottom: 15px;
     margin-top: 15px;
-    color: #555;
+    color: #444;
+   
+    letter-spacing: 1px;
 }
 
 .add-calorie-button {
-    font-size: 0.875rem; /* Adjust the font size as needed */
+    font-size: 0.875rem;
     width: 100%;
     margin-bottom: 1rem;
-    background-color: #007bff !important;
-    color: #fff !important;
-    border: none;
-    border-radius: 50px;
+    background-color: transparent !important;
+    color: #6B8E23 !important; /* OliveDrab */
+    border: 2px solid #6B8E23 !important;
+    border-radius: 20px;
     padding: 10px 20px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .add-calorie-button:hover {
-    background-color: #0056b3 !important;
+    background-color: #6B8E23 !important;
+    color: #fff !important;
+    transform: translateY(-2px);
 }
 
 @media (min-width: 390px) {
@@ -68,29 +75,33 @@ hr {
 }
 
 .btn-primary {
-    background: #007bff !important;
-    color: #fff !important;
-    border: none;
-    border-radius: 50px;
+    background: transparent !important;
+    color: #D2691E !important; /* Chocolate */
+    border: 2px solid #D2691E !important;
+    border-radius: 20px;
     padding: 10px 20px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .btn-primary:hover {
-    background-color: #0056b3 !important;
+    background-color: #D2691E !important;
+    color: #fff !important;
+    transform: translateY(-2px);
 }
 
 .btn-dark {
-    background: #ff6347 !important; /* Tomato color for calories burnt */
-    color: #fff !important;
-    border: none;
-    border-radius: 50px;
+    background: transparent !important;
+    color: #8B0000 !important; /* DarkRed */
+    border: 2px solid #8B0000 !important;
+    border-radius: 20px;
     padding: 10px 20px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .btn-dark:hover {
-    background-color: #e5533d !important;
+    background-color: #8B0000 !important;
+    color: #fff !important;
+    transform: translateY(-2px);
 }
 
 #food-list span:first-child {
@@ -114,20 +125,20 @@ p {
 
 #column1, #column2, #column3 {
     font-size: 1.2rem;
-    color: #999;
+    color: #666;
 }
 
 .nav-link {
     font-size: 1.2rem;
     margin: 0 0.7rem;
-    color: #999;
+    color: #666;
 }
 
 /* Navigation */
 
 .navbar {
     background-color: #fff;
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid #ddd;
     padding: 0;
 }
 
@@ -147,7 +158,7 @@ p {
     text-align: center;
     z-index: 10;
     background-color: #fff;
-    border-top: 1px solid #999;
+    border-top: 1px solid #ddd;
     margin: 0 !important;
 }
 
@@ -157,6 +168,11 @@ p {
 
 .list-group-item {
     position: relative;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    padding: 10px;
 }
 
 .list-group-item > span:nth-child(2) {
@@ -183,10 +199,11 @@ p {
 }
 
 .week-container {
-    border: 1px solid #999;
+    border: 1px solid #ddd;
     padding: 10px;
     margin-bottom: 10px;
     background-color: #fff;
+    border-radius: 8px;
 }
 
 .delete-button {
@@ -210,9 +227,9 @@ p {
     display: inline-block;
     width: 100%;
     padding: 5px;
-    border: 1px solid #999;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .selected {
@@ -228,5 +245,5 @@ p {
 
 .container {
     padding-bottom: 60px; /* Add some space at the bottom for the nav */
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* Ensure consistent background */
+    
 }
