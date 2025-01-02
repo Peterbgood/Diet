@@ -78,6 +78,19 @@ hr {
     background-color: #0056b3 !important;
 }
 
+.btn-dark {
+    background: #ff6347 !important; /* Tomato color for calories burnt */
+    color: #fff !important;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-dark:hover {
+    background-color: #e5533d !important;
+}
+
 #food-list span:first-child {
     text-transform: capitalize;
 }
