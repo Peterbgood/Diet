@@ -8,6 +8,13 @@ body {
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
     margin: 0;
     padding: 0;
+    height: 100%;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
 h1 {
@@ -146,6 +153,7 @@ p {
     z-index: 10;
     background-color: #fff;
     border-top: 1px solid #999;
+    margin: 0 !important;
 }
 
 .btn-danger {
