@@ -5,66 +5,85 @@ body {
     font-optical-sizing: auto;
     font-weight: 600;
     color: #000 !important;
-    background: #fff !important;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
-    color: #000
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
 }
 
 .arrowbuttons .btn-primary {
-    
-    background-color: #0d6efd  !important;
+    background-color: #007bff !important;
     color: #fff !important;
-    
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.arrowbuttons .btn-primary:hover {
+    background-color: #0056b3 !important;
 }
 
 h3 {
-
     text-align: center;
     margin-bottom: 15px;
     margin-top: 15px;
+    color: #555;
 }
 
 .add-calorie-button {
-  width: 100%;
-  margin-bottom: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: #007bff !important;
+    color: #fff !important;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.add-calorie-button:hover {
+    background-color: #0056b3 !important;
 }
 
 @media (min-width: 390px) {
-  .add-calorie-button {
-    width: calc(47% - 0rem);
-    
-
-   
-  }
+    .add-calorie-button {
+        width: calc(47% - 0rem);
+    }
 }
 
 .btn-cal {
-text-align: center;
-
+    text-align: center;
 }
 
 hr {
- display: none;
+    display: none;
 }
 
 .btn-primary {
-background: #f0f0f0 !important;
-    color: #000 !important;
-    border-color: #f0f0f0 !important;
+    background: #007bff !important;
+    color: #fff !important;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
 
-    
+.btn-primary:hover {
+    background-color: #0056b3 !important;
 }
 
 #food-list span:first-child {
-  text-transform: capitalize;
+    text-transform: capitalize;
 }
 
 .list-group-item .form-control {
-
-border: none;
-
+    border: none;
 }
 
 p {
@@ -73,11 +92,8 @@ p {
 }
 
 .delete-btn {
-
     color: #fff !important;
 }
-
-
 
 /* Typography */
 
@@ -91,7 +107,6 @@ p {
     margin: 0 0.7rem;
     color: #999;
 }
-
 
 /* Navigation */
 
@@ -121,33 +136,27 @@ p {
 }
 
 .btn-danger {
-    
-    float: right
-      
-  }
+    float: right;
+}
 
-  .list-group-item {
+.list-group-item {
     position: relative;
-  }
-  
-  .list-group-item > span:nth-child(2) {
+}
+
+.list-group-item > span:nth-child(2) {
     position: absolute;
     left: 47%;
-  }
-
+}
 
 .nav-item {
     margin: 0 25px;
 }
 
-
 /* Buttons */
-
 
 /* Components */
 
 #food-list .form-control {
-    
     padding: 5px;
     width: fit-content;
     display: inline;
@@ -155,7 +164,6 @@ p {
 
 #food-list .list-group-item {
     align-items: center;
-    
 }
 
 .week-container {
@@ -199,9 +207,6 @@ p {
 .add-calorie-button:active {
     animation: pulse 0.5s;
 }
-
-
-
 
 /* Layout */
 
