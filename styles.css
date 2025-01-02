@@ -38,6 +38,7 @@ h3 {
 }
 
 .add-calorie-button {
+    font-size: 0.875rem; /* Adjust the font size as needed */
     width: 100%;
     margin-bottom: 1rem;
     background-color: #007bff !important;
