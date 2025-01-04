@@ -30,7 +30,7 @@ h1 {
 .arrowbuttons .btn-primary:hover {
     background-color: #8B4513 !important;
     color: #fff !important;
-    transform: translateY(-2px);
+    
 }
 
 h3 {
@@ -79,14 +79,14 @@ hr {
     color: #007bff !important; /* Chocolate */
     border: 2px solid #007bff !important;
     border-radius: 20px;
-    padding: 10px 20px;
+   
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .btn-primary:hover {
     background-color: #007bff !important;
     color: #fff !important;
-    transform: translateY(-2px);
+    
 }
 
 .btn-dark {
