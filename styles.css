@@ -76,30 +76,30 @@ hr {
 
 .btn-primary {
     background: transparent !important;
-    color: #D2691E !important; /* Chocolate */
-    border: 2px solid #D2691E !important;
+    color: #007bff !important; /* Chocolate */
+    border: 2px solid #007bff !important;
     border-radius: 20px;
     padding: 10px 20px;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .btn-primary:hover {
-    background-color: #D2691E !important;
+    background-color: #007bff !important;
     color: #fff !important;
     transform: translateY(-2px);
 }
 
 .btn-dark {
     background: transparent !important;
-    color: #8B0000 !important; /* DarkRed */
-    border: 2px solid #8B0000 !important;
+    color: #000 !important; /* DarkRed */
+    border: 2px solid #000 !important;
     border-radius: 20px;
     padding: 10px 20px;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .btn-dark:hover {
-    background-color: #8B0000 !important;
+    background-color: #000 !important;
     color: #fff !important;
     transform: translateY(-2px);
 }
@@ -168,10 +168,7 @@ p {
 
 .list-group-item {
     position: relative;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 10px;
+   
     padding: 10px;
 }
 
