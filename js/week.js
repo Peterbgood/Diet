@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const caloriesSaved = dailyAllowed - entry;
       const color = caloriesSaved >= 0 ? '#007bff' : 'red';
       return `
-        <li class="list-group-item d-flex justify-content-between align-items-center">
+        <li class="list-group-item d-flex justify-content-between align-items-center" data-index="${index}">
           ${daysOfWeek[index]}: ${entry} cals 
           <span style="color: ${color}">(${Math.abs(caloriesSaved)} cals)</span>
           <button class="delete-btn btn btn-danger btn-sm" data-index="${index}"><i class="bi bi-trash"></i></button>
@@ -105,25 +105,35 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     }).join('');
     calorieList.innerHTML = listHtml;
-    const deleteBtns = document.querySelectorAll('.delete-btn');
-    deleteBtns.forEach((btn) => {
-      btn.addEventListener('click', deleteEntry);
+  
+    // Get all delete buttons
+    const deleteButtons = calorieList.querySelectorAll('.delete-btn');
+  
+    // Add event listener to each delete button
+    deleteButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const index = parseInt(button.dataset.index);
+        deleteEntry(index);
+      });
     });
   }
 
-  function deleteEntry(event) {
-    const index = event.target.dataset.index;
+  function deleteEntry(index) {
     const deletedAmount = weeks[currentWeekIndex].splice(index, 1)[0];
     const totalAllowed = 11200;
     const totalConsumedCalories = weeks[currentWeekIndex].reduce((a, b) => a + b, 0);
     calories = totalAllowed - totalConsumedCalories;
     totalConsumed = totalConsumedCalories;
+    updateUI();
+    saveToLocalStorage();
+  }
+
+  function updateUI() {
     updateWeek();
     updateTotal();
     updateWeeklyTotal();
     updateTotalSaved();
     updatePieChart();
-    saveToLocalStorage();
   }
 
   function updateTotal() {
