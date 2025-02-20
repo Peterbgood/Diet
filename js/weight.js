@@ -1,126 +1,132 @@
-// Define functions and variables
-let chart; // Define chart in the global scope
+// Global chart variable
+let chart;
+
+// Utility functions
+const formatDate = date => `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+const getDayOfWeek = date => ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][date.getDay()];
+const getWeekNumber = date => {
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+    const yearStart = new Date(d.getFullYear(), 0, 1);
+    return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+};
 
 function saveData() {
     const date = new Date(document.getElementById("date").value + "T00:00:00");
     const weight = parseFloat(document.getElementById("weight").value);
-    const log = document.getElementById("log");
-    const dayOfWeek = getDayOfWeek(date);
-    let color;
-    switch (dayOfWeek) {
-        case "Sunday":
-            color = 'color: black;';
-            break;
-        case "Monday":
-            color = 'color: #000;';
-            break;
-        case "Tuesday":
-            color = 'color: #000;';
-            break;
-        case "Wednesday":
-            color = 'color: #000;';
-            break;
-        case "Thursday":
-            color = 'color: #000;';
-            break;
-        case "Friday":
-            color = 'color: #007bff;';
-            break;
-        case "Saturday":
-            color = 'color: black;';
-            break;
-    }
-     const entry = `<li class="list-group-item d-flex justify-content-between align-items-center" style="${color}"> ${formatDate(date)} (${dayOfWeek}): ${weight.toFixed(1)} lbs <button class="btn btn-danger btn-sm delete-btn" onclick="deleteEntry(this)"><i class="bi bi-trash"></i></button></li>`;
-    const storedData = localStorage.getItem("weightData2");
-    if (storedData === null) {
-        localStorage.setItem("weightData2", entry);
-    } else {
-        localStorage.setItem("weightData2", entry + storedData);
-    }
-    log.insertAdjacentHTML("afterbegin", entry);
+    
+    const entry = {
+        date: date.toISOString(),
+        weight: weight,
+        dayOfWeek: getDayOfWeek(date),
+        weekNumber: getWeekNumber(date)
+    };
+
+    let storedData = getStoredData();
+    storedData.unshift(entry); // Add to beginning
+    localStorage.setItem("weightData2", JSON.stringify(storedData));
+    
+    renderLog();
     updateChart();
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const storedData = localStorage.getItem("weightData2");
-    if (storedData) {
-        document.getElementById("log").innerHTML = storedData;
-    }
-    updateChart();
-});
-
-const now = new Date();
-const year = now.getFullYear();
-const month = now.getMonth() + 1;
-const day = now.getDate();
-document.getElementById("date").value = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-
-function deleteEntry(btn) {
-    const entry = btn.parentNode;
-    entry.remove();
-    const storedData = localStorage.getItem("weightData2");
-    const newData = storedData.replace(entry.outerHTML, "");
-    localStorage.setItem("weightData2", newData);
+function deleteEntry(index) {
+    let storedData = getStoredData();
+    storedData.splice(index, 1);
+    localStorage.setItem("weightData2", JSON.stringify(storedData));
+    renderLog();
     updateChart();
 }
 
 function resetData() {
     localStorage.removeItem("weightData2");
-    document.getElementById("log").innerHTML = "";
+    renderLog();
     updateChart();
 }
 
-function formatDate(date) {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    return `${month}/${day}/${year}`;
+// Helper function to safely get stored data
+function getStoredData() {
+    const rawData = localStorage.getItem("weightData2");
+    if (!rawData) return [];
+    
+    try {
+        const parsed = JSON.parse(rawData);
+        // If it's an array, return it
+        if (Array.isArray(parsed)) return parsed;
+        // If it's not an array, clear it and return empty
+        localStorage.setItem("weightData2", "[]");
+        return [];
+    } catch (e) {
+        // If parsing fails (old HTML data), clear it and return empty
+        console.warn("Invalid data found in localStorage, resetting to empty array.");
+        localStorage.setItem("weightData2", "[]");
+        return [];
+    }
 }
 
-function getDayOfWeek(date) {
-    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    return days[date.getDay()];
+function renderLog() {
+    const log = document.getElementById("log");
+    log.innerHTML = "";
+    
+    const storedData = getStoredData();
+    if (!storedData.length) return;
+
+    // Sort by date (newest first)
+    storedData.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    // Group by week
+    let currentWeek = null;
+    storedData.forEach((entry, index) => {
+        const weekNum = entry.weekNumber;
+        if (currentWeek !== weekNum) {
+            currentWeek = weekNum;
+            const weekDivider = document.createElement("li");
+            weekDivider.className = "list-group-item week-divider";
+            weekDivider.textContent = `Week ${weekNum}`;
+            log.appendChild(weekDivider);
+        }
+
+        const li = document.createElement("li");
+        li.className = "list-group-item d-flex justify-content-between align-items-center";
+        li.innerHTML = `
+            ${formatDate(new Date(entry.date))} (${entry.dayOfWeek}): ${entry.weight.toFixed(1)} lbs
+            <button class="btn btn-danger btn-sm delete-btn" onclick="deleteEntry(${index})">
+                <i class="bi bi-trash"></i>
+            </button>
+        `;
+        if (entry.dayOfWeek === "Friday") {
+            li.classList.add("friday-entry");
+        }
+        log.appendChild(li);
+    });
 }
 
 function updateChart() {
-    const ctx = document.getElementById('weightChart').getContext('2d');
-    if (chart) {
-        chart.destroy();
-    }
-    const storedData = localStorage.getItem("weightData2");
-    const entries = storedData ? storedData.split("</li>") : [];
-    const labels = entries.map(entry => {
-        const match = entry.match(/\d{1,2}\/\d{1,2}\/\d{4}/);
-        return match ? match[0] : '';
-    }).filter(label => label !== '');
-    const weights = entries.map(entry => {
-        const match = entry.match(/(\d+\.\d+)\s+lbs/);
-        return match ? parseFloat(match[1]) : 0;
-    }).filter(weight => weight !== 0);
+    const ctx = document.getElementById("weightChart").getContext("2d");
+    if (chart) chart.destroy();
 
-    // Filter the entries to include only the last 30 days
+    const storedData = getStoredData();
     const oneMonthAgo = new Date();
     oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
-    const recentLabels = [];
-    const recentWeights = [];
-    for (let i = 0; i < labels.length; i++) {
-        const entryDate = new Date(labels[i]);
-        if (entryDate >= oneMonthAgo) {
-            recentLabels.push(labels[i]);
-            recentWeights.push(weights[i]);
-        }
-    }
+    
+    const recentData = storedData
+        .map(entry => ({
+            date: new Date(entry.date),
+            weight: entry.weight
+        }))
+        .filter(d => d.date >= oneMonthAgo)
+        .sort((a, b) => a.date - b.date);
 
-    // Display in chronological order
     chart = new Chart(ctx, {
-        type: 'line',
+        type: "line",
         data: {
-            labels: recentLabels.reverse(),
+            labels: recentData.map(d => formatDate(d.date)),
             datasets: [{
-                label: 'Weight',
-                data: recentWeights.reverse(),
-                backgroundColor: recentWeights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
-                borderColor: recentWeights.map(weight => weight < 160 ? '#007bff' : '#007bff'),
+                label: "Weight",
+                data: recentData.map(d => d.weight),
+                backgroundColor: "#007bff",
+                borderColor: "#007bff",
                 borderWidth: 1,
                 tension: 0.1
             }]
@@ -137,9 +143,15 @@ function updateChart() {
     });
 }
 
-
-document.getElementById("clear-btn").addEventListener("click", function () {
-    localStorage.removeItem("weightData2");
-    document.getElementById("log").innerHTML = "";
+// Initialization
+document.addEventListener("DOMContentLoaded", () => {
+    const now = new Date();
+    document.getElementById("date").value = 
+        `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, "0")}-${now.getDate().toString().padStart(2, "0")}`;
+    
+    renderLog();
     updateChart();
 });
+
+// Add clear button listener if it exists
+document.getElementById("clear-btn")?.addEventListener("click", resetData);
