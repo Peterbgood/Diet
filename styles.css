@@ -10,6 +10,26 @@ body, html {
     height: 100%;
 }
 
+.week-divider {
+    background-color: #e9ecef;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid #000;
+}
+
+
+
+.week-group {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.week-group:not(:last-child) {
+    margin-bottom: 20px;
+}
+
 h1 {
     color: #222;
     font-family: 'Roboto', sans-serif;
