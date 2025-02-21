@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     weeklyTotal: document.getElementById('weekly-total'),
     totalSaved: document.getElementById('total-saved'),
     barChartCanvas: document.getElementById('PieChart'),
-    prevWeekBtn: document.getElementById('prev-week-btn'),
-    nextWeekBtn: document.getElementById('next-week-btn'),
-    weekDateRange: document.getElementById('week-date-range'),
+    prevDateButton: document.getElementById('prev-date-button'), // Updated
+    nextDateButton: document.getElementById('next-date-button'), // Updated
+    dateInput: document.getElementById('date-input'),           // Updated
   };
 
   // Check for missing elements
@@ -33,37 +33,48 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentWeekIndex = 0;
   let chart;
 
-  // Set startDate to the Monday of the current week (based on today, February 20, 2025)
-  const today = new Date(); // Today is February 20, 2025 per system date
-  today.setHours(0, 0, 0, 0);
-  const dayOfWeek = today.getDay() || 7; // Sunday = 7, Monday = 1, ..., Saturday = 6
-  const startDate = new Date(today.getTime() - (dayOfWeek - 1) * MS_PER_DAY); // Monday of this week (2/17/2025)
+  // Set startDate to a fixed reference Monday (January 6, 2025)
+  const startDate = new Date('2025-01-06'); // First Monday of 2025
+  startDate.setHours(0, 0, 0, 0);
 
   // Local Storage
   const storage = window.localStorage;
 
-  // Initialize from storage or defaults
+  // Initialize from storage and set to current week
   function initialize() {
     try {
-      weeks = JSON.parse(storage.getItem('weeks')) || [[]];
-      currentWeekIndex = parseInt(storage.getItem('currentWeekIndex')) || 0;
-      if (!Array.isArray(weeks) || currentWeekIndex < 0 || currentWeekIndex >= weeks.length) {
-        weeks = [[]];
-        currentWeekIndex = 0;
+      weeks = JSON.parse(storage.getItem('weeks')) || [];
+      if (!Array.isArray(weeks)) {
+        weeks = [];
       }
     } catch (e) {
       console.warn('Corrupted data in localStorage, resetting.');
-      weeks = [[]];
-      currentWeekIndex = 0;
+      weeks = [];
     }
+
+    // Calculate the current week index based on today’s date
+    const today = new Date(); // February 20, 2025
+    today.setHours(0, 0, 0, 0);
+    const dayOfWeek = today.getDay() || 7; // Sunday = 7
+    const daysSinceMonday = dayOfWeek - 1; // Thursday = 3
+    const currentMonday = new Date(today.getTime() - daysSinceMonday * MS_PER_DAY); // Feb 17
+    const daysSinceStart = Math.floor((currentMonday - startDate) / MS_PER_DAY);
+    currentWeekIndex = Math.max(0, Math.floor(daysSinceStart / DAYS_PER_WEEK));
+
+    // Ensure weeks array has enough entries up to currentWeekIndex
+    while (weeks.length <= currentWeekIndex) {
+      weeks.push([]);
+    }
+
     updateUI();
+    saveToLocalStorage();
   }
 
   // Event Listeners
   elements.addBtn.addEventListener('click', addCalorie);
   elements.resetBtn.addEventListener('click', resetCurrentWeek);
-  elements.prevWeekBtn.addEventListener('click', prevWeek);
-  elements.nextWeekBtn.addEventListener('click', nextWeek);
+  elements.prevDateButton.addEventListener('click', prevWeek); // Updated
+  elements.nextDateButton.addEventListener('click', nextWeek); // Updated
   elements.calorieInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') addCalorie();
   });
@@ -206,16 +217,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Update navigation button states
   function updateNavigationButtons() {
-    elements.prevWeekBtn.disabled = currentWeekIndex === 0;
-    elements.nextWeekBtn.disabled = false;
+    elements.prevDateButton.disabled = currentWeekIndex === 0; // Updated
+    elements.nextDateButton.disabled = false;                // Updated
   }
 
-  // Update week date range
+  // Update week date range in the input field
   function updateWeekDateRange() {
-    const weekStart = new Date(startDate.getTime() + currentWeekIndex * MS_PER_WEEK);
+    const today = new Date(); // February 20, 2025
+    today.setHours(0, 0, 0, 0);
+    const dayOfWeek = today.getDay() || 7; // Sunday = 7
+    const daysSinceMonday = dayOfWeek - 1; // Thursday = 3
+    const baseMonday = new Date(today.getTime() - daysSinceMonday * MS_PER_DAY); // Feb 17
+    const weekStart = new Date(baseMonday.getTime() + (currentWeekIndex - Math.floor((today - startDate) / MS_PER_WEEK)) * MS_PER_WEEK);
     const weekEnd = new Date(weekStart.getTime() + (DAYS_PER_WEEK - 1) * MS_PER_DAY);
     const formatDate = (date) => `${date.getMonth() + 1}/${date.getDate()}`;
-    elements.weekDateRange.textContent = `${formatDate(weekStart)} - ${formatDate(weekEnd)}`;
+    elements.dateInput.value = `${formatDate(weekStart)} - ${formatDate(weekEnd)}`; // Updated
   }
 
   // Save to local storage
