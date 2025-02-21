@@ -16,11 +16,10 @@ function loadData() {
   const storedFoodLog = localStorage.getItem('foodLog');
   const storedDate = localStorage.getItem('currentDate');
 
-  // Set to today in Eastern Time (simulating Feb 20, 2025, for testing)
+  // Set currentDate to today in Eastern Time
   currentDate = new Date(); // Start with system time
-  currentDate.setUTCHours(0, 0, 0, 0); // Reset to midnight UTC
-  currentDate.setUTCFullYear(2025, 1, 20); // Feb 20, 2025 UTC
   currentDate = new Date(currentDate.toLocaleString('en-US', { timeZone: 'America/New_York' })); // Convert to EST
+  currentDate.setHours(0, 0, 0, 0); // Reset to midnight Eastern Time
 
   console.log('System time:', new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
   console.log('Initial currentDate (post-adjust):', currentDate.toLocaleString('en-US', { timeZone: 'America/New_York' }));
@@ -35,11 +34,13 @@ function loadData() {
     }
   }
 
+  // Uncomment this if you want to persist the last viewed date instead of always using today
+  /*
   if (storedDate) {
     console.log('Stored date from localStorage:', storedDate);
-    // Only override if you want to persist the last viewed date; comment out for always-today behavior
-    // currentDate = new Date(storedDate);
+    currentDate = new Date(storedDate);
   }
+  */
 
   updateUI();
 }
@@ -246,3 +247,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+  
