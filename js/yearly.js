@@ -93,7 +93,7 @@ function renderLog() {
       <button class="btn btn-danger btn-sm delete-btn"><i class="bi bi-trash"></i></button>
     `;
     const overUnderText = li.querySelector('.over-under');
-    overUnderText.style.color = overUnder < 0 ? '#964B00' : 'rgba(220, 53, 69, 0.8)';
+    overUnderText.style.color = overUnder < 0 ? '#007bff' : 'red';
     log.appendChild(li);
   });
 
