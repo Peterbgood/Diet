@@ -1,250 +1,419 @@
 let chart;
+let data = {
+    totalCaloriesUsed: 0,
+    remainingCalories: 1600
+};
+let currentDate = new Date();
 let foodLog = {};
-const DAILY_LIMIT = 1600;
-let currentDate;
 
-// Save data to local storage
+// Function to save data to local storage
 function saveData() {
-  const dateStr = formatDate(currentDate);
-  console.log('Saving data for:', dateStr, foodLog[dateStr]);
-  localStorage.setItem('foodLog', JSON.stringify(foodLog));
-  localStorage.setItem('currentDate', dateStr);
+    const dateStr = currentDate.toLocaleString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        timeZone: 'America/New_York',
+    });
+
+    const foodListElement = document.getElementById('food-list');
+    const foodItems = foodListElement.children;
+
+    foodLog[dateStr] = [];
+
+    Array.from(foodItems).forEach(item => {
+        const name = item.children[0].textContent;
+        const calories = parseInt(item.children[1].textContent);
+
+        foodLog[dateStr].push({ name, calories });
+    });
+
+    localStorage.setItem('foodLog', JSON.stringify(foodLog));
+    localStorage.setItem('currentDate', dateStr);
 }
 
-// Load data from local storage
+// Function to load data from local storage
 function loadData() {
-  const storedFoodLog = localStorage.getItem('foodLog');
-  const storedDate = localStorage.getItem('currentDate');
+    const storedFoodLog = localStorage.getItem('foodLog');
+    const storedCurrentDate = localStorage.getItem('currentDate');
 
-  // Set currentDate to today in Eastern Time
-  currentDate = new Date(); // Start with system time
-  currentDate = new Date(currentDate.toLocaleString('en-US', { timeZone: 'America/New_York' })); // Convert to EST
-  currentDate.setHours(0, 0, 0, 0); // Reset to midnight Eastern Time
+    if (storedFoodLog && storedCurrentDate) {
+        try {
+            foodLog = JSON.parse(storedFoodLog);
+            // Load stored date but default to today's date
+            currentDate = new Date();
+            updateUI();
+        } catch (error) {
+            console.error('Error parsing stored data:', error);
+            foodLog = {};
+            currentDate = new Date();
+            saveData();
+        }
+    } else {
+        foodLog = {};
+        currentDate = new Date();
+        saveData();
+    }
+}
 
-  console.log('System time:', new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
-  console.log('Initial currentDate (post-adjust):', currentDate.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+// Load data from local storage on page load
+loadData();
 
-  if (storedFoodLog) {
-    try {
-      foodLog = JSON.parse(storedFoodLog);
-      console.log('Loaded foodLog:', foodLog);
-    } catch (error) {
-      console.error('Error parsing food log:', error);
-      foodLog = {};
+// Function to update UI
+function updateUI() {
+    updateTotalCalories();
+    updateFoodList();
+    renderCaloriesChart();
+    displayCurrentDate();
+}
+
+// Function to update total calories
+function updateTotalCalories() {
+    const dateStr = currentDate.toLocaleString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        timeZone: 'America/New_York',
+    });
+    const totalCalories = foodLog[dateStr] ? foodLog[dateStr].reduce((acc, item) => acc + item.calories, 0) : 0;
+    const remainingCalories = 1600 - totalCalories;
+
+    document.getElementById('total-calories').innerText = totalCalories;
+    document.getElementById('remaining-calories').innerText = remainingCalories;
+
+    data = {
+        totalCaloriesUsed: totalCalories,
+        remainingCalories: remainingCalories
+    };
+}
+
+
+
+
+
+
+
+
+
+// Function to update food list
+// Function to update food list
+function updateFoodList() {
+    const dateStr = currentDate.toLocaleString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        timeZone: 'America/New_York',
+    });
+    const foodListElement = document.getElementById('food-list');
+    foodListElement.innerHTML = '';
+  
+    if (foodLog[dateStr]) {
+        // Separate burnt calories
+        const burntCalories = foodLog[dateStr].filter(entry => entry.calories < 0);
+        
+        // Separate coffee items
+        const coffeeItems = foodLog[dateStr].filter(entry => entry.name.includes('☕') && entry.calories >= 0);
+        
+        // Display other calories
+        const otherCalories = foodLog[dateStr].filter(entry => !entry.name.includes('☕') && entry.calories >= 0);
+  
+        // Display coffee items first
+        coffeeItems.forEach(entry => {
+            const listItem = document.createElement('li');
+            listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between');
+  
+            const nameSpan = document.createElement('span');
+            nameSpan.contentEditable = 'true';
+            nameSpan.classList.add('form-control'); 
+            nameSpan.textContent = entry.name;
+  
+            nameSpan.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const newName = nameSpan.textContent;
+                    foodLog[dateStr] = foodLog[dateStr].map(item => {
+                        if (item.name === entry.name) {
+                            item.name = newName;
+                        }
+                        return item;
+                    });
+                    updateFoodList();
+                    saveData();
+                }
+            });
+  
+            const caloriesSpan = document.createElement('span');
+caloriesSpan.textContent = `${entry.calories}`;
+  
+            if (entry.calories < 0) {
+                caloriesSpan.style.color = '#964B00';
+            }
+  
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('btn', 'btn-sm', 'btn-danger');
+            deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
+  
+            deleteButton.addEventListener('click', () => {
+                foodLog[dateStr] = foodLog[dateStr].filter(item => item.name !== entry.name);
+                updateFoodList();
+                updateTotalCalories();
+                renderCaloriesChart();
+                saveData();
+            });
+  
+            listItem.appendChild(nameSpan);
+            listItem.appendChild(caloriesSpan);
+            listItem.appendChild(deleteButton);
+            foodListElement.appendChild(listItem);
+        });
+  
+        // Display other calories
+        otherCalories.forEach(entry => {
+            const listItem = document.createElement('li');
+            listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between');
+  
+            const nameSpan = document.createElement('span');
+            nameSpan.contentEditable = 'true';
+            nameSpan.classList.add('form-control'); 
+            nameSpan.textContent = entry.name;
+  
+            nameSpan.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const newName = nameSpan.textContent;
+                    foodLog[dateStr] = foodLog[dateStr].map(item => {
+                        if (item.name === entry.name) {
+                            item.name = newName;
+                        }
+                        return item;
+                    });
+                    updateFoodList();
+                    saveData();
+                }
+            });
+            const caloriesSpan = document.createElement('span');
+            caloriesSpan.textContent = `${entry.calories}`;
+  
+            if (entry.calories < 0) {
+                caloriesSpan.style.color = '#964B00';
+            }
+  
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('btn', 'btn-sm', 'btn-danger');
+            deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
+  
+            deleteButton.addEventListener('click', () => {
+                foodLog[dateStr] = foodLog[dateStr].filter(item => item.name !== entry.name);
+                updateFoodList();
+                updateTotalCalories();
+                renderCaloriesChart();
+                saveData();
+            });
+  
+            listItem.appendChild(nameSpan);
+            listItem.appendChild(caloriesSpan);
+            listItem.appendChild(deleteButton);
+            foodListElement.appendChild(listItem);
+        });
+  
+        // Display burnt calories last
+        burntCalories.forEach(entry => {
+            const listItem = document.createElement('li');
+            listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between');
+  
+            const nameSpan = document.createElement('span');
+            nameSpan.contentEditable = 'true';
+            nameSpan.classList.add('form-control'); 
+            nameSpan.textContent = entry.name;
+  
+            nameSpan.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const newName = nameSpan.textContent;
+                    foodLog[dateStr] = foodLog[dateStr].map(item => {
+                        if (item.name === entry.name) {
+                            item.name = newName;
+                        }
+                        return item;
+                    });
+                    updateFoodList();
+                    saveData();
+                }
+            });
+  
+            const caloriesSpan = document.createElement('span');
+caloriesSpan.textContent = `${entry.calories}`;
+            caloriesSpan.style.color = '#0d6efd';
+  
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('btn', 'btn-sm', 'btn-danger');
+            deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
+  
+            deleteButton.addEventListener('click', () => {
+                foodLog[dateStr] = foodLog[dateStr].filter(item => item.name !== entry.name);
+                updateFoodList();
+                updateTotalCalories();
+                renderCaloriesChart();
+                saveData();
+            });
+  
+            listItem.appendChild(nameSpan);
+            listItem.appendChild(caloriesSpan);
+            listItem.appendChild(deleteButton);
+            foodListElement.appendChild(listItem);
+        });
     }
   }
 
-  // Uncomment this if you want to persist the last viewed date instead of always using today
-  /*
-  if (storedDate) {
-    console.log('Stored date from localStorage:', storedDate);
-    currentDate = new Date(storedDate);
-  }
-  */
 
-  updateUI();
+
+
+
+
+  
+
+
+
+
+function renderCaloriesChart() {
+    const ctx = document.getElementById('caloriesChart').getContext('2d');
+    let totalCaloriesUsed = data.totalCaloriesUsed;
+    let remainingCalories = data.remainingCalories;
+  
+    if (totalCaloriesUsed < 0) {
+      totalCaloriesUsed = 0;
+      remainingCalories = 1600;
+    }
+  
+    const chartColors = {
+      used: {
+        backgroundColor: '#007bff',
+        borderColor: '#fff'
+      },
+      remaining: {
+        backgroundColor: '#6c757d',
+        borderColor: '#fff'
+      },
+      overLimit: {
+        backgroundColor: 'red',
+        borderColor: '#fff'
+      }
+    };
+  
+    let chartColorsUsed;
+    if (totalCaloriesUsed >= 1600) {
+      chartColorsUsed = [chartColors.overLimit];
+      totalCaloriesUsed = 1600;
+      remainingCalories = 0;
+    } else {
+      chartColorsUsed = [
+        chartColors.used,
+        chartColors.remaining
+      ];
+    }
+  
+    if (!chart) {
+      chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Calories Used', 'Remaining Calories'],
+          datasets: [{
+            data: [totalCaloriesUsed, remainingCalories],
+            backgroundColor: chartColorsUsed.map(c => c.backgroundColor),
+            borderColor: chartColorsUsed.map(c => c.borderColor),
+            borderWidth: 2,
+            cutout: '50%' // Add this line to create a hollow center
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  if (context.label === 'Calories Used') {
+                    return `Calories Used: ${data.totalCaloriesUsed}`;
+                  } else if (context.label === 'Remaining Calories') {
+                    return `Remaining Calories: ${data.remainingCalories}`;
+                  }
+                }
+              }
+            }
+          }
+        }
+      });
+    } else {
+      chart.data.datasets[0].data[0] = totalCaloriesUsed;
+      chart.data.datasets[0].data[1] = remainingCalories;
+      chart.data.datasets[0].backgroundColor = chartColorsUsed.map(c => c.backgroundColor);
+      chart.data.datasets[0].borderColor = chartColorsUsed.map(c => c.borderColor);
+      chart.data.datasets[0].cutout = '50%'; // Update the cutout property
+      chart.update();
+    }
 }
 
-// Format date as MM/DD/YYYY in Eastern Time
-function formatDate(date) {
-  const easternDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/New_York' }));
-  return easternDate.toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'America/New_York' });
+
+
+// Function to display current date
+function displayCurrentDate() {
+    const options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        timeZone: 'America/New_York',
+    };
+
+    const formatter = new Intl.DateTimeFormat('en-US', options);
+    document.getElementById('date-input').value = formatter.format(currentDate);
 }
 
-// Update UI
-function updateUI() {
-  console.log('Updating UI for:', formatDate(currentDate));
-  updateFoodList();
-  updateTotalCalories();
-  renderCaloriesChart();
-  displayCurrentDate();
-  console.log('UI updated, currentDate now:', currentDate.toLocaleString('en-US', { timeZone: 'America/New_York' }));
-}
+// Add event listener to calorie buttons
+document.querySelectorAll('.add-calorie-button').forEach(button => {
+    button.addEventListener('click', () => {
+        const dateStr = currentDate.toLocaleString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            timeZone: 'America/New_York',
+        });
+        const calories = parseInt(button.dataset.calories);
+        const name = button.dataset.name;
 
-// Update food list with custom sorting and icons
-function updateFoodList() {
-  const dateStr = formatDate(currentDate);
-  const foodListElement = document.getElementById('food-list');
-  foodListElement.innerHTML = '';
-  console.log('Food log for', dateStr, ':', foodLog[dateStr]);
+        if (!foodLog[dateStr]) {
+            foodLog[dateStr] = [];
+        }
 
-  if (foodLog[dateStr] && foodLog[dateStr].length > 0) {
-    const coffeeItems = foodLog[dateStr].filter(entry => entry.name.includes('☕'));
-    const burntItems = foodLog[dateStr].filter(entry => entry.calories < 0 && !entry.name.includes('☕'));
-    const otherItems = foodLog[dateStr].filter(entry => !entry.name.includes('☕') && entry.calories >= 0);
-    const sortedItems = [...coffeeItems, ...otherItems, ...burntItems];
+        // Check if food already exists
+        const existingFoodIndex = foodLog[dateStr].findIndex(entry => entry.name === name);
+        if (existingFoodIndex !== -1) {
+            foodLog[dateStr][existingFoodIndex].calories += calories;
+        } else {
+            foodLog[dateStr].push({ name, calories });
+        }
 
-    sortedItems.forEach((entry, index) => {
-      const li = document.createElement('li');
-      li.className = 'list-group-item d-flex justify-content-between align-items-center';
-      const icon = entry.type || '🍽️';
-      const displayName = entry.name.startsWith(icon) ? entry.name : `${icon} ${entry.name}`;
-      li.innerHTML = `
-        <span contenteditable="true" class="form-control name">${displayName}</span>
-        <span contenteditable="true" class="form-control calories" style="width: 80px;">${entry.calories}</span>
-        <button class="btn btn-danger btn-sm delete-btn"><i class="bi bi-trash"></i></button>
-      `;
-
-      const nameSpan = li.querySelector('.name');
-      const caloriesSpan = li.querySelector('.calories');
-      const deleteBtn = li.querySelector('.delete-btn');
-
-      nameSpan.addEventListener('keypress', (e) => handleEdit(e, index, 'name', nameSpan.textContent.replace(icon + ' ', '')));
-      caloriesSpan.addEventListener('keypress', (e) => handleEdit(e, index, 'calories', parseInt(caloriesSpan.textContent)));
-      deleteBtn.addEventListener('click', () => {
-        const originalIndex = foodLog[dateStr].findIndex(item => item.name === entry.name && item.calories === entry.calories);
-        foodLog[dateStr].splice(originalIndex, 1);
         updateUI();
         saveData();
-      });
-
-      caloriesSpan.style.color = entry.calories < 0 ? '#0d6efd' : 'inherit';
-      foodListElement.appendChild(li);
     });
-  } else {
-    console.log('No entries for', dateStr);
-  }
-}
+});
 
-// Handle editable fields
-function handleEdit(event, index, field, value) {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    const dateStr = formatDate(currentDate);
-    if (field === 'calories' && isNaN(value)) {
-      alert('Please enter a valid number for calories.');
-      return;
-    }
-    const sortedItems = [...foodLog[dateStr].filter(entry => entry.name.includes('☕')),
-                        ...foodLog[dateStr].filter(entry => !entry.name.includes('☕') && entry.calories >= 0),
-                        ...foodLog[dateStr].filter(entry => entry.calories < 0 && !entry.name.includes('☕'))];
-    const entryToUpdate = sortedItems[index];
-    const originalIndex = foodLog[dateStr].findIndex(item => item.name === entryToUpdate.name && item.calories === entryToUpdate.calories);
-    foodLog[dateStr][originalIndex][field] = field === 'calories' ? parseInt(value) : value;
-    updateUI();
-    saveData();
-  }
-}
-
-// Update total and remaining calories
-function updateTotalCalories() {
-  const dateStr = formatDate(currentDate);
-  const totalCalories = foodLog[dateStr] ? foodLog[dateStr].reduce((acc, item) => acc + item.calories, 0) : 0;
-  const remainingCalories = Math.max(DAILY_LIMIT - totalCalories, 0);
-
-  document.getElementById('total-calories').textContent = totalCalories;
-  document.getElementById('remaining-calories').textContent = remainingCalories;
-
-  return { totalCalories, remainingCalories };
-}
-
-// Render pie chart
-function renderCaloriesChart() {
-  const { totalCalories, remainingCalories } = updateTotalCalories();
-  const ctx = document.getElementById('caloriesChart').getContext('2d');
-  const chartData = totalCalories >= DAILY_LIMIT ? [DAILY_LIMIT] : [totalCalories, remainingCalories];
-  const chartLabels = totalCalories >= DAILY_LIMIT ? ['Calories Used'] : ['Calories Used', 'Remaining'];
-  const chartColors = totalCalories >= DAILY_LIMIT ? ['#dc3545'] : ['#007bff', '#6c757d'];
-
-  if (!chart) {
-    chart = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels: chartLabels,
-        datasets: [{
-          data: chartData,
-          backgroundColor: chartColors,
-          borderColor: '#fff',
-          borderWidth: 2,
-        }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '60%',
-        plugins: {
-          legend: { position: 'bottom' },
-          tooltip: {
-            callbacks: {
-              label: (context) => `${context.label}: ${context.raw} cal`,
-            },
-          },
-        },
-      },
-    });
-  } else {
-    chart.data.labels = chartLabels;
-    chart.data.datasets[0].data = chartData;
-    chart.data.datasets[0].backgroundColor = chartColors;
-    chart.update();
-  }
-}
-
-// Display current date
-function displayCurrentDate() {
-  const dateInput = document.getElementById('date-input');
-  const easternDate = new Date(currentDate.toLocaleString('en-US', { timeZone: 'America/New_York' }));
-  dateInput.value = easternDate.toISOString().split('T')[0]; // YYYY-MM-DD format
-  console.log('Date input set to:', dateInput.value);
-}
-
-// Add custom food entry with generic icon
-function addCustomFood(event) {
-  event.preventDefault();
-  const name = document.getElementById('custom-name').value.trim();
-  const calories = parseInt(document.getElementById('custom-calories').value);
-  if (!name || isNaN(calories)) {
-    console.log('Invalid custom entry:', name, calories);
-    alert('Please enter a valid food name and calorie amount.');
-    return;
-  }
-  const dateStr = formatDate(currentDate);
-  if (!foodLog[dateStr]) foodLog[dateStr] = [];
-  foodLog[dateStr].push({ name, calories, type: '🍽️' });
-  console.log('Added custom entry:', { name, calories, type: '🍽️' }, 'to', dateStr);
-  document.getElementById('custom-name').value = '';
-  document.getElementById('custom-calories').value = '';
-  updateUI();
-  saveData();
-}
-
-// Event Listeners
-document.addEventListener('DOMContentLoaded', () => {
-  loadData();
-
-  document.getElementById('prev-date-button').addEventListener('click', () => {
+// Add event listener to previous date button
+document.getElementById('prev-date-button').addEventListener('click', () => {
     currentDate.setDate(currentDate.getDate() - 1);
     updateUI();
     saveData();
-  });
+});
 
-  document.getElementById('next-date-button').addEventListener('click', () => {
-    console.log('Next button clicked');
+// Add event listener to next date button
+document.getElementById('next-date-button').addEventListener('click', () => {
     currentDate.setDate(currentDate.getDate() + 1);
     updateUI();
     saveData();
-  });
-
-  document.getElementById('date-input').addEventListener('change', (e) => {
-    currentDate = new Date(e.target.value);
-    updateUI();
-    saveData();
-  });
-
-  document.getElementById('custom-food-form').addEventListener('submit', addCustomFood);
-
-  document.querySelectorAll('.add-calorie-button').forEach(button => {
-    button.addEventListener('click', () => {
-      const dateStr = formatDate(currentDate);
-      const calories = parseInt(button.dataset.calories);
-      const name = button.dataset.name;
-      const type = button.dataset.type;
-      if (!foodLog[dateStr]) foodLog[dateStr] = [];
-      foodLog[dateStr].push({ name, calories, type });
-      console.log('Added button entry:', { name, calories, type }, 'to', dateStr);
-      updateUI();
-      saveData();
-    });
-  });
 });
-  
+
+// Add event listener to food list for editing names
+document.getElementById('food-list').addEventListener('input', () => {
+    saveData();
+});
+
+// Initialize UI
+updateUI();
