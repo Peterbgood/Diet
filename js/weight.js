@@ -27,16 +27,21 @@ function saveData() {
     storedData.unshift(entry); // Add to beginning
     localStorage.setItem("weightData2", JSON.stringify(storedData));
     
+    // Clear the weight input field
+    document.getElementById("weight").value = "";
+    
     renderLog();
     updateChart();
 }
 
 function deleteEntry(index) {
     let storedData = getStoredData();
-    storedData.splice(index, 1);
-    localStorage.setItem("weightData2", JSON.stringify(storedData));
-    renderLog();
-    updateChart();
+    if (index >= 0 && index < storedData.length) {
+        storedData.splice(index, 1);
+        localStorage.setItem("weightData2", JSON.stringify(storedData));
+        renderLog();
+        updateChart();
+    }
 }
 
 function resetData() {
@@ -72,12 +77,12 @@ function renderLog() {
     const storedData = getStoredData();
     if (!storedData.length) return;
 
-    // Sort by date (newest first)
-    storedData.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // Create a copy of the data and sort by date (newest first)
+    const sortedData = [...storedData].sort((a, b) => new Date(b.date) - new Date(a.date));
 
     // Group by week
     let currentWeek = null;
-    storedData.forEach((entry, index) => {
+    sortedData.forEach((entry) => {
         const weekNum = entry.weekNumber;
         if (currentWeek !== weekNum) {
             currentWeek = weekNum;
@@ -87,11 +92,14 @@ function renderLog() {
             log.appendChild(weekDivider);
         }
 
+        // Find the original index in storedData
+        const originalIndex = storedData.findIndex(item => item.date === entry.date);
+
         const li = document.createElement("li");
         li.className = "list-group-item d-flex justify-content-between align-items-center";
         li.innerHTML = `
             ${formatDate(new Date(entry.date))} (${entry.dayOfWeek}): ${entry.weight.toFixed(1)} lbs
-            <button class="btn btn-danger btn-sm delete-btn" onclick="deleteEntry(${index})">
+            <button class="btn btn-danger btn-sm delete-btn" onclick="deleteEntry(${originalIndex})">
                 <i class="bi bi-trash"></i>
             </button>
         `;
