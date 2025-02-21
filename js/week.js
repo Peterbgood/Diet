@@ -8,9 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     totalCalories: document.getElementById('total-calories'),
     weeklyTotal: document.getElementById('weekly-total'),
     totalSaved: document.getElementById('total-saved'),
-    barChartCanvas: document.getElementById('PieChart'), // Renamed for clarity
+    barChartCanvas: document.getElementById('PieChart'),
     prevWeekBtn: document.getElementById('prev-week-btn'),
     nextWeekBtn: document.getElementById('next-week-btn'),
+    weekDateRange: document.getElementById('week-date-range'),
   };
 
   // Check for missing elements
@@ -24,11 +25,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const DAILY_CALORIES_ALLOWED = 1600;
   const DAYS_PER_WEEK = 7;
   const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const MS_PER_DAY = 24 * 60 * 60 * 1000;
+  const MS_PER_WEEK = MS_PER_DAY * DAYS_PER_WEEK;
 
   // State
   let weeks = [];
   let currentWeekIndex = 0;
   let chart;
+
+  // Set startDate to the Monday of the current week (based on today, February 20, 2025)
+  const today = new Date(); // Today is February 20, 2025 per system date
+  today.setHours(0, 0, 0, 0);
+  const dayOfWeek = today.getDay() || 7; // Sunday = 7, Monday = 1, ..., Saturday = 6
+  const startDate = new Date(today.getTime() - (dayOfWeek - 1) * MS_PER_DAY); // Monday of this week (2/17/2025)
 
   // Local Storage
   const storage = window.localStorage;
@@ -125,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTotals();
     updateChart();
     updateNavigationButtons();
+    updateWeekDateRange();
   }
 
   // Update the calorie list
@@ -197,7 +207,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Update navigation button states
   function updateNavigationButtons() {
     elements.prevWeekBtn.disabled = currentWeekIndex === 0;
-    elements.nextWeekBtn.disabled = false; // Always enabled to allow adding new weeks
+    elements.nextWeekBtn.disabled = false;
+  }
+
+  // Update week date range
+  function updateWeekDateRange() {
+    const weekStart = new Date(startDate.getTime() + currentWeekIndex * MS_PER_WEEK);
+    const weekEnd = new Date(weekStart.getTime() + (DAYS_PER_WEEK - 1) * MS_PER_DAY);
+    const formatDate = (date) => `${date.getMonth() + 1}/${date.getDate()}`;
+    elements.weekDateRange.textContent = `${formatDate(weekStart)} - ${formatDate(weekEnd)}`;
   }
 
   // Save to local storage
