@@ -1,7 +1,7 @@
 let chart;
 let foodLog = {};
 const DAILY_LIMIT = 1600;
-let currentDate = new Date();
+let currentDate;
 
 // Save data to local storage
 function saveData() {
@@ -14,7 +14,17 @@ function saveData() {
 // Load data from local storage
 function loadData() {
   const storedFoodLog = localStorage.getItem('foodLog');
-  currentDate = new Date(); // Always start with today
+  const storedDate = localStorage.getItem('currentDate');
+
+  // Set to today in Eastern Time (simulating Feb 20, 2025, for testing)
+  currentDate = new Date(); // Start with system time
+  currentDate.setUTCHours(0, 0, 0, 0); // Reset to midnight UTC
+  currentDate.setUTCFullYear(2025, 1, 20); // Feb 20, 2025 UTC
+  currentDate = new Date(currentDate.toLocaleString('en-US', { timeZone: 'America/New_York' })); // Convert to EST
+
+  console.log('System time:', new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  console.log('Initial currentDate (post-adjust):', currentDate.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+
   if (storedFoodLog) {
     try {
       foodLog = JSON.parse(storedFoodLog);
@@ -24,12 +34,20 @@ function loadData() {
       foodLog = {};
     }
   }
+
+  if (storedDate) {
+    console.log('Stored date from localStorage:', storedDate);
+    // Only override if you want to persist the last viewed date; comment out for always-today behavior
+    // currentDate = new Date(storedDate);
+  }
+
   updateUI();
 }
 
-// Format date as MM/DD/YYYY
+// Format date as MM/DD/YYYY in Eastern Time
 function formatDate(date) {
-  return date.toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'America/New_York' });
+  const easternDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  return easternDate.toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'America/New_York' });
 }
 
 // Update UI
@@ -39,6 +57,7 @@ function updateUI() {
   updateTotalCalories();
   renderCaloriesChart();
   displayCurrentDate();
+  console.log('UI updated, currentDate now:', currentDate.toLocaleString('en-US', { timeZone: 'America/New_York' }));
 }
 
 // Update food list with custom sorting and icons
@@ -49,19 +68,15 @@ function updateFoodList() {
   console.log('Food log for', dateStr, ':', foodLog[dateStr]);
 
   if (foodLog[dateStr] && foodLog[dateStr].length > 0) {
-    // Separate entries into categories
     const coffeeItems = foodLog[dateStr].filter(entry => entry.name.includes('☕'));
     const burntItems = foodLog[dateStr].filter(entry => entry.calories < 0 && !entry.name.includes('☕'));
     const otherItems = foodLog[dateStr].filter(entry => !entry.name.includes('☕') && entry.calories >= 0);
-
-    // Combine in desired order: coffee, other, burnt
     const sortedItems = [...coffeeItems, ...otherItems, ...burntItems];
 
     sortedItems.forEach((entry, index) => {
       const li = document.createElement('li');
       li.className = 'list-group-item d-flex justify-content-between align-items-center';
-      const icon = entry.type || '🍽️'; // Use entry.type if exists, otherwise default to generic icon
-      // Only prepend icon if name doesn't already start with it
+      const icon = entry.type || '🍽️';
       const displayName = entry.name.startsWith(icon) ? entry.name : `${icon} ${entry.name}`;
       li.innerHTML = `
         <span contenteditable="true" class="form-control name">${displayName}</span>
@@ -167,7 +182,9 @@ function renderCaloriesChart() {
 // Display current date
 function displayCurrentDate() {
   const dateInput = document.getElementById('date-input');
-  dateInput.value = currentDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+  const easternDate = new Date(currentDate.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  dateInput.value = easternDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+  console.log('Date input set to:', dateInput.value);
 }
 
 // Add custom food entry with generic icon
@@ -182,7 +199,7 @@ function addCustomFood(event) {
   }
   const dateStr = formatDate(currentDate);
   if (!foodLog[dateStr]) foodLog[dateStr] = [];
-  foodLog[dateStr].push({ name, calories, type: '🍽️' }); // Add generic icon
+  foodLog[dateStr].push({ name, calories, type: '🍽️' });
   console.log('Added custom entry:', { name, calories, type: '🍽️' }, 'to', dateStr);
   document.getElementById('custom-name').value = '';
   document.getElementById('custom-calories').value = '';
@@ -201,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('next-date-button').addEventListener('click', () => {
+    console.log('Next button clicked');
     currentDate.setDate(currentDate.getDate() + 1);
     updateUI();
     saveData();
@@ -219,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const dateStr = formatDate(currentDate);
       const calories = parseInt(button.dataset.calories);
       const name = button.dataset.name;
-      const type = button.dataset.type; // Preserve icon from buttons
+      const type = button.dataset.type;
       if (!foodLog[dateStr]) foodLog[dateStr] = [];
       foodLog[dateStr].push({ name, calories, type });
       console.log('Added button entry:', { name, calories, type }, 'to', dateStr);
