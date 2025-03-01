@@ -1,46 +1,23 @@
 /* Global Styles */
-
 body, html {
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
     color: #333;
-   
     margin: 0;
     padding: 0;
     height: 100%;
-}
-
-.week-divider {
-    background-color: #e9ecef;
-    font-weight: bold;
-    text-align: center;
-    border-bottom: 2px solid #000;
-}
-
-
-
-.week-group {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 10px;
-    background-color: #f9f9f9;
-}
-
-.week-group:not(:last-child) {
-    margin-bottom: 20px;
 }
 
 h1 {
     color: #222;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
-    
     letter-spacing: 1px;
 }
 
 .arrowbuttons .btn-primary {
     background-color: transparent !important;
-    color: #007bff !important; /* SaddleBrown */
+    color: #007bff !important;
     border: 2px solid #007bff !important;
     border-radius: 20px;
     padding: 10px 20px;
@@ -48,34 +25,43 @@ h1 {
 }
 
 .arrowbuttons .btn-primary:hover {
-    background-color: #8B4513 !important;
+    background-color: #007bff !important;
     color: #fff !important;
-    
 }
 
-h3 {
-    text-align: center;
-    margin-bottom: 15px;
-    margin-top: 15px;
+/* Accordion Headers */
+.btn-cal .accordion-button {
+    background-color: #fff;
     color: #444;
-   
-    letter-spacing: 1px;
+    font-weight: 600;
+    /*! border-radius: 10px; */
+    transition: background-color 0.3s ease;
 }
 
+.btn-cal .accordion-button:not(.collapsed) {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-cal .accordion-button:focus {
+    box-shadow: none;
+}
+
+/* Buttons */
 .add-calorie-button {
     font-size: 0.875rem;
     width: 100%;
     margin-bottom: 1rem;
     background-color: transparent !important;
-    color: #6B8E23 !important; /* OliveDrab */
-    border: 2px solid #6B8E23 !important;
+    color: #007bff !important;
+    border: 2px solid #007bff !important;
     border-radius: 20px;
     padding: 10px 20px;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .add-calorie-button:hover {
-    background-color: #6B8E23 !important;
+    background-color: #007bff !important;
     color: #fff !important;
     transform: translateY(-2px);
 }
@@ -90,28 +76,22 @@ h3 {
     text-align: center;
 }
 
-hr {
-    display: none;
-}
-
 .btn-primary {
     background: transparent !important;
-    color: #007bff !important; /* Chocolate */
+    color: #007bff !important;
     border: 2px solid #007bff !important;
     border-radius: 20px;
-   
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .btn-primary:hover {
     background-color: #007bff !important;
     color: #fff !important;
-    
 }
 
 .btn-dark {
     background: transparent !important;
-    color: #000 !important; /* DarkRed */
+    color: #000 !important;
     border: 2px solid #000 !important;
     border-radius: 20px;
     padding: 10px 20px;
@@ -124,37 +104,60 @@ hr {
     transform: translateY(-2px);
 }
 
-#food-list span:first-child {
-    text-transform: capitalize;
-}
-
-.list-group-item .form-control {
-    border: none;
-}
-
-p {
-    margin: 0;
+/* Food List Styling */
+#food-list {
     padding: 0;
 }
 
-.delete-btn {
-    color: #fff !important;
+.list-group-item {
+    background: #fff;
+    /*! border: 1px solid #ddd; */ /* Added border back */
+    /*! border-radius: 8px; */
+    /*! margin-bottom: 10px; */
+    padding: 10px;
+    display: flex;
+    justify-content: center; /* Center the entire content */
+    align-items: center;
+    text-align: center; /* Ensure text aligns centrally */
 }
 
-/* Typography */
-
-#column1, #column2, #column3 {
-    font-size: 1.2rem;
-    color: #666;
+.list-group-item span:first-child {
+    flex: 1; /* Name takes up left space */
+    margin-right: 15px;
+    text-transform: capitalize;
+    text-align: left; /* Keep name left-aligned */
 }
 
-.nav-link {
-    font-size: 1.2rem;
-    margin: 0 0.7rem;
-    color: #666;
+.list-group-item span:nth-child(2) {
+    flex: 0 0 auto; /* Fixed width for calorie value, centered */
+    width: 60px; /* Consistent width */
+    text-align: center; /* Center the calorie value */
+}
+
+.list-group-item .btn-danger {
+    flex: 0 0 auto; /* Fixed width for delete button */
+    margin-left: 15px;
+}
+
+#food-list .form-control {
+    padding: 5px;
+    width: fit-content;
+    display: inline;
+    border: none;
 }
 
 /* Navigation */
+.nav-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+    z-index: 10;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    margin: 0 !important;
+}
 
 .navbar {
     background-color: #fff;
@@ -170,97 +173,41 @@ p {
     padding: 0;
 }
 
-.nav-container {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 0;
-    text-align: center;
-    z-index: 10;
-    background-color: #fff;
-    border-top: 1px solid #ddd;
-    margin: 0 !important;
-}
-
-.btn-danger {
-    float: right;
-}
-
-.list-group-item {
-    position: relative;
-   
-    padding: 10px;
-}
-
-.list-group-item > span:nth-child(2) {
-    position: absolute;
-    left: 47%;
-}
-
 .nav-item {
     margin: 0 25px;
 }
 
-/* Buttons */
-
-/* Components */
-
-#food-list .form-control {
-    padding: 5px;
-    width: fit-content;
-    display: inline;
+.nav-link {
+    font-size: 1.2rem;
+    margin: 0 0.7rem;
+    color: #666;
 }
 
-#food-list .list-group-item {
-    align-items: center;
+/* Layout */
+.container {
+    padding-bottom: 60px; /* Space for fixed nav */
 }
 
-.week-container {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #fff;
-    border-radius: 8px;
-}
-
-.delete-button {
+/* Miscellaneous */
+.btn-danger {
     float: right;
-    color: #999;
 }
 
 .delete-btn {
-    float: right;
-    margin-left: 10px;
-    color: #999;
+    color: #fff !important;
 }
 
-.edit, .delete {
-    float: right;
-    margin-left: 10px;
-    color: #999;
+hr {
+    display: none;
 }
 
-.editing {
-    display: inline-block;
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.selected {
-    background-color: #32CD32;
-    color: #000;
-}
-
+/* Animations */
 .add-calorie-button:active {
     animation: pulse 0.5s;
 }
 
-/* Layout */
-
-.container {
-    padding-bottom: 60px; /* Add some space at the bottom for the nav */
-    
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
