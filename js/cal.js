@@ -106,25 +106,31 @@ function updateFoodList() {
     foodListElement.innerHTML = '';
   
     if (foodLog[dateStr]) {
+        // Separate burnt calories
         const burntCalories = foodLog[dateStr].filter(entry => entry.calories < 0);
-        const coffeeItems = foodLog[dateStr].filter(entry => entry.name.includes('☕') && entry.calories >= 0);
-        const otherCalories = foodLog[dateStr].filter(entry => !entry.name.includes('☕') && entry.calories >= 0);
-  
-        coffeeItems.forEach(entry => {
+        
+        // Separate coffee items (case-insensitive check for "coffee" in name)
+        const coffeeItems = foodLog[dateStr].filter(entry => entry.name.toLowerCase().includes('coffee') && entry.calories >= 0);
+        
+        // Display other calories
+        const otherCalories = foodLog[dateStr].filter(entry => !entry.name.toLowerCase().includes('coffee') && entry.calories >= 0);
+
+        // Helper function to create list items
+        const createListItem = (entry) => {
             const listItem = document.createElement('li');
             listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between');
-  
+
             const nameSpan = document.createElement('span');
             nameSpan.contentEditable = 'true';
-            nameSpan.classList.add('form-control'); 
+            nameSpan.classList.add('form-control');
             nameSpan.textContent = entry.name;
-  
+
             nameSpan.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     const newName = nameSpan.textContent;
                     foodLog[dateStr] = foodLog[dateStr].map(item => {
-                        if (item.name === entry.name) {
+                        if (item.name === entry.name && item.calories === entry.calories) {
                             item.name = newName;
                         }
                         return item;
@@ -133,125 +139,37 @@ function updateFoodList() {
                     saveData();
                 }
             });
-  
+
             const caloriesSpan = document.createElement('span');
             caloriesSpan.textContent = `${entry.calories}`;
-  
             if (entry.calories < 0) {
                 caloriesSpan.style.color = '#2F4F4F'; // Dark slate gray for burnt calories
             }
-  
+
             const deleteButton = document.createElement('button');
             deleteButton.classList.add('btn', 'btn-sm', 'btn-danger');
             deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
-  
+
             deleteButton.addEventListener('click', () => {
-                foodLog[dateStr] = foodLog[dateStr].filter(item => item.name !== entry.name);
+                foodLog[dateStr] = foodLog[dateStr].filter(item => !(item.name === entry.name && item.calories === entry.calories));
                 updateFoodList();
                 updateTotalCalories();
                 renderCaloriesChart();
                 saveData();
             });
-  
+
             listItem.appendChild(nameSpan);
             listItem.appendChild(caloriesSpan);
             listItem.appendChild(deleteButton);
-            foodListElement.appendChild(listItem);
-        });
-  
-        otherCalories.forEach(entry => {
-            const listItem = document.createElement('li');
-            listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between');
-  
-            const nameSpan = document.createElement('span');
-            nameSpan.contentEditable = 'true';
-            nameSpan.classList.add('form-control'); 
-            nameSpan.textContent = entry.name;
-  
-            nameSpan.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    const newName = nameSpan.textContent;
-                    foodLog[dateStr] = foodLog[dateStr].map(item => {
-                        if (item.name === entry.name) {
-                            item.name = newName;
-                        }
-                        return item;
-                    });
-                    updateFoodList();
-                    saveData();
-                }
-            });
-            const caloriesSpan = document.createElement('span');
-            caloriesSpan.textContent = `${entry.calories}`;
-  
-            if (entry.calories < 0) {
-                caloriesSpan.style.color = '#2F4F4F'; // Dark slate gray for burnt calories
-            }
-  
-            const deleteButton = document.createElement('button');
-            deleteButton.classList.add('btn', 'btn-sm', 'btn-danger');
-            deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
-  
-            deleteButton.addEventListener('click', () => {
-                foodLog[dateStr] = foodLog[dateStr].filter(item => item.name !== entry.name);
-                updateFoodList();
-                updateTotalCalories();
-                renderCaloriesChart();
-                saveData();
-            });
-  
-            listItem.appendChild(nameSpan);
-            listItem.appendChild(caloriesSpan);
-            listItem.appendChild(deleteButton);
-            foodListElement.appendChild(listItem);
-        });
-  
-        burntCalories.forEach(entry => {
-            const listItem = document.createElement('li');
-            listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between');
-  
-            const nameSpan = document.createElement('span');
-            nameSpan.contentEditable = 'true';
-            nameSpan.classList.add('form-control'); 
-            nameSpan.textContent = entry.name;
-  
-            nameSpan.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    const newName = nameSpan.textContent;
-                    foodLog[dateStr] = foodLog[dateStr].map(item => {
-                        if (item.name === entry.name) {
-                            item.name = newName;
-                        }
-                        return item;
-                    });
-                    updateFoodList();
-                    saveData();
-                }
-            });
-  
-            const caloriesSpan = document.createElement('span');
-            caloriesSpan.textContent = `${entry.calories}`;
-            caloriesSpan.style.color = '#2F4F4F'; // Dark slate gray for burnt calories
-  
-            const deleteButton = document.createElement('button');
-            deleteButton.classList.add('btn', 'btn-sm', 'btn-danger');
-            deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
-  
-            deleteButton.addEventListener('click', () => {
-                foodLog[dateStr] = foodLog[dateStr].filter(item => item.name !== entry.name);
-                updateFoodList();
-                updateTotalCalories();
-                renderCaloriesChart();
-                saveData();
-            });
-  
-            listItem.appendChild(nameSpan);
-            listItem.appendChild(caloriesSpan);
-            listItem.appendChild(deleteButton);
-            foodListElement.appendChild(listItem);
-        });
+            return listItem;
+        };
+
+        // Display coffee items first, preserving order of addition (newest at top)
+        coffeeItems.reverse().forEach(entry => foodListElement.appendChild(createListItem(entry)));
+        // Display other calories
+        otherCalories.forEach(entry => foodListElement.appendChild(createListItem(entry)));
+        // Display burnt calories last
+        burntCalories.forEach(entry => foodListElement.appendChild(createListItem(entry)));
     }
 }
 
