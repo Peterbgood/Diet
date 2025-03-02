@@ -30,7 +30,7 @@
         <button id="next-date-button" class="btn btn-outline-primary shadow-sm"><i class="fa-solid fa-arrow-right"></i></button>
       </div>
     </div>
-    <div class="chart-container shadow-lg rounded" style="max-width: 300px; height: 300px; margin: 0 auto;">
+    <div class="chart-container shadow-lg rounded" style="max-width: 300px; height: 300px; margin: 0 auto; padding: 20px;">
       <canvas id="caloriesChart"></canvas>
     </div>
     <ul id="food-list" class="list-group mt-5 shadow-sm rounded"></ul>
@@ -46,11 +46,11 @@
       <div class="accordion" id="foodAccordion">
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeneric" aria-expanded="true" aria-controls="collapseGeneric">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeneric" aria-expanded="false" aria-controls="collapseGeneric">
               <i class="fas fa-utensils me-2"></i> Generic Foods
             </button>
           </h2>
-          <div id="collapseGeneric" class="accordion-collapse collapse show" data-bs-parent="#foodAccordion">
+          <div id="collapseGeneric" class="accordion-collapse collapse" data-bs-parent="#foodAccordion">
             <div class="accordion-body">
               <button type="button" class="btn btn-outline-primary add-calorie-button m-1 animate__animated animate__pulse" data-name="☕ Coffee" data-calories="200" data-type="☕">☕ Coffee (200)</button>
               <button type="button" class="btn btn-outline-primary add-calorie-button m-1 animate__animated animate__pulse" data-name="🍝 Food" data-calories="500" data-type="🍽️">🍝 Food (500)</button>
