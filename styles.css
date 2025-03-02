@@ -16,8 +16,8 @@ h1 {
 }
 
 .arrowbuttons .btn-primary {
-    background-color: transparent !important;
-    color: #007bff !important;
+    background-color: #007bff !important;
+    color: #fff !important;
     border: 2px solid #007bff !important;
     border-radius: 20px;
     padding: 10px 20px;
@@ -25,7 +25,7 @@ h1 {
 }
 
 .arrowbuttons .btn-primary:hover {
-    background-color: #007bff !important;
+    background-color: #0056b3 !important;
     color: #fff !important;
 }
 
@@ -34,7 +34,6 @@ h1 {
     background-color: #fff;
     color: #444;
     font-weight: 600;
-    /*! border-radius: 10px; */
     transition: background-color 0.3s ease;
 }
 
@@ -52,8 +51,8 @@ h1 {
     font-size: 0.875rem;
     width: 100%;
     margin-bottom: 1rem;
-    background-color: transparent !important;
-    color: #007bff !important;
+    background-color: #007bff !important;
+    color: #fff !important;
     border: 2px solid #007bff !important;
     border-radius: 20px;
     padding: 10px 2px;
@@ -61,7 +60,7 @@ h1 {
 }
 
 .add-calorie-button:hover {
-    background-color: #007bff !important;
+    background-color: #0056b3 !important;
     color: #fff !important;
     transform: translateY(-2px);
 }
@@ -77,21 +76,21 @@ h1 {
 }
 
 .btn-primary {
-    background: transparent !important;
-    color: #007bff !important;
+    background-color: #007bff !important;
+    color: #fff !important;
     border: 2px solid #007bff !important;
     border-radius: 20px;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .btn-primary:hover {
-    background-color: #007bff !important;
+    background-color: #0056b3 !important;
     color: #fff !important;
 }
 
 .btn-dark {
-    background: transparent !important;
-    color: #000 !important;
+    background-color: #000 !important;
+    color: #fff !important;
     border: 2px solid #000 !important;
     border-radius: 20px;
     padding: 10px 20px;
@@ -99,7 +98,7 @@ h1 {
 }
 
 .btn-dark:hover {
-    background-color: #000 !important;
+    background-color: #333 !important;
     color: #fff !important;
     transform: translateY(-2px);
 }
@@ -111,27 +110,24 @@ h1 {
 
 .list-group-item {
     background: #fff;
-    /*! border: 1px solid #ddd; */ /* Added border back */
-    /*! border-radius: 8px; */
-    /*! margin-bottom: 10px; */
     padding: 10px;
     display: flex;
-    justify-content: center; /* Center the entire content */
+    justify-content: space-between; /* Spreads items across the line */
     align-items: center;
-    text-align: center; /* Ensure text aligns centrally */
 }
 
 .list-group-item span:first-child {
-    flex: 1; /* Name takes up left space */
+   
     margin-right: 15px;
     text-transform: capitalize;
-    text-align: left; /* Keep name left-aligned */
+    text-align: left; /* Name with icon stays left-aligned */
+    display: flex; /* Ensures icon and text align horizontally */
+    align-items: center;
 }
 
 .list-group-item span:nth-child(2) {
-    flex: 0 0 auto; /* Fixed width for calorie value, centered */
-    width: 60px; /* Consistent width */
-    text-align: center; /* Center the calorie value */
+    flex: 0 0 60px; /* Fixed width for calorie value */
+    text-align: center; /* Centers the text within its space */
 }
 
 .list-group-item .btn-danger {
@@ -142,7 +138,7 @@ h1 {
 #food-list .form-control {
     padding: 5px;
     width: fit-content;
-    display: inline;
+    display: inline-block; /* Better control with icon */
     border: none;
 }
 
