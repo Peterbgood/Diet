@@ -16,16 +16,16 @@ h1 {
 }
 
 .arrowbuttons .btn-primary {
-    background-color: #007bff !important;
+    background: linear-gradient(45deg, #8e44ad, #e84393) !important; /* Purple to magenta */
     color: #fff !important;
-    border: 2px solid #007bff !important;
+    border: 2px solid #8e44ad !important;
     border-radius: 20px;
     padding: 10px 20px;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .arrowbuttons .btn-primary:hover {
-    background-color: #0056b3 !important;
+    background: linear-gradient(45deg, #6c3483, #c0392b) !important; /* Darker purple to darker magenta */
     color: #fff !important;
 }
 
@@ -38,7 +38,7 @@ h1 {
 }
 
 .btn-cal .accordion-button:not(.collapsed) {
-    background-color: #007bff;
+    background: linear-gradient(45deg, #8e44ad, #e84393); /* Matches button gradient */
     color: #fff;
 }
 
@@ -51,16 +51,16 @@ h1 {
     font-size: 0.875rem;
     width: 100%;
     margin-bottom: 1rem;
-    background-color: #007bff !important;
+    background: linear-gradient(45deg, #8e44ad, #e84393) !important; /* Purple to magenta */
     color: #fff !important;
-    border: 2px solid #007bff !important;
+    border: 2px solid #8e44ad !important;
     border-radius: 20px;
     padding: 10px 2px;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .add-calorie-button:hover {
-    background-color: #0056b3 !important;
+    background: linear-gradient(45deg, #6c3483, #c0392b) !important; /* Darker purple to darker magenta */
     color: #fff !important;
     transform: translateY(-2px);
 }
@@ -76,31 +76,61 @@ h1 {
 }
 
 .btn-primary {
-    background-color: #007bff !important;
+    background: linear-gradient(45deg, #8e44ad, #e84393) !important; /* Purple to magenta */
     color: #fff !important;
-    border: 2px solid #007bff !important;
+    border: 2px solid #8e44ad !important;
     border-radius: 20px;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .btn-primary:hover {
-    background-color: #0056b3 !important;
+    background: linear-gradient(45deg, #6c3483, #c0392b) !important; /* Darker purple to darker magenta */
     color: #fff !important;
 }
 
 .btn-dark {
-    background-color: #000 !important;
+    background: linear-gradient(45deg, #2c3e50, #4a4a4a) !important; /* Gray to dark gray */
     color: #fff !important;
-    border: 2px solid #000 !important;
+    border: 2px solid #2c3e50 !important;
     border-radius: 20px;
     padding: 10px 20px;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .btn-dark:hover {
-    background-color: #333 !important;
+    background: linear-gradient(45deg, #1a252f, #333) !important; /* Darker gray shades */
     color: #fff !important;
     transform: translateY(-2px);
+}
+
+/* Total and Remaining Calories Containers and Badges */
+.text-primary {
+    color: #8e44ad !important; /* Default to purple, updated dynamically by JS */
+}
+
+.text-success {
+    color: #b39ddb !important; /* Default to medium purple-gray, updated dynamically by JS */
+}
+
+.badge.bg-primary {
+    background: linear-gradient(45deg, #8e44ad, #e84393) !important; /* Purple to magenta for Total Calories */
+    color: #fff !important;
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+.badge.bg-success {
+    background: linear-gradient(45deg, #d1c4e9, #b39ddb) !important; /* Light purple-gray for Remaining Calories */
+    color: #333 !important; /* Darker text for contrast */
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+.badge.bg-danger {
+    background: linear-gradient(45deg, #ff0000, #ff6666) !important; /* Bright red gradient for over limit */
+    color: #fff !important;
+    padding: 5px 10px;
+    border-radius: 15px;
 }
 
 /* Food List Styling */
@@ -117,7 +147,7 @@ h1 {
 }
 
 .list-group-item span:first-child {
-   
+    flex: 1; /* Takes up available space on the left */
     margin-right: 15px;
     text-transform: capitalize;
     text-align: left; /* Name with icon stays left-aligned */

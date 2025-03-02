@@ -23,7 +23,6 @@ function saveData() {
     Array.from(foodItems).forEach(item => {
         const name = item.children[0].textContent;
         const calories = parseInt(item.children[1].textContent);
-
         foodLog[dateStr].push({ name, calories });
     });
 
@@ -39,7 +38,6 @@ function loadData() {
     if (storedFoodLog && storedCurrentDate) {
         try {
             foodLog = JSON.parse(storedFoodLog);
-            // Load stored date but default to today's date
             currentDate = new Date();
             updateUI();
         } catch (error) {
@@ -77,8 +75,18 @@ function updateTotalCalories() {
     const totalCalories = foodLog[dateStr] ? foodLog[dateStr].reduce((acc, item) => acc + item.calories, 0) : 0;
     const remainingCalories = 1600 - totalCalories;
 
-    document.getElementById('total-calories').innerText = totalCalories;
-    document.getElementById('remaining-calories').innerText = remainingCalories;
+    const totalCaloriesText = document.querySelector('.text-primary');
+    const totalCaloriesBadge = document.getElementById('total-calories');
+    const remainingCaloriesText = document.querySelector('.text-success');
+    const remainingCaloriesBadge = document.getElementById('remaining-calories');
+
+    totalCaloriesBadge.innerText = totalCalories;
+    remainingCaloriesBadge.innerText = remainingCalories;
+
+    // Update text colors
+    totalCaloriesText.style.color = '#8e44ad'; // Purple from gradient start
+    remainingCaloriesText.style.color = remainingCalories < 0 ? '#ff0000' : '#b39ddb'; // Bright red if over 1600, else medium purple-gray
+    remainingCaloriesBadge.className = remainingCalories < 0 ? 'badge bg-danger' : 'badge bg-success'; // Switch to red gradient if over 1600
 
     data = {
         totalCaloriesUsed: totalCalories,
@@ -86,15 +94,6 @@ function updateTotalCalories() {
     };
 }
 
-
-
-
-
-
-
-
-
-// Function to update food list
 // Function to update food list
 function updateFoodList() {
     const dateStr = currentDate.toLocaleString('en-US', {
@@ -107,16 +106,10 @@ function updateFoodList() {
     foodListElement.innerHTML = '';
   
     if (foodLog[dateStr]) {
-        // Separate burnt calories
         const burntCalories = foodLog[dateStr].filter(entry => entry.calories < 0);
-        
-        // Separate coffee items
         const coffeeItems = foodLog[dateStr].filter(entry => entry.name.includes('☕') && entry.calories >= 0);
-        
-        // Display other calories
         const otherCalories = foodLog[dateStr].filter(entry => !entry.name.includes('☕') && entry.calories >= 0);
   
-        // Display coffee items first
         coffeeItems.forEach(entry => {
             const listItem = document.createElement('li');
             listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between');
@@ -142,7 +135,7 @@ function updateFoodList() {
             });
   
             const caloriesSpan = document.createElement('span');
-caloriesSpan.textContent = `${entry.calories}`;
+            caloriesSpan.textContent = `${entry.calories}`;
   
             if (entry.calories < 0) {
                 caloriesSpan.style.color = '#964B00';
@@ -166,7 +159,6 @@ caloriesSpan.textContent = `${entry.calories}`;
             foodListElement.appendChild(listItem);
         });
   
-        // Display other calories
         otherCalories.forEach(entry => {
             const listItem = document.createElement('li');
             listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between');
@@ -215,7 +207,6 @@ caloriesSpan.textContent = `${entry.calories}`;
             foodListElement.appendChild(listItem);
         });
   
-        // Display burnt calories last
         burntCalories.forEach(entry => {
             const listItem = document.createElement('li');
             listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between');
@@ -241,7 +232,7 @@ caloriesSpan.textContent = `${entry.calories}`;
             });
   
             const caloriesSpan = document.createElement('span');
-caloriesSpan.textContent = `${entry.calories}`;
+            caloriesSpan.textContent = `${entry.calories}`;
             caloriesSpan.style.color = '#0d6efd';
   
             const deleteButton = document.createElement('button');
@@ -262,97 +253,98 @@ caloriesSpan.textContent = `${entry.calories}`;
             foodListElement.appendChild(listItem);
         });
     }
-  }
+}
 
-
-
-
-
-
-  
-
-
-
-
+// Function to render calories chart
 function renderCaloriesChart() {
     const ctx = document.getElementById('caloriesChart').getContext('2d');
     let totalCaloriesUsed = data.totalCaloriesUsed;
     let remainingCalories = data.remainingCalories;
   
     if (totalCaloriesUsed < 0) {
-      totalCaloriesUsed = 0;
-      remainingCalories = 1600;
+        totalCaloriesUsed = 0;
+        remainingCalories = 1600;
     }
   
     const chartColors = {
-      used: {
-        backgroundColor: '#007bff',
-        borderColor: '#fff'
-      },
-      remaining: {
-        backgroundColor: '#6c757d',
-        borderColor: '#fff'
-      },
-      overLimit: {
-        backgroundColor: 'red',
-        borderColor: '#fff'
-      }
+        used: {
+            backgroundColor: ctx => {
+                const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+                gradient.addColorStop(0, '#8e44ad');
+                gradient.addColorStop(1, '#e84393');
+                return gradient;
+            },
+            borderColor: '#fff'
+        },
+        remaining: {
+            backgroundColor: ctx => {
+                const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+                gradient.addColorStop(0, '#d1c4e9');
+                gradient.addColorStop(1, '#b39ddb');
+                return gradient;
+            },
+            borderColor: '#fff'
+        },
+        overLimit: {
+            backgroundColor: ctx => {
+                const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+                gradient.addColorStop(0, '#c0392b');
+                gradient.addColorStop(1, '#e57373');
+                return gradient;
+            },
+            borderColor: '#fff'
+        }
     };
   
     let chartColorsUsed;
     if (totalCaloriesUsed >= 1600) {
-      chartColorsUsed = [chartColors.overLimit];
-      totalCaloriesUsed = 1600;
-      remainingCalories = 0;
+        chartColorsUsed = [chartColors.overLimit];
+        totalCaloriesUsed = 1600;
+        remainingCalories = 0;
     } else {
-      chartColorsUsed = [
-        chartColors.used,
-        chartColors.remaining
-      ];
+        chartColorsUsed = [chartColors.used, chartColors.remaining];
     }
   
     if (!chart) {
-      chart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-          labels: ['Calories Used', 'Remaining Calories'],
-          datasets: [{
-            data: [totalCaloriesUsed, remainingCalories],
-            backgroundColor: chartColorsUsed.map(c => c.backgroundColor),
-            borderColor: chartColorsUsed.map(c => c.borderColor),
-            borderWidth: 2,
-            cutout: '50%' // Add this line to create a hollow center
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  if (context.label === 'Calories Used') {
-                    return `Calories Used: ${data.totalCaloriesUsed}`;
-                  } else if (context.label === 'Remaining Calories') {
-                    return `Remaining Calories: ${data.remainingCalories}`;
-                  }
+        chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Calories Used', 'Remaining Calories'],
+                datasets: [{
+                    data: [totalCaloriesUsed, remainingCalories],
+                    backgroundColor: chartColorsUsed.map(c => typeof c.backgroundColor === 'function' ? c.backgroundColor(ctx) : c.backgroundColor),
+                    borderColor: chartColorsUsed.map(c => c.borderColor),
+                    borderWidth: 2,
+                    cutout: '50%'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                if (context.label === 'Calories Used') {
+                                    return `Calories Used: ${data.totalCaloriesUsed}`;
+                                } else if (context.label === 'Remaining Calories') {
+                                    return `Remaining Calories: ${data.remainingCalories}`;
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
-        }
-      });
+        });
     } else {
-      chart.data.datasets[0].data[0] = totalCaloriesUsed;
-      chart.data.datasets[0].data[1] = remainingCalories;
-      chart.data.datasets[0].backgroundColor = chartColorsUsed.map(c => c.backgroundColor);
-      chart.data.datasets[0].borderColor = chartColorsUsed.map(c => c.borderColor);
-      chart.data.datasets[0].cutout = '50%'; // Update the cutout property
-      chart.update();
+        chart.data.datasets[0].data[0] = totalCaloriesUsed;
+        chart.data.datasets[0].data[1] = remainingCalories;
+        chart.data.datasets[0].backgroundColor = chartColorsUsed.map(c => typeof c.backgroundColor === 'function' ? c.backgroundColor(ctx) : c.backgroundColor);
+        chart.data.datasets[0].borderColor = chartColorsUsed.map(c => c.borderColor);
+        chart.data.datasets[0].cutout = '50%';
+        chart.update();
     }
 }
-
-
 
 // Function to display current date
 function displayCurrentDate() {
@@ -362,7 +354,6 @@ function displayCurrentDate() {
         day: '2-digit',
         timeZone: 'America/New_York',
     };
-
     const formatter = new Intl.DateTimeFormat('en-US', options);
     document.getElementById('date-input').value = formatter.format(currentDate);
 }
@@ -383,7 +374,6 @@ document.querySelectorAll('.add-calorie-button').forEach(button => {
             foodLog[dateStr] = [];
         }
 
-        // Check if food already exists
         const existingFoodIndex = foodLog[dateStr].findIndex(entry => entry.name === name);
         if (existingFoodIndex !== -1) {
             foodLog[dateStr][existingFoodIndex].calories += calories;
