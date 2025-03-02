@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     totalCalories: document.getElementById('total-calories'),
     weeklyTotal: document.getElementById('weekly-total'),
     totalSaved: document.getElementById('total-saved'),
-    barChartCanvas: document.getElementById('PieChart'),
-    prevDateButton: document.getElementById('prev-date-button'), // Updated
-    nextDateButton: document.getElementById('next-date-button'), // Updated
-    dateInput: document.getElementById('date-input'),           // Updated
+    barChartCanvas: document.getElementById('PieChart'), // Note: Should be renamed to 'BarChart' for clarity
+    prevDateButton: document.getElementById('prev-date-button'),
+    nextDateButton: document.getElementById('next-date-button'),
+    dateInput: document.getElementById('date-input'),
   };
 
   // Check for missing elements
@@ -73,8 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Event Listeners
   elements.addBtn.addEventListener('click', addCalorie);
   elements.resetBtn.addEventListener('click', resetCurrentWeek);
-  elements.prevDateButton.addEventListener('click', prevWeek); // Updated
-  elements.nextDateButton.addEventListener('click', nextWeek); // Updated
+  elements.prevDateButton.addEventListener('click', prevWeek);
+  elements.nextDateButton.addEventListener('click', nextWeek);
   elements.calorieInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') addCalorie();
   });
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentWeek = weeks[currentWeekIndex];
     elements.calorieList.innerHTML = currentWeek.map((entry, index) => {
       const caloriesSaved = DAILY_CALORIES_ALLOWED - entry;
-      const color = caloriesSaved >= 0 ? '#007bff' : 'red';
+      const color = caloriesSaved >= 0 ? '#40E0D0' : '#FF4500'; // Teal for under/over 1600, reddish for over
       return `
         <li class="list-group-item d-flex justify-content-between align-items-center">
           ${DAYS_OF_WEEK[index]}: ${entry} cals 
@@ -195,8 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
         datasets: [{
           label: 'Calories Consumed',
           data: chartEntries,
-          backgroundColor: chartEntries.map(entry => entry > DAILY_CALORIES_ALLOWED ? 'rgba(220, 53, 69, 0.2)' : 'rgba(0, 123, 255, 0.2)'),
-          borderColor: chartEntries.map(entry => entry > DAILY_CALORIES_ALLOWED ? '#dc3545' : '#007bff'),
+          backgroundColor: chartEntries.map(entry => entry > DAILY_CALORIES_ALLOWED ? 'rgba(255, 69, 0, 0.2)' : 'rgba(64, 224, 208, 0.2)'), // Reddish for over, teal for under
+          borderColor: chartEntries.map(entry => entry > DAILY_CALORIES_ALLOWED ? '#FF4500' : '#40E0D0'), // Solid reddish and teal borders
           borderWidth: { top: 2, right: 2, left: 2, bottom: 0 },
         }]
       },
@@ -217,8 +217,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Update navigation button states
   function updateNavigationButtons() {
-    elements.prevDateButton.disabled = currentWeekIndex === 0; // Updated
-    elements.nextDateButton.disabled = false;                // Updated
+    elements.prevDateButton.disabled = currentWeekIndex === 0;
+    elements.nextDateButton.disabled = false;
   }
 
   // Update week date range in the input field
@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const weekStart = new Date(baseMonday.getTime() + (currentWeekIndex - Math.floor((today - startDate) / MS_PER_WEEK)) * MS_PER_WEEK);
     const weekEnd = new Date(weekStart.getTime() + (DAYS_PER_WEEK - 1) * MS_PER_DAY);
     const formatDate = (date) => `${date.getMonth() + 1}/${date.getDate()}`;
-    elements.dateInput.value = `${formatDate(weekStart)} - ${formatDate(weekEnd)}`; // Updated
+    elements.dateInput.value = `${formatDate(weekStart)} - ${formatDate(weekEnd)}`;
   }
 
   // Save to local storage

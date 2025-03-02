@@ -106,10 +106,12 @@ h1 {
 /* Total and Remaining Calories Containers and Badges */
 .text-primary {
     color: #1E90FF !important; /* Dodger blue, updated dynamically by JS */
+    margin-bottom: 1rem; /* Adds space below Total Calories */
 }
 
 .text-success {
     color: #40E0D0 !important; /* Turquoise, updated dynamically by JS */
+    margin-top: 1rem; /* Adds space above Remaining Calories */
 }
 
 .badge.bg-primary {
@@ -147,7 +149,7 @@ h1 {
 }
 
 .list-group-item span:first-child {
-    flex: 1;
+    
     margin-right: 15px;
     text-transform: capitalize;
     text-align: left;
