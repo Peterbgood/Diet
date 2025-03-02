@@ -84,8 +84,8 @@ function updateTotalCalories() {
     remainingCaloriesBadge.innerText = remainingCalories;
 
     // Update text colors
-    totalCaloriesText.style.color = '#8e44ad'; // Purple from gradient start
-    remainingCaloriesText.style.color = remainingCalories < 0 ? '#ff0000' : '#b39ddb'; // Bright red if over 1600, else medium purple-gray
+    totalCaloriesText.style.color = '#1E90FF'; // Dodger blue
+    remainingCaloriesText.style.color = remainingCalories < 0 ? '#FF4500' : '#40E0D0'; // Orange red if over 1600, else turquoise
     remainingCaloriesBadge.className = remainingCalories < 0 ? 'badge bg-danger' : 'badge bg-success'; // Switch to red gradient if over 1600
 
     data = {
@@ -138,7 +138,7 @@ function updateFoodList() {
             caloriesSpan.textContent = `${entry.calories}`;
   
             if (entry.calories < 0) {
-                caloriesSpan.style.color = '#964B00';
+                caloriesSpan.style.color = '#2F4F4F'; // Dark slate gray for burnt calories
             }
   
             const deleteButton = document.createElement('button');
@@ -186,7 +186,7 @@ function updateFoodList() {
             caloriesSpan.textContent = `${entry.calories}`;
   
             if (entry.calories < 0) {
-                caloriesSpan.style.color = '#964B00';
+                caloriesSpan.style.color = '#2F4F4F'; // Dark slate gray for burnt calories
             }
   
             const deleteButton = document.createElement('button');
@@ -233,7 +233,7 @@ function updateFoodList() {
   
             const caloriesSpan = document.createElement('span');
             caloriesSpan.textContent = `${entry.calories}`;
-            caloriesSpan.style.color = '#0d6efd';
+            caloriesSpan.style.color = '#2F4F4F'; // Dark slate gray for burnt calories
   
             const deleteButton = document.createElement('button');
             deleteButton.classList.add('btn', 'btn-sm', 'btn-danger');
@@ -270,8 +270,8 @@ function renderCaloriesChart() {
         used: {
             backgroundColor: ctx => {
                 const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-                gradient.addColorStop(0, '#8e44ad');
-                gradient.addColorStop(1, '#e84393');
+                gradient.addColorStop(0, '#1E90FF'); // Dodger blue
+                gradient.addColorStop(1, '#00CED1'); // Dark turquoise
                 return gradient;
             },
             borderColor: '#fff'
@@ -279,8 +279,8 @@ function renderCaloriesChart() {
         remaining: {
             backgroundColor: ctx => {
                 const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-                gradient.addColorStop(0, '#d1c4e9');
-                gradient.addColorStop(1, '#b39ddb');
+                gradient.addColorStop(0, '#E0FFFF'); // Light cyan
+                gradient.addColorStop(1, '#40E0D0'); // Turquoise
                 return gradient;
             },
             borderColor: '#fff'
@@ -288,8 +288,8 @@ function renderCaloriesChart() {
         overLimit: {
             backgroundColor: ctx => {
                 const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-                gradient.addColorStop(0, '#c0392b');
-                gradient.addColorStop(1, '#e57373');
+                gradient.addColorStop(0, '#FF4500'); // Orange red
+                gradient.addColorStop(1, '#FF6347'); // Tomato
                 return gradient;
             },
             borderColor: '#fff'

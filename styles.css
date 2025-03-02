@@ -16,16 +16,16 @@ h1 {
 }
 
 .arrowbuttons .btn-primary {
-    background: linear-gradient(45deg, #8e44ad, #e84393) !important; /* Purple to magenta */
+    background: linear-gradient(45deg, #1E90FF, #00CED1) !important; /* Dodger blue to dark turquoise */
     color: #fff !important;
-    border: 2px solid #8e44ad !important;
+    border: 2px solid #1E90FF !important;
     border-radius: 20px;
     padding: 10px 20px;
     transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .arrowbuttons .btn-primary:hover {
-    background: linear-gradient(45deg, #6c3483, #c0392b) !important; /* Darker purple to darker magenta */
+    background: linear-gradient(45deg, #1873CC, #00A1A3) !important; /* Darker blue and teal tones */
     color: #fff !important;
 }
 
@@ -38,7 +38,7 @@ h1 {
 }
 
 .btn-cal .accordion-button:not(.collapsed) {
-    background: linear-gradient(45deg, #8e44ad, #e84393); /* Matches button gradient */
+    background: linear-gradient(45deg, #1E90FF, #00CED1); /* Matches button gradient */
     color: #fff;
 }
 
@@ -51,16 +51,16 @@ h1 {
     font-size: 0.875rem;
     width: 100%;
     margin-bottom: 1rem;
-    background: linear-gradient(45deg, #8e44ad, #e84393) !important; /* Purple to magenta */
+    background: linear-gradient(45deg, #1E90FF, #00CED1) !important; /* Dodger blue to dark turquoise */
     color: #fff !important;
-    border: 2px solid #8e44ad !important;
+    border: 2px solid #1E90FF !important;
     border-radius: 20px;
     padding: 10px 2px;
     transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .add-calorie-button:hover {
-    background: linear-gradient(45deg, #6c3483, #c0392b) !important; /* Darker purple to darker magenta */
+    background: linear-gradient(45deg, #1873CC, #00A1A3) !important; /* Darker blue and teal tones */
     color: #fff !important;
     transform: translateY(-2px);
 }
@@ -76,58 +76,58 @@ h1 {
 }
 
 .btn-primary {
-    background: linear-gradient(45deg, #8e44ad, #e84393) !important; /* Purple to magenta */
+    background: linear-gradient(45deg, #1E90FF, #00CED1) !important; /* Dodger blue to dark turquoise */
     color: #fff !important;
-    border: 2px solid #8e44ad !important;
+    border: 2px solid #1E90FF !important;
     border-radius: 20px;
     transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .btn-primary:hover {
-    background: linear-gradient(45deg, #6c3483, #c0392b) !important; /* Darker purple to darker magenta */
+    background: linear-gradient(45deg, #1873CC, #00A1A3) !important; /* Darker blue and teal tones */
     color: #fff !important;
 }
 
 .btn-dark {
-    background: linear-gradient(45deg, #2c3e50, #4a4a4a) !important; /* Gray to dark gray */
+    background: linear-gradient(45deg, #2F4F4F, #4682B4) !important; /* Dark slate gray to steel blue */
     color: #fff !important;
-    border: 2px solid #2c3e50 !important;
+    border: 2px solid #2F4F4F !important;
     border-radius: 20px;
     padding: 10px 20px;
     transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .btn-dark:hover {
-    background: linear-gradient(45deg, #1a252f, #333) !important; /* Darker gray shades */
+    background: linear-gradient(45deg, #1F3434, #36648B) !important; /* Darker slate and steel tones */
     color: #fff !important;
     transform: translateY(-2px);
 }
 
 /* Total and Remaining Calories Containers and Badges */
 .text-primary {
-    color: #8e44ad !important; /* Default to purple, updated dynamically by JS */
+    color: #1E90FF !important; /* Dodger blue, updated dynamically by JS */
 }
 
 .text-success {
-    color: #b39ddb !important; /* Default to medium purple-gray, updated dynamically by JS */
+    color: #40E0D0 !important; /* Turquoise, updated dynamically by JS */
 }
 
 .badge.bg-primary {
-    background: linear-gradient(45deg, #8e44ad, #e84393) !important; /* Purple to magenta for Total Calories */
+    background: linear-gradient(45deg, #1E90FF, #00CED1) !important; /* Dodger blue to dark turquoise */
     color: #fff !important;
     padding: 5px 10px;
     border-radius: 15px;
 }
 
 .badge.bg-success {
-    background: linear-gradient(45deg, #d1c4e9, #b39ddb) !important; /* Light purple-gray for Remaining Calories */
+    background: linear-gradient(45deg, #E0FFFF, #40E0D0) !important; /* Light cyan to turquoise */
     color: #333 !important; /* Darker text for contrast */
     padding: 5px 10px;
     border-radius: 15px;
 }
 
 .badge.bg-danger {
-    background: linear-gradient(45deg, #ff0000, #ff6666) !important; /* Bright red gradient for over limit */
+    background: linear-gradient(45deg, #FF4500, #FF6347) !important; /* Orange red to tomato */
     color: #fff !important;
     padding: 5px 10px;
     border-radius: 15px;
@@ -142,33 +142,33 @@ h1 {
     background: #fff;
     padding: 10px;
     display: flex;
-    justify-content: space-between; /* Spreads items across the line */
+    justify-content: space-between;
     align-items: center;
 }
 
 .list-group-item span:first-child {
-    flex: 1; /* Takes up available space on the left */
+    flex: 1;
     margin-right: 15px;
     text-transform: capitalize;
-    text-align: left; /* Name with icon stays left-aligned */
-    display: flex; /* Ensures icon and text align horizontally */
+    text-align: left;
+    display: flex;
     align-items: center;
 }
 
 .list-group-item span:nth-child(2) {
-    flex: 0 0 60px; /* Fixed width for calorie value */
-    text-align: center; /* Centers the text within its space */
+    flex: 0 0 60px;
+    text-align: center;
 }
 
 .list-group-item .btn-danger {
-    flex: 0 0 auto; /* Fixed width for delete button */
+    flex: 0 0 auto;
     margin-left: 15px;
 }
 
 #food-list .form-control {
     padding: 5px;
     width: fit-content;
-    display: inline-block; /* Better control with icon */
+    display: inline-block;
     border: none;
 }
 
@@ -211,7 +211,7 @@ h1 {
 
 /* Layout */
 .container {
-    padding-bottom: 60px; /* Space for fixed nav */
+    padding-bottom: 60px;
 }
 
 /* Miscellaneous */
