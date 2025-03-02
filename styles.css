@@ -16,7 +16,7 @@ h1 {
 }
 
 .arrowbuttons .btn-primary {
-    background: linear-gradient(45deg, #1E90FF, #00CED1) !important; /* Dodger blue to dark turquoise */
+    background: linear-gradient(45deg, #1E90FF, #00CED1) !important; /* Dodger blue to dark turquoise for arrow buttons */
     color: #fff !important;
     border: 2px solid #1E90FF !important;
     border-radius: 20px;
