@@ -29,6 +29,15 @@ h1 {
     color: #fff !important;
 }
 
+.week-divider {
+    background: linear-gradient(45deg, #00CED1, #1E90FF) !important; /* Blue to teal gradient */
+    color: #fff;
+    text-align: center !important;
+    width: 100%;
+    display: block !important;
+    padding: 10px;
+}
+
 /* Accordion Headers */
 .btn-cal .accordion-button {
     background-color: #fff;
