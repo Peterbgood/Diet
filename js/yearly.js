@@ -78,15 +78,21 @@ function renderLog() {
   log.innerHTML = '';
 
   const storedData = getStoredData();
-  storedData.sort((a, b) => new Date(b.date) - new Date(a.date)); // Newest first
+  // Create an array of objects with original indices
+  const dataWithIndices = storedData.map((entry, originalIndex) => ({
+    entry,
+    originalIndex
+  }));
+  // Sort by date, newest first
+  dataWithIndices.sort((a, b) => new Date(b.entry.date) - new Date(a.entry.date));
 
-  storedData.forEach((entry, index) => {
+  dataWithIndices.forEach(({ entry, originalIndex }) => {
     const date = new Date(entry.date);
     const weight = entry.weight;
     const overUnder = weight - CALORIE_THRESHOLD;
     const li = document.createElement('li');
     li.className = 'list-group-item d-flex justify-content-between align-items-center';
-    li.dataset.index = index;
+    li.dataset.index = originalIndex; // Store the original index
     li.innerHTML = `
       ${formatDate(date)}: ${weight.toFixed(0)} Cals
       <span class="over-under">(${overUnder > 0 ? '+' : ''}${Math.abs(overUnder).toFixed(0)})</span>
@@ -97,9 +103,13 @@ function renderLog() {
     log.appendChild(li);
   });
 
-  // Add delete event listeners
-  log.querySelectorAll('.delete-btn').forEach((btn, idx) => {
-    btn.addEventListener('click', () => deleteEntry(idx));
+  // Add delete event listeners using the stored original index
+  log.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const li = e.target.closest('li');
+      const index = parseInt(li.dataset.index);
+      deleteEntry(index);
+    });
   });
 }
 
