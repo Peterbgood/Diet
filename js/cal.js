@@ -1,10 +1,17 @@
 let chart;
 let data = {
     totalCaloriesUsed: 0,
-    remainingCalories: 1600
+    remainingCalories: 1450 // Default to 1450; will adjust based on day
 };
 let currentDate = new Date();
 let foodLog = {};
+
+// Function to get the calorie limit based on the day of the week
+function getCalorieLimit(date) {
+    const dayOfWeek = date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+    // Friday (5), Saturday (6), Sunday (0) get 2050; others get 1450
+    return (dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0) ? 2050 : 1450;
+}
 
 // Function to save data to local storage
 function saveData() {
@@ -73,7 +80,8 @@ function updateTotalCalories() {
         timeZone: 'America/New_York',
     });
     const totalCalories = foodLog[dateStr] ? foodLog[dateStr].reduce((acc, item) => acc + item.calories, 0) : 0;
-    const remainingCalories = 1600 - totalCalories;
+    const calorieLimit = getCalorieLimit(currentDate); // Dynamic limit based on day
+    const remainingCalories = calorieLimit - totalCalories;
 
     const totalCaloriesText = document.querySelector('.text-primary');
     const totalCaloriesBadge = document.getElementById('total-calories');
@@ -85,8 +93,8 @@ function updateTotalCalories() {
 
     // Update text colors
     totalCaloriesText.style.color = '#1E90FF'; // Dodger blue
-    remainingCaloriesText.style.color = remainingCalories < 0 ? '#FF4500' : '#40E0D0'; // Orange red if over 1600, else turquoise
-    remainingCaloriesBadge.className = remainingCalories < 0 ? 'badge bg-danger' : 'badge bg-success'; // Switch to red gradient if over 1600
+    remainingCaloriesText.style.color = remainingCalories < 0 ? '#FF4500' : '#40E0D0'; // Orange red if over limit, else turquoise
+    remainingCaloriesBadge.className = remainingCalories < 0 ? 'badge bg-danger' : 'badge bg-success'; // Switch to red gradient if over limit
 
     data = {
         totalCaloriesUsed: totalCalories,
@@ -178,10 +186,11 @@ function renderCaloriesChart() {
     const ctx = document.getElementById('caloriesChart').getContext('2d');
     let totalCaloriesUsed = data.totalCaloriesUsed;
     let remainingCalories = data.remainingCalories;
+    const calorieLimit = getCalorieLimit(currentDate); // Dynamic limit based on day
   
     if (totalCaloriesUsed < 0) {
         totalCaloriesUsed = 0;
-        remainingCalories = 1600;
+        remainingCalories = calorieLimit;
     }
   
     const chartColors = {
@@ -215,9 +224,9 @@ function renderCaloriesChart() {
     };
   
     let chartColorsUsed;
-    if (totalCaloriesUsed >= 1600) {
+    if (totalCaloriesUsed >= calorieLimit) {
         chartColorsUsed = [chartColors.overLimit];
-        totalCaloriesUsed = 1600;
+        totalCaloriesUsed = calorieLimit;
         remainingCalories = 0;
     } else {
         chartColorsUsed = [chartColors.used, chartColors.remaining];
