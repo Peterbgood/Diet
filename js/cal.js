@@ -1,7 +1,7 @@
 let chart;
 let data = {
     totalCaloriesUsed: 0,
-    remainingCalories: 1450 // Default to 1450; will adjust based on day
+    remainingCalories: 1450 // Default to 1450; adjusted by day
 };
 let currentDate = new Date();
 let foodLog = {};
@@ -9,19 +9,22 @@ let foodLog = {};
 // Function to get the calorie limit based on the day of the week
 function getCalorieLimit(date) {
     const dayOfWeek = date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-    // Friday (5), Saturday (6), Sunday (0) get 2050; others get 1450
     return (dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0) ? 2050 : 1450;
 }
 
-// Function to save data to local storage
-function saveData() {
-    const dateStr = currentDate.toLocaleString('en-US', {
+// Function to get the current date string
+function getDateString(date) {
+    return date.toLocaleString('en-US', {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
         timeZone: 'America/New_York',
     });
+}
 
+// Function to save data to local storage
+function saveData() {
+    const dateStr = getDateString(currentDate);
     const foodListElement = document.getElementById('food-list');
     const foodItems = foodListElement.children;
 
@@ -35,29 +38,30 @@ function saveData() {
 
     localStorage.setItem('foodLog', JSON.stringify(foodLog));
     localStorage.setItem('currentDate', dateStr);
+    localStorage.setItem(`fourMileRun_${dateStr}`, document.getElementById('fourMileRunCheckbox').checked);
 }
 
 // Function to load data from local storage
 function loadData() {
     const storedFoodLog = localStorage.getItem('foodLog');
-    const storedCurrentDate = localStorage.getItem('currentDate');
 
-    if (storedFoodLog && storedCurrentDate) {
+    if (storedFoodLog) {
         try {
             foodLog = JSON.parse(storedFoodLog);
-            currentDate = new Date();
-            updateUI();
         } catch (error) {
-            console.error('Error parsing stored data:', error);
+            console.error('Error parsing stored food log:', error);
             foodLog = {};
-            currentDate = new Date();
-            saveData();
         }
     } else {
         foodLog = {};
-        currentDate = new Date();
-        saveData();
     }
+
+    // Always start with today's date on load/refresh
+    currentDate = new Date();
+    const dateStr = getDateString(currentDate);
+    const runCompleted = localStorage.getItem(`fourMileRun_${dateStr}`) === 'true';
+    document.getElementById('fourMileRunCheckbox').checked = runCompleted;
+    updateUI();
 }
 
 // Load data from local storage on page load
@@ -73,14 +77,9 @@ function updateUI() {
 
 // Function to update total calories
 function updateTotalCalories() {
-    const dateStr = currentDate.toLocaleString('en-US', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        timeZone: 'America/New_York',
-    });
+    const dateStr = getDateString(currentDate);
     const totalCalories = foodLog[dateStr] ? foodLog[dateStr].reduce((acc, item) => acc + item.calories, 0) : 0;
-    const calorieLimit = getCalorieLimit(currentDate); // Dynamic limit based on day
+    const calorieLimit = getCalorieLimit(currentDate);
     const remainingCalories = calorieLimit - totalCalories;
 
     const totalCaloriesText = document.querySelector('.text-primary');
@@ -104,26 +103,15 @@ function updateTotalCalories() {
 
 // Function to update food list
 function updateFoodList() {
-    const dateStr = currentDate.toLocaleString('en-US', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        timeZone: 'America/New_York',
-    });
+    const dateStr = getDateString(currentDate);
     const foodListElement = document.getElementById('food-list');
     foodListElement.innerHTML = '';
   
     if (foodLog[dateStr]) {
-        // Separate burnt calories
         const burntCalories = foodLog[dateStr].filter(entry => entry.calories < 0);
-        
-        // Separate coffee items (case-insensitive check for "coffee" in name)
         const coffeeItems = foodLog[dateStr].filter(entry => entry.name.toLowerCase().includes('coffee') && entry.calories >= 0);
-        
-        // Display other calories
         const otherCalories = foodLog[dateStr].filter(entry => !entry.name.toLowerCase().includes('coffee') && entry.calories >= 0);
 
-        // Helper function to create list items
         const createListItem = (entry) => {
             const listItem = document.createElement('li');
             listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between');
@@ -172,11 +160,8 @@ function updateFoodList() {
             return listItem;
         };
 
-        // Display coffee items first, preserving order of addition (newest at top)
         coffeeItems.reverse().forEach(entry => foodListElement.appendChild(createListItem(entry)));
-        // Display other calories
         otherCalories.forEach(entry => foodListElement.appendChild(createListItem(entry)));
-        // Display burnt calories last
         burntCalories.forEach(entry => foodListElement.appendChild(createListItem(entry)));
     }
 }
@@ -186,7 +171,7 @@ function renderCaloriesChart() {
     const ctx = document.getElementById('caloriesChart').getContext('2d');
     let totalCaloriesUsed = data.totalCaloriesUsed;
     let remainingCalories = data.remainingCalories;
-    const calorieLimit = getCalorieLimit(currentDate); // Dynamic limit based on day
+    const calorieLimit = getCalorieLimit(currentDate);
   
     if (totalCaloriesUsed < 0) {
         totalCaloriesUsed = 0;
@@ -197,8 +182,8 @@ function renderCaloriesChart() {
         used: {
             backgroundColor: ctx => {
                 const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-                gradient.addColorStop(0, '#1E90FF'); // Dodger blue
-                gradient.addColorStop(1, '#00CED1'); // Dark turquoise
+                gradient.addColorStop(0, '#1E90FF');
+                gradient.addColorStop(1, '#00CED1');
                 return gradient;
             },
             borderColor: '#fff'
@@ -206,8 +191,8 @@ function renderCaloriesChart() {
         remaining: {
             backgroundColor: ctx => {
                 const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-                gradient.addColorStop(0, '#E0FFFF'); // Light cyan
-                gradient.addColorStop(1, '#40E0D0'); // Turquoise
+                gradient.addColorStop(0, '#E0FFFF');
+                gradient.addColorStop(1, '#40E0D0');
                 return gradient;
             },
             borderColor: '#fff'
@@ -215,8 +200,8 @@ function renderCaloriesChart() {
         overLimit: {
             backgroundColor: ctx => {
                 const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-                gradient.addColorStop(0, '#FF4500'); // Orange red
-                gradient.addColorStop(1, '#FF6347'); // Tomato
+                gradient.addColorStop(0, '#FF4500');
+                gradient.addColorStop(1, '#FF6347');
                 return gradient;
             },
             borderColor: '#fff'
@@ -288,12 +273,7 @@ function displayCurrentDate() {
 // Add event listener to calorie buttons
 document.querySelectorAll('.add-calorie-button').forEach(button => {
     button.addEventListener('click', () => {
-        const dateStr = currentDate.toLocaleString('en-US', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            timeZone: 'America/New_York',
-        });
+        const dateStr = getDateString(currentDate);
         const calories = parseInt(button.dataset.calories);
         const name = button.dataset.name;
 
@@ -316,6 +296,9 @@ document.querySelectorAll('.add-calorie-button').forEach(button => {
 // Add event listener to previous date button
 document.getElementById('prev-date-button').addEventListener('click', () => {
     currentDate.setDate(currentDate.getDate() - 1);
+    const dateStr = getDateString(currentDate);
+    const runCompleted = localStorage.getItem(`fourMileRun_${dateStr}`) === 'true';
+    document.getElementById('fourMileRunCheckbox').checked = runCompleted;
     updateUI();
     saveData();
 });
@@ -323,6 +306,9 @@ document.getElementById('prev-date-button').addEventListener('click', () => {
 // Add event listener to next date button
 document.getElementById('next-date-button').addEventListener('click', () => {
     currentDate.setDate(currentDate.getDate() + 1);
+    const dateStr = getDateString(currentDate);
+    const runCompleted = localStorage.getItem(`fourMileRun_${dateStr}`) === 'true';
+    document.getElementById('fourMileRunCheckbox').checked = runCompleted;
     updateUI();
     saveData();
 });
@@ -330,6 +316,11 @@ document.getElementById('next-date-button').addEventListener('click', () => {
 // Add event listener to food list for editing names
 document.getElementById('food-list').addEventListener('input', () => {
     saveData();
+});
+
+// Add event listener to 4-mile run checkbox
+document.getElementById('fourMileRunCheckbox').addEventListener('change', () => {
+    saveData(); // Save checkbox state to localStorage without updating calories
 });
 
 // Initialize UI
