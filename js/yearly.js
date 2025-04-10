@@ -2,7 +2,7 @@
 let chart;
 
 // Constants
-const CALORIE_THRESHOLD = 11200;
+const CALORIE_THRESHOLD = 11900;
 const STORAGE_KEY = 'weightData';
 
 // Utility function to format date as MM/DD/YYYY
@@ -78,12 +78,11 @@ function renderLog() {
   log.innerHTML = '';
 
   const storedData = getStoredData();
-  // Create an array of objects with original indices
   const dataWithIndices = storedData.map((entry, originalIndex) => ({
     entry,
     originalIndex
   }));
-  // Sort by date, newest first
+
   dataWithIndices.sort((a, b) => new Date(b.entry.date) - new Date(a.entry.date));
 
   dataWithIndices.forEach(({ entry, originalIndex }) => {
@@ -92,18 +91,17 @@ function renderLog() {
     const overUnder = weight - CALORIE_THRESHOLD;
     const li = document.createElement('li');
     li.className = 'list-group-item d-flex justify-content-between align-items-center';
-    li.dataset.index = originalIndex; // Store the original index
+    li.dataset.index = originalIndex;
     li.innerHTML = `
       ${formatDate(date)}: ${weight.toFixed(0)} Cals
       <span class="over-under">(${overUnder > 0 ? '+' : ''}${Math.abs(overUnder).toFixed(0)})</span>
       <button class="btn btn-danger btn-sm delete-btn"><i class="bi bi-trash"></i></button>
     `;
     const overUnderText = li.querySelector('.over-under');
-    overUnderText.style.color = overUnder <= 0 ? '#40E0D0' : '#FF4500'; // Teal for under/at, reddish for over
+    overUnderText.style.color = overUnder <= 0 ? '#40E0D0' : '#FF4500';
     log.appendChild(li);
   });
 
-  // Add delete event listeners using the stored original index
   log.querySelectorAll('.delete-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const li = e.target.closest('li');
@@ -142,13 +140,13 @@ function createBarChart() {
               type: 'line',
               yMin: CALORIE_THRESHOLD,
               yMax: CALORIE_THRESHOLD,
-              borderColor: '#40E0D0', // Teal for threshold line
+              borderColor: '#40E0D0',
               borderWidth: 5,
               label: {
                 content: 'Threshold',
                 enabled: true,
                 position: 'center',
-                backgroundColor: 'rgba(64, 224, 208, 0.8)', // Teal with opacity
+                backgroundColor: 'rgba(64, 224, 208, 0.8)',
               },
             },
           },
@@ -167,15 +165,15 @@ function updateChart() {
   const backgroundColors = [];
   const borderColors = [];
 
-  storedData.sort((a, b) => new Date(a.date) - new Date(b.date)); // Oldest first for chart
+  storedData.sort((a, b) => new Date(a.date) - new Date(b.date));
   storedData.forEach(entry => {
     const date = new Date(entry.date);
     const weight = entry.weight;
     labels.push(formatDate(date));
     data.push(weight);
-    const color = weight > CALORIE_THRESHOLD ? 'rgba(255, 69, 0, 0.2)' : 'rgba(64, 224, 208, 0.2)'; // Reddish for over, teal for under
+    const color = weight > CALORIE_THRESHOLD ? 'rgba(255, 69, 0, 0.2)' : 'rgba(64, 224, 208, 0.2)';
     backgroundColors.push(color);
-    borderColors.push(weight > CALORIE_THRESHOLD ? '#FF4500' : '#40E0D0'); // Solid reddish and teal borders
+    borderColors.push(weight > CALORIE_THRESHOLD ? '#FF4500' : '#40E0D0');
   });
 
   chart.data.labels = labels;
@@ -187,20 +185,15 @@ function updateChart() {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  // Set default date to today in local time (Eastern Time)
   const now = new Date();
   const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0'); // +1 because months are 0-based
+  const month = String(now.getMonth() + 1).padStart(2, '0');
   const day = String(now.getDate()).padStart(2, '0');
   document.getElementById('date').value = `${year}-${month}-${day}`;
 
-  // Form submission handler
   document.getElementById('calorie-form').addEventListener('submit', saveData);
-
-  // Reset button handler
   document.getElementById('reset-btn').addEventListener('click', resetData);
 
-  // Initial render and chart setup
   renderLog();
   if (!chart) createBarChart();
 });
