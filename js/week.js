@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Constants
-  const TOTAL_WEEKLY_CALORIES = 11950; // 1450 * 4 + 2050 * 3 = 5800 + 6150 = 11950
-  const DAILY_MAXIMUMS = [1450, 1450, 1450, 1450, 2050, 2050, 2050]; // Mon-Sun
+  const TOTAL_WEEKLY_CALORIES = 11900; // 1700 * 7 = 11900
+  const DAILY_MAXIMUMS = Array(7).fill(1700); // 1700 for all days
   const DAYS_PER_WEEK = 7;
   const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const MS_PER_DAY = 24 * 60 * 60 * 1000;
@@ -85,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('This week is full. Move to the next week to add more entries.');
       return;
     }
-    // Removed the maximum check here to allow overages
     weeks[currentWeekIndex].push(calorieAmount);
     elements.calorieInput.value = '';
     updateUI();
@@ -156,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentWeek = weeks[currentWeekIndex];
     const totalConsumed = currentWeek.reduce((a, b) => a + b, 0);
     const daysFilled = currentWeek.length;
-    const maxPossible = DAILY_MAXIMUMS.slice(0, daysFilled).reduce((a, b) => a + b, 0);
     const remainingCalories = TOTAL_WEEKLY_CALORIES - totalConsumed;
     let totalSavedCalories = 0;
     currentWeek.forEach((entry, index) => {
