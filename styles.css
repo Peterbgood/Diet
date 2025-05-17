@@ -136,7 +136,7 @@ h1 {
 }
 
 .text-success {
-    color: #38A169;
+    color: #319795;
     font-weight: 600;
     font-size: 1.75rem;
     margin-top: 1.5rem;
@@ -151,7 +151,7 @@ h1 {
 }
 
 .badge.bg-success {
-    background-color: #38A169;
+    background-color: #319795;
     color: #FFFFFF;
     padding: 6px 12px;
     border-radius: 12px;
