@@ -1,19 +1,23 @@
 /* Global Styles */
 body, html {
     font-family: 'Poppins', sans-serif;
-    color: #2D3748;
+    color: #E2E8F0;
     margin: 0;
     padding: 0;
     height: 100%;
-    background-color: #F7FAFC;
+    background: linear-gradient(135deg, #1A202C 0%, #2D3748 100%);
 }
 
 /* Headings */
-h1 {
-    color: #1A202C;
+h1, h2 {
+    color: #E2E8F0;
     font-weight: 700;
     font-size: 2.5rem;
     letter-spacing: -0.5px;
+}
+
+h2 {
+    font-size: 1.75rem;
 }
 
 /* Arrow Buttons */
@@ -42,20 +46,20 @@ h1 {
 
 /* Accordion Headers */
 .btn-cal .accordion-button {
-    background-color: #FFFFFF;
-    color: #2D3748;
+    background-color: #2D3748;
+    color: #E2E8F0;
     font-weight: 600;
     font-size: 1.1rem;
     padding: 16px;
     border: none;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
 }
 
 .btn-cal .accordion-button:not(.collapsed) {
     background-color: #3182CE;
     color: #FFFFFF;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 .btn-cal .accordion-button:focus {
@@ -64,7 +68,8 @@ h1 {
 }
 
 .btn-cal .accordion-body {
-    background-color: #F7FAFC;
+    background-color: #2D3748;
+    color: #E2E8F0;
     padding: 16px;
     border-radius: 0 0 8px 8px;
 }
@@ -79,13 +84,13 @@ h1 {
     padding: 10px 16px;
     margin: 6px;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .add-calorie-button:hover {
     background-color: #2B6CB0;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 @media (min-width: 390px) {
@@ -169,25 +174,28 @@ h1 {
 /* Food List Styling */
 #food-list {
     padding: 0;
-    background-color: #FFFFFF;
+    background-color: #2D3748;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .list-group-item {
-    background-color: #FFFFFF;
-    padding: 14px 16px;
+    background-color: #2D3748;
+    padding: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border: none;
-    border-bottom: 1px solid #EDF2F7;
     transition: background-color 0.2s ease;
 }
 
+.list-group-item:nth-child(odd) {
+    background-color: #1A202C;
+}
+
 .list-group-item:hover {
-    background-color: #F7FAFC;
+    background-color: #4A5568;
 }
 
 .list-group-item span:first-child {
@@ -197,12 +205,13 @@ h1 {
     display: flex;
     align-items: center;
     font-weight: 500;
+    color: #E2E8F0;
 }
 
 .list-group-item span:nth-child(2) {
     flex: 0 0 60px;
     text-align: center;
-    color: #4A5568;
+    color: #E2E8F0;
 }
 
 .list-group-item .btn-danger {
@@ -222,8 +231,10 @@ h1 {
     padding: 5px;
     width: fit-content;
     display: inline-block;
-    border: 1px solid #E2E8F0;
+    border: 1px solid #4A5568;
     border-radius: 6px;
+    background-color: #1A202C;
+    color: #E2E8F0;
 }
 
 /* Navigation */
@@ -234,13 +245,13 @@ h1 {
     padding: 8px 0;
     text-align: center;
     z-index: 10;
-    background-color: #FFFFFF;
-    border-top: 1px solid #E2E8F0;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+    background-color: #2D3748;
+    border-top: 1px solid #4A5568;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .navbar {
-    background-color: #FFFFFF;
+    background-color: #2D3748;
     padding: 0;
 }
 
@@ -258,7 +269,7 @@ h1 {
 
 .nav-link {
     font-size: 1.1rem;
-    color: #4A5568;
+    color: #E2E8F0;
     padding: 8px 16px;
     transition: color 0.2s ease;
 }
@@ -274,10 +285,10 @@ h1 {
 
 /* Chart Container */
 .chart-container {
-    background-color: #FFFFFF;
+    background-color: #2D3748;
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Miscellaneous */
@@ -307,7 +318,7 @@ h1 {
 .form-check-input {
     width: 1.5rem;
     height: 1.5rem;
-    border: 2px solid #E2E8F0;
+    border: 2px solid #4A5568;
     border-radius: 4px;
     transition: border-color 0.2s ease, background-color 0.2s ease;
 }
