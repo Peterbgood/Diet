@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentWeek = weeks[currentWeekIndex];
     elements.calorieList.innerHTML = currentWeek.map((entry, index) => {
       const caloriesSaved = DAILY_MAXIMUMS[index] - entry;
-      const color = caloriesSaved >= 0 ? '#40E0D0' : '#FF4500';
+      const color = caloriesSaved >= 0 ? '#4B5EAA' : '#C0392B'; // Muted blue for saved, bold red for over-limit
       return `
         <li class="list-group-item d-flex justify-content-between align-items-center">
           ${DAYS_OF_WEEK[index]}: ${entry} cals 
@@ -179,8 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {
         datasets: [{
           label: 'Calories Consumed',
           data: chartEntries,
-          backgroundColor: chartEntries.map((entry, index) => entry > DAILY_MAXIMUMS[index] ? 'rgba(255, 69, 0, 0.2)' : 'rgba(64, 224, 208, 0.2)'),
-          borderColor: chartEntries.map((entry, index) => entry > DAILY_MAXIMUMS[index] ? '#FF4500' : '#40E0D0'),
+          backgroundColor: chartEntries.map((entry, index) => entry > DAILY_MAXIMUMS[index] ? '#C0392B' : '#2B4A8C'), // Bold red for over-limit, steel blue for consumed
+          borderColor: chartEntries.map((entry, index) => entry > DAILY_MAXIMUMS[index] ? '#C0392B' : '#2B4A8C'), // Match border to background
           borderWidth: { top: 2, right: 2, left: 2, bottom: 0 },
         }]
       },
