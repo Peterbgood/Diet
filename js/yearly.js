@@ -98,7 +98,7 @@ function renderLog() {
       <button class="btn btn-danger btn-sm delete-btn"><i class="bi bi-trash"></i></button>
     `;
     const overUnderText = li.querySelector('.over-under');
-    overUnderText.style.color = overUnder <= 0 ? '#40E0D0' : '#FF4500';
+    overUnderText.style.color = overUnder <= 0 ? '#4B5EAA' : '#C0392B'; // Muted blue for under, bold red for over
     log.appendChild(li);
   });
 
@@ -140,13 +140,13 @@ function createBarChart() {
               type: 'line',
               yMin: CALORIE_THRESHOLD,
               yMax: CALORIE_THRESHOLD,
-              borderColor: '#40E0D0',
+              borderColor: '#4B5EAA', // Muted blue for threshold line
               borderWidth: 5,
               label: {
                 content: 'Threshold',
                 enabled: true,
                 position: 'center',
-                backgroundColor: 'rgba(64, 224, 208, 0.8)',
+                backgroundColor: '#4B5EAA', // Muted blue for label
               },
             },
           },
@@ -171,9 +171,9 @@ function updateChart() {
     const weight = entry.weight;
     labels.push(formatDate(date));
     data.push(weight);
-    const color = weight > CALORIE_THRESHOLD ? 'rgba(255, 69, 0, 0.2)' : 'rgba(64, 224, 208, 0.2)';
+    const color = weight > CALORIE_THRESHOLD ? '#C0392B' : '#2B4A8C'; // Bold red for over, steel blue for under
     backgroundColors.push(color);
-    borderColors.push(weight > CALORIE_THRESHOLD ? '#FF4500' : '#40E0D0');
+    borderColors.push(color);
   });
 
   chart.data.labels = labels;
