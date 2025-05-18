@@ -85,8 +85,8 @@ function updateTotalCalories() {
     totalCaloriesBadge.innerText = totalCalories;
     remainingCaloriesBadge.innerText = remainingCalories;
 
-    totalCaloriesText.style.color = '#1E90FF';
-    remainingCaloriesText.style.color = remainingCalories < 0 ? '#FF4500' : '#40E0D0';
+    totalCaloriesText.style.color = '#2B4A8C'; // Steel blue from CSS
+    remainingCaloriesText.style.color = remainingCalories < 0 ? '#C0392B' : '#4B5EAA'; // Red for negative, muted blue for success
     remainingCaloriesBadge.className = remainingCalories < 0 ? 'badge bg-danger' : 'badge bg-success';
 
     data = {
@@ -132,7 +132,7 @@ function updateFoodList() {
             const caloriesSpan = document.createElement('span');
             caloriesSpan.textContent = `${entry.calories}`;
             if (entry.calories < 0) {
-                caloriesSpan.style.color = '#2F4F4F';
+                caloriesSpan.style.color = '#4B5EAA'; // Muted blue for burnt calories
             }
 
             const deleteButton = document.createElement('button');
@@ -172,31 +172,16 @@ function renderCaloriesChart() {
 
     const chartColors = {
         used: {
-            backgroundColor: ctx => {
-                const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-                gradient.addColorStop(0, '#1E90FF');
-                gradient.addColorStop(1, '#00CED1');
-                return gradient;
-            },
-            borderColor: '#fff'
+            backgroundColor: '#2B4A8C', // Steel blue for used calories
+            borderColor: '#FFFFFF'
         },
         remaining: {
-            backgroundColor: ctx => {
-                const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-                gradient.addColorStop(0, '#E0FFFF');
-                gradient.addColorStop(1, '#40E0D0');
-                return gradient;
-            },
-            borderColor: '#fff'
+            backgroundColor: '#E6E6E6', // Light gray for remaining calories
+            borderColor: '#FFFFFF'
         },
         overLimit: {
-            backgroundColor: ctx => {
-                const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-                gradient.addColorStop(0, '#FF4500');
-                gradient.addColorStop(1, '#FF6347');
-                return gradient;
-            },
-            borderColor: '#fff'
+            backgroundColor: '#C0392B', // Bold red for over-limit
+            borderColor: '#FFFFFF'
         }
     };
 
@@ -216,7 +201,7 @@ function renderCaloriesChart() {
                 labels: ['Calories Used', 'Remaining Calories'],
                 datasets: [{
                     data: [totalCaloriesUsed, remainingCalories],
-                    backgroundColor: chartColorsUsed.map(c => typeof c.backgroundColor === 'function' ? c.backgroundColor(ctx) : c.backgroundColor),
+                    backgroundColor: chartColorsUsed.map(c => c.backgroundColor),
                     borderColor: chartColorsUsed.map(c => c.borderColor),
                     borderWidth: 2,
                     cutout: '50%'
@@ -243,7 +228,7 @@ function renderCaloriesChart() {
     } else {
         chart.data.datasets[0].data[0] = totalCaloriesUsed;
         chart.data.datasets[0].data[1] = remainingCalories;
-        chart.data.datasets[0].backgroundColor = chartColorsUsed.map(c => typeof c.backgroundColor === 'function' ? c.backgroundColor(ctx) : c.backgroundColor);
+        chart.data.datasets[0].backgroundColor = chartColorsUsed.map(c => c.backgroundColor);
         chart.data.datasets[0].borderColor = chartColorsUsed.map(c => c.borderColor);
         chart.data.datasets[0].cutout = '50%';
         chart.update();
