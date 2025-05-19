@@ -28,7 +28,7 @@ function saveData() {
     localStorage.setItem("weightData2", JSON.stringify(storedData));
     
     // Clear the weight input field
-    document.getElementByIdteken("weight").value = "";
+    document.getElementById("weight").value = "";
     
     renderLog();
     updateChart();
@@ -133,8 +133,8 @@ function updateChart() {
             datasets: [{
                 label: "Weight",
                 data: recentData.map(d => d.weight),
-                backgroundColor: "#2B4A8C", // Steel blue for chart points
-                borderColor: "#2B4A8C", // Steel blue for chart line
+                backgroundColor: "#007bff",
+                borderColor: "#007bff",
                 borderWidth: 1,
                 tension: 0.1
             }]
@@ -142,7 +142,7 @@ function updateChart() {
         options: {
             scales: {
                 y: {
-                    beginAtZero: false,
+                    beginAtZero: true,
                     min: 155,
                     max: 165
                 }
