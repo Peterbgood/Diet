@@ -1,14 +1,14 @@
 let chart;
 let data = {
     totalCaloriesUsed: 0,
-    remainingCalories: 1700 // Default to 1700; adjusted by day
+    remainingCalories: 1400 // Updated to 1400
 };
 let currentDate = new Date();
 let foodLog = {};
 
 // Function to get the calorie limit based on the day of the week
 function getCalorieLimit(date) {
-    return 1700;
+    return 1400; // Updated to 1400
 }
 
 // Function to get the current date string
@@ -85,8 +85,8 @@ function updateTotalCalories() {
     totalCaloriesBadge.innerText = totalCalories;
     remainingCaloriesBadge.innerText = remainingCalories;
 
-    totalCaloriesText.style.color = '#2B4A8C'; // Steel blue from CSS
-    remainingCaloriesText.style.color = remainingCalories < 0 ? '#C0392B' : '#4B5EAA'; // Red for negative, muted blue for success
+    totalCaloriesText.style.color = '#2B4A8C';
+    remainingCaloriesText.style.color = remainingCalories < 0 ? '#C0392B' : '#4B5EAA';
     remainingCaloriesBadge.className = remainingCalories < 0 ? 'badge bg-danger' : 'badge bg-success';
 
     data = {
@@ -132,7 +132,7 @@ function updateFoodList() {
             const caloriesSpan = document.createElement('span');
             caloriesSpan.textContent = `${entry.calories}`;
             if (entry.calories < 0) {
-                caloriesSpan.style.color = '#4B5EAA'; // Muted blue for burnt calories
+                caloriesSpan.style.color = '#4B5EAA';
             }
 
             const deleteButton = document.createElement('button');
@@ -172,15 +172,15 @@ function renderCaloriesChart() {
 
     const chartColors = {
         used: {
-            backgroundColor: '#2B4A8C', // Steel blue for used calories
+            backgroundColor: '#2B4A8C',
             borderColor: '#FFFFFF'
         },
         remaining: {
-            backgroundColor: '#E6E6E6', // Light gray for remaining calories
+            backgroundColor: '#E6E6E6',
             borderColor: '#FFFFFF'
         },
         overLimit: {
-            backgroundColor: '#C0392B', // Bold red for over-limit
+            backgroundColor: '#C0392B',
             borderColor: '#FFFFFF'
         }
     };
