@@ -2,7 +2,7 @@
 let chart;
 
 // Constants
-const CALORIE_THRESHOLD = 11900;
+const CALORIE_THRESHOLD = 10500; // Updated to 10500
 const STORAGE_KEY = 'weightData';
 
 // Utility function to format date as MM/DD/YYYY
@@ -130,7 +130,7 @@ function createBarChart() {
       scales: {
         y: {
           beginAtZero: true,
-          max: 15000,
+          max: 12000, // Adjusted to better fit new threshold of 10500
         },
       },
       plugins: {
