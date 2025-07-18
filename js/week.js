@@ -179,8 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {
         datasets: [{
           label: 'Calories Consumed',
           data: chartEntries,
-          backgroundColor: chartEntries.map((entry, index) => entry > DAILY_MAXIMUMS[index] ? '#C0392B' : '#2B4A8C'), // Bold red for over-limit, steel blue for consumed
-          borderColor: chartEntries.map((entry, index) => entry > DAILY_MAXIMUMS[index] ? '#C0392B' : '#2B4A8C'), // Match border to background
+          backgroundColor: chartEntries.map((entry, index) => entry > DAILY_MAXIMUMS[index] ? 'rgba(192, 57, 43, 0.6)' : 'rgba(43, 74, 140, 0.6)'), // Semi-transparent red for over-limit, blue for consumed
+          borderColor: chartEntries.map((entry, index) => entry > DAILY_MAXIMUMS[index] ? 'rgba(192, 57, 43, 0.6)' : 'rgba(43, 74, 140, 0.6)'), // Match border to background
           borderWidth: { top: 2, right: 2, left: 2, bottom: 0 },
         }]
       },
