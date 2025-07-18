@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Constants
-  const TOTAL_WEEKLY_CALORIES = 11900; // 1700 * 7 = 11900
-  const DAILY_MAXIMUMS = Array(7).fill(1700); // 1700 for all days
+  const TOTAL_WEEKLY_CALORIES = 10500; // 1500 * 7 = 10500
+  const DAILY_MAXIMUMS = Array(7).fill(1500); // 1500 for all days
   const DAYS_PER_WEEK = 7;
   const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const MS_PER_DAY = 24 * 60 * 60 * 1000;
