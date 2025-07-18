@@ -2,7 +2,7 @@
 let chart;
 
 // Constants
-const CALORIE_THRESHOLD = 10500; // Updated to 10500
+const CALORIE_THRESHOLD = 10500;
 const STORAGE_KEY = 'weightData';
 
 // Utility function to format date as MM/DD/YYYY
@@ -130,7 +130,7 @@ function createBarChart() {
       scales: {
         y: {
           beginAtZero: true,
-          max: 12000, // Adjusted to better fit new threshold of 10500
+          max: 12000,
         },
       },
       plugins: {
@@ -171,7 +171,7 @@ function updateChart() {
     const weight = entry.weight;
     labels.push(formatDate(date));
     data.push(weight);
-    const color = weight > CALORIE_THRESHOLD ? '#C0392B' : '#2B4A8C'; // Bold red for over, steel blue for under
+    const color = weight > CALORIE_THRESHOLD ? 'rgba(192, 57, 43, 0.6)' : 'rgba(43, 74, 140, 0.6)'; // Semi-transparent red for over, blue for under
     backgroundColors.push(color);
     borderColors.push(color);
   });
