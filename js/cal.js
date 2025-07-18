@@ -1,14 +1,14 @@
 let chart;
 let data = {
     totalCaloriesUsed: 0,
-    remainingCalories: 1400 // Updated to 1400
+    remainingCalories: 1500 // Updated to 1500
 };
 let currentDate = new Date();
 let foodLog = {};
 
 // Function to get the calorie limit based on the day of the week
 function getCalorieLimit(date) {
-    return 1400; // Updated to 1400
+    return 1500; // Updated to 1500
 }
 
 // Function to get the current date string
